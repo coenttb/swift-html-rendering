@@ -1,0 +1,25 @@
+//
+//  File.swift
+//  swift-html-pointfree
+//
+//  Created by Coen ten Thije Boonkkamp on 05/04/2025.
+//
+
+import HTML_Attributes_Rendering
+
+extension Area: @retroactive Renderable {}
+extension HTML_Standard_Elements.Area: HTML.View {
+    public var body: some HTML.View {
+        HTML.Element(tag: Self.tag) { HTML.Empty() }
+            //        NEED TO FIX AREA domain model
+            //            .shape(self.shape)
+            //            .coords(self.coords)
+            .alt(self.alt)
+            .href(self.href)
+            .download(download)
+            .ping(ping)
+            .referrerPolicy(referrerpolicy)
+            .rel(rel)
+            .target(target)
+    }
+}

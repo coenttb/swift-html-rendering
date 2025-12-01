@@ -1,0 +1,29 @@
+//
+//  File.swift
+//  swift-html-pointfree
+//
+//  Created by Coen ten Thije Boonkkamp on 05/04/2025.
+//
+
+import HTML_Standard_Elements
+import HTML_Attributes_Rendering
+
+extension HTML_Standard_Elements.Marquee {
+    public func callAsFunction(
+        @HTML.Builder _ content: () -> some HTML.View
+    ) -> some HTML.View {
+        HTML.Element(tag: Self.tag) { content() }
+            .behavior(self.behavior)
+            //            .bgcolor(self.bgcolor)
+            .attribute("bgcolor", self.bgcolor)
+            .direction(self.direction)
+            .height(self.height)
+            .attribute("hspace", self.hspace)
+            .loop(self.loop)
+            .attribute("scrollamount", self.scrollamount)
+            .attribute("scrolldelay", self.scrolldelay)
+            .attribute(boolean: self.truespeed)
+            .attribute("vspace", self.vspace)
+            .width(self.width)
+    }
+}

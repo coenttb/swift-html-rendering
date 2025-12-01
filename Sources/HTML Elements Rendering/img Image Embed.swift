@@ -1,0 +1,20 @@
+//
+//  File.swift
+//  swift-html
+//
+//  Created by Coen ten Thije Boonkkamp on 04/04/2025.
+//
+
+import HTML_Standard_Elements
+import HTML_Attributes_Rendering
+
+extension Image: @retroactive Renderable {}
+
+extension HTML_Standard_Elements.Image: HTML.View {
+    public var body: some HTML.View {
+        HTML.Element(tag: Self.tag)
+            .src(self.src)
+            .alt(self.alt)
+            .loading(self.loading)
+    }
+}

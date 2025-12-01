@@ -1,0 +1,22 @@
+/////
+///// Label.swift
+///// swift-html
+/////
+///// Represents the HTML label element for form controls.
+/////
+///// Created by Coen ten Thije Boonkkamp on 04/04/2025.
+/////
+//
+
+import HTML_Standard_Elements
+import HTML_Attributes_Rendering
+
+extension HTML_Standard_Elements.Label {
+    public func callAsFunction(
+        @HTML.Builder _ content: () -> some HTML.View
+    )
+        -> some HTML.View {
+        HTML.Element(tag: Self.tag) { content() }
+            .for(self.for)
+    }
+}
