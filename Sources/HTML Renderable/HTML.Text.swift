@@ -15,7 +15,7 @@ extension HTML {
     /// proper HTML rendering without security vulnerabilities.
     public struct Text: HTML.View, Sendable {
         /// The raw text content.
-        let text: String
+        public let text: String
 
         /// Creates a new HTML text component with the given text.
         ///

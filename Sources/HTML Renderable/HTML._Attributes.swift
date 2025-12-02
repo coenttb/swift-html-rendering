@@ -26,10 +26,10 @@ extension HTML {
     /// ```
     public struct _Attributes<Content: HTML.View>: HTML.View {
         /// The HTML content to which attributes are being applied.
-        let content: Content
+        public let content: Content
 
         /// The collection of attributes to apply.
-        var attributes: OrderedDictionary<String, String>
+        public var attributes: OrderedDictionary<String, String>
 
         /// Adds an additional attribute to this element.
         ///

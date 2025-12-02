@@ -28,10 +28,10 @@ extension HTML {
     /// instead use the more convenient tag functions like `div`, `span`, `p`, etc.
     public struct Element<Content: HTML.View>: HTML.View {
         /// The HTML tag name (e.g., "div", "span", "p").
-        let tag: String
+        public let tag: String
 
         /// The optional content contained within this element.
-        @HTML.Builder let content: Content?
+        @HTML.Builder public let content: Content?
 
         /// Creates a new HTML element with the specified tag and content.
         ///
