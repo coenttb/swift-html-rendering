@@ -5,7 +5,7 @@
 //  Created by Coen ten Thije Boonkkamp on 09/04/2025.
 //
 
-import HTML_Attributes_Rendering
+import Renderable
 
 extension String: @retroactive Renderable {}
 extension String: HTML.View {

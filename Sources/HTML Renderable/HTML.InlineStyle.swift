@@ -186,11 +186,11 @@ extension HTML.InlineStyle: Sendable where Content: Sendable {}
 
 // Make HTML.InlineStyle conform to the protocol
 extension HTML.InlineStyle: HTMLInlineStyleProtocol {
-    func extractStyles() -> [HTML.Style] {
+    public func extractStyles() -> [HTML.Style] {
         return styles
     }
 
-    func extractContent() -> any HTML.View {
+    public func extractContent() -> any HTML.View {
         return content
     }
 }
