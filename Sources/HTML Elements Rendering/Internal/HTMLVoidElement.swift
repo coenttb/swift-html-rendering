@@ -10,7 +10,7 @@ import HTML_Attributes_Rendering
 
 // extension HTMLVoidElement where Self: HTML_Standard_Elements.HTMLElement & HTML.View {
 //    public var body: HTML.Element<HTML.Empty> {
-//        HTML.Element(tag: Self.tag) { HTML.Empty() }
+//        HTML.Element(for: Self.self, tag: Self.tag) { HTML.Empty() }
 //    }
 // }
 

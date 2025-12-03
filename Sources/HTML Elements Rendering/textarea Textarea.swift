@@ -12,7 +12,7 @@ extension HTML_Standard_Elements.Textarea {
     public func callAsFunction(
         @HTML.Builder _ content: () -> some HTML.View = { HTML.Empty() }
     ) -> some HTML.View {
-        HTML.Element(tag: Self.tag) { content() }
+        HTML.Element(for: Self.self, tag: Self.tag) { content() }
             .autocapitalize(self.autocapitalize)
             .autocomplete(self.autocomplete)
             .autocorrect(self.autocorrect)

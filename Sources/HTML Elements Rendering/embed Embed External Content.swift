@@ -12,7 +12,7 @@ extension HTML_Standard_Elements.Embed {
     public func callAsFunction(
         @HTML.Builder _ content: () -> some HTML.View
     ) -> some HTML.View {
-        HTML.Element(tag: Self.tag) { content() }
+        HTML.Element(for: Self.self, tag: Self.tag) { content() }
             .src(self.src)
             .type(self.type)
             .height(self.height)

@@ -12,7 +12,7 @@ extension Image: @retroactive Renderable {}
 
 extension HTML_Standard_Elements.Image: HTML.View {
     public var body: some HTML.View {
-        HTML.Element(tag: Self.tag)
+        HTML.Element(for: Self.self, tag: Self.tag)
             .src(self.src)
             .alt(self.alt)
             .loading(self.loading)

@@ -10,7 +10,7 @@ import HTML_Attributes_Rendering
 extension Link: @retroactive Renderable {}
 extension HTML_Standard_Elements.Link: HTML.View {
     public var body: some HTML.View {
-        HTML.Element(tag: Self.tag) { HTML.Empty() }
+        HTML.Element(for: Self.self, tag: Self.tag) { HTML.Empty() }
             .`as`(self.`as`)
             .blocking(self.blocking)
             .crossorigin(self.crossorigin)

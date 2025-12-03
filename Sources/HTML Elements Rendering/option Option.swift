@@ -10,7 +10,7 @@ import HTML_Attributes_Rendering
 extension Option: @retroactive Renderable {}
 extension HTML_Standard_Elements.Option: HTML.View {
     public var body: some HTML.View {
-        HTML.Element(tag: Self.tag)
+        HTML.Element(for: Self.self, tag: Self.tag)
             .disabled(self.disabled)
             .label(self.label)
             .selected(self.selected)
@@ -20,7 +20,7 @@ extension HTML_Standard_Elements.Option: HTML.View {
     public func callAsFunction(
         @HTML.Builder _ content: () -> some HTML.View
     ) -> some HTML.View {
-        HTML.Element(tag: Self.tag) { content() }
+        HTML.Element(for: Self.self, tag: Self.tag) { content() }
             .disabled(self.disabled)
             .label(self.label)
             .selected(self.selected)

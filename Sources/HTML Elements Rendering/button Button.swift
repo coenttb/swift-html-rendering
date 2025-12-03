@@ -12,7 +12,7 @@ extension HTML_Standard_Elements.Button {
     public func callAsFunction(
         @HTML.Builder _ content: () -> some HTML.View
     ) -> some HTML.View {
-        HTML.Element(tag: Self.tag) { content() }
+        HTML.Element(for: Self.self, tag: Self.tag) { content() }
             .type(self.type)
             .disabled(self.disabled)
             .form(self.form)

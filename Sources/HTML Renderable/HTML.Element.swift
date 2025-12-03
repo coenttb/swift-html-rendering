@@ -10,6 +10,14 @@ import OrderedCollections
 import Renderable
 
 extension HTML {
+    /// A type representing a dynamically-specified HTML tag.
+    ///
+    /// Used when creating elements from string tag names rather than
+    /// compile-time known tag types.
+    public struct DynamicTag: Sendable, Hashable {
+        public init() {}
+    }
+
     /// Represents an HTML element with a tag, attributes, and optional content.
     ///
     /// `HTML.Element` is a fundamental building block in the PointFreeHTML library,
@@ -17,16 +25,20 @@ extension HTML {
     /// child content. This type handles the rendering of both opening and closing tags,
     /// attribute formatting, and proper indentation based on block vs. inline elements.
     ///
+    /// The `Tag` parameter is a phantom type that carries compile-time type information
+    /// about the element, enabling type-safe extensions for PDF rendering and other
+    /// transformations.
+    ///
     /// Example:
     /// ```swift
-    /// let element = HTML.Element(tag: "div") {
+    /// let element = HTML.Element<MyTag, _>(tag: "div") {
     ///     p { "Hello, world!" }
     /// }
     /// ```
     ///
     /// This type is typically not used directly by library consumers, who would
     /// instead use the more convenient tag functions like `div`, `span`, `p`, etc.
-    public struct Element<Content: HTML.View>: HTML.View {
+    public struct Element<Tag, Content: HTML.View>: HTML.View {
         /// The HTML tag name (e.g., "div", "span", "p").
         public let tag: String
 
@@ -40,6 +52,20 @@ extension HTML {
         ///   - content: A closure that returns the content of this element.
         ///              If no content is provided, the element will be empty.
         public init(tag: String, @HTML.Builder content: () -> Content? = { Never?.none }) {
+            self.tag = tag
+            self.content = content()
+        }
+
+        /// Creates a new HTML element with an explicit Tag type.
+        ///
+        /// This initializer allows specifying the Tag type parameter explicitly,
+        /// which is useful when creating elements from typed marker types.
+        ///
+        /// - Parameters:
+        ///   - tagType: The type to use as the Tag parameter (used for type inference only).
+        ///   - tag: The HTML tag name (e.g., "div", "span", "p").
+        ///   - content: A closure that returns the content of this element.
+        public init(for tagType: Tag.Type, tag: String, @HTML.Builder content: () -> Content? = { Never?.none }) {
             self.tag = tag
             self.content = content()
         }

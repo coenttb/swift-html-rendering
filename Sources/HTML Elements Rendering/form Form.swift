@@ -12,7 +12,7 @@ extension HTML_Standard_Elements.Form {
     public func callAsFunction(
         @HTML.Builder _ content: () -> some HTML.View
     ) -> some HTML.View {
-        HTML.Element(tag: Self.tag) { content() }
+        HTML.Element(for: Self.self, tag: Self.tag) { content() }
             .accept(self.accept)
             .acceptCharset(self.acceptCharset)
             .autocapitalize(self.autocapitalize)

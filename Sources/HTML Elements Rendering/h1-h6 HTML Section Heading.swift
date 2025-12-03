@@ -9,49 +9,49 @@ import HTML_Standard_Elements
 import HTML_Attributes_Rendering
 
 extension HTML_Standard_Elements.H1 {
-    public func callAsFunction(
-        @HTML.Builder _ content: () -> some HTML.View
-    ) -> some HTML.View {
-        HTML.Element(tag: Self.tag) { content() }
+    public func callAsFunction<Content: HTML.View>(
+        @HTML.Builder _ content: () -> Content
+    ) -> HTML.Element<Self, Content> {
+        HTML.Element(for: Self.self, tag: Self.tag) { content() }
     }
 }
 
 extension HTML_Standard_Elements.H2 {
-    public func callAsFunction(
-        @HTML.Builder _ content: () -> some HTML.View
-    ) -> some HTML.View {
-        HTML.Element(tag: Self.tag) { content() }
+    public func callAsFunction<Content: HTML.View>(
+        @HTML.Builder _ content: () -> Content
+    ) -> HTML.Element<Self, Content> {
+        HTML.Element(for: Self.self, tag: Self.tag) { content() }
     }
 }
 
 extension HTML_Standard_Elements.H3 {
-    public func callAsFunction(
-        @HTML.Builder _ content: () -> some HTML.View
-    ) -> some HTML.View {
-        HTML.Element(tag: Self.tag) { content() }
+    public func callAsFunction<Content: HTML.View>(
+        @HTML.Builder _ content: () -> Content
+    ) -> HTML.Element<Self, Content> {
+        HTML.Element(for: Self.self, tag: Self.tag) { content() }
     }
 }
 
 extension HTML_Standard_Elements.H4 {
-    public func callAsFunction(
-        @HTML.Builder _ content: () -> some HTML.View
-    ) -> some HTML.View {
-        HTML.Element(tag: Self.tag) { content() }
+    public func callAsFunction<Content: HTML.View>(
+        @HTML.Builder _ content: () -> Content
+    ) -> HTML.Element<Self, Content> {
+        HTML.Element(for: Self.self, tag: Self.tag) { content() }
     }
 }
 
 extension HTML_Standard_Elements.H5 {
-    public func callAsFunction(
-        @HTML.Builder _ content: () -> some HTML.View
-    ) -> some HTML.View {
-        HTML.Element(tag: Self.tag) { content() }
+    public func callAsFunction<Content: HTML.View>(
+        @HTML.Builder _ content: () -> Content
+    ) -> HTML.Element<Self, Content> {
+        HTML.Element(for: Self.self, tag: Self.tag) { content() }
     }
 }
 
 extension HTML_Standard_Elements.H6 {
-    public func callAsFunction(
-        @HTML.Builder _ content: () -> some HTML.View
-    ) -> some HTML.View {
-        HTML.Element(tag: Self.tag) { content() }
+    public func callAsFunction<Content: HTML.View>(
+        @HTML.Builder _ content: () -> Content
+    ) -> HTML.Element<Self, Content> {
+        HTML.Element(for: Self.self, tag: Self.tag) { content() }
     }
 }

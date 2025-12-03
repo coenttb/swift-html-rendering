@@ -28,7 +28,7 @@ extension HTML_Standard_Elements.Script {
             }
         }
 
-        return HTML.Element(tag: Self.tag) {
+        return HTML.Element(for: Self.self, tag: Self.tag) {
             if script.isEmpty { HTML.Empty() } else { HTML.Raw(escaped) }
         }
         .src(self.src)

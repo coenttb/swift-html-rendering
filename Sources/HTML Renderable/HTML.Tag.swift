@@ -50,7 +50,7 @@ extension HTML {
         /// This allows using tags as functions, e.g. `div()`.
         ///
         /// - Returns: An empty HTML element with this tag.
-        public func callAsFunction() -> HTML.Element<Empty> {
+        public func callAsFunction() -> HTML.Element<HTML.DynamicTag, Empty> {
             HTML_Renderable.tag(self.rawValue)
         }
 
@@ -60,7 +60,7 @@ extension HTML {
         ///
         /// - Parameter content: A closure that returns the content for this element.
         /// - Returns: An HTML element with this tag and the provided content.
-        public func callAsFunction<T: HTML.View>(@HTML.Builder _ content: () -> T) -> HTML.Element<T> {
+        public func callAsFunction<T: HTML.View>(@HTML.Builder _ content: () -> T) -> HTML.Element<HTML.DynamicTag, T> {
             HTML_Renderable.tag(self.rawValue, content)
         }
     }
@@ -92,7 +92,7 @@ extension HTML {
 public func tag<T: HTML.View>(
     _ tag: String,
     @HTML.Builder _ content: () -> T = { Empty() }
-) -> HTML.Element<T> {
+) -> HTML.Element<HTML.DynamicTag, T> {
     HTML.Element(tag: tag, content: content)
 }
 
