@@ -12,7 +12,7 @@ extension HTML_Standard_Elements.Marquee {
     public func callAsFunction(
         @HTML.Builder _ content: () -> some HTML.View
     ) -> some HTML.View {
-        HTML.Element(for: Self.self, tag: Self.tag) { content() }
+        HTML.Element(for: Self.self) { content() }
             .behavior(self.behavior)
             //            .bgcolor(self.bgcolor)
             .attribute("bgcolor", self.bgcolor)

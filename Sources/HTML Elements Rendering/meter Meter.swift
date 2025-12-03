@@ -12,7 +12,7 @@ extension HTML_Standard_Elements.Meter {
     public func callAsFunction(
         @HTML.Builder _ content: () -> some HTML.View
     ) -> some HTML.View {
-        HTML.Element(for: Self.self, tag: Self.tag) { content() }
+        HTML.Element(for: Self.self) { content() }
             .value(self.value)
             .min(self.min)
             .max(self.max)

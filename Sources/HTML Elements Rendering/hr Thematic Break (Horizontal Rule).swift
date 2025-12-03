@@ -11,6 +11,6 @@ import HTML_Attributes_Rendering
 extension ThematicBreak: @retroactive Renderable {}
 extension HTML_Standard_Elements.ThematicBreak: HTML.View {
     public var body: HTML.Element<Self, HTML.Empty> {
-        HTML.Element(for: Self.self, tag: Self.tag) { HTML.Empty() }
+        HTML.Element(for: Self.self) { HTML.Empty() }
     }
 }

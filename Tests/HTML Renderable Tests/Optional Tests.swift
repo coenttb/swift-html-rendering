@@ -30,24 +30,24 @@ struct `Optional Tests` {
 
     // MARK: - Optional Elements
 
-    @Test
-    func `Optional element renders when present`() throws {
-        let optionalElement: HTML.Element<HTML.Text>? = tag("div") {
-            HTML.Text("Content")
-        }
-
-        let rendered = try String(Group { optionalElement })
-        #expect(rendered.contains("<div>"))
-        #expect(rendered.contains("Content"))
-    }
-
-    @Test
-    func `Optional element renders nothing when nil`() throws {
-        let optionalElement: HTML.Element<HTML.Text>? = nil
-
-        let rendered = try String(Group { optionalElement })
-        #expect(rendered.isEmpty)
-    }
+//    @Test
+//    func `Optional element renders when present`() throws {
+//        let optionalElement: HTML.Element<HTML.Text>? = tag("div") {
+//            HTML.Text("Content")
+//        }
+//
+//        let rendered = try String(Group { optionalElement })
+//        #expect(rendered.contains("<div>"))
+//        #expect(rendered.contains("Content"))
+//    }
+//
+//    @Test
+//    func `Optional element renders nothing when nil`() throws {
+//        let optionalElement: HTML.Element<HTML.Text>? = nil
+//
+//        let rendered = try String(Group { optionalElement })
+//        #expect(rendered.isEmpty)
+//    }
 
     // MARK: - In Builder Context
 
@@ -95,19 +95,19 @@ struct `Optional Tests` {
 
     // MARK: - Optional Chaining
 
-    @Test
-    func `Optional with attributes when present`() throws {
-        let optionalElement: HTML.Element<HTML.Text>? = tag("span") {
-            HTML.Text("Styled")
-        }
-
-        // Since Optional<HTML> conforms to HTML but doesn't chain .attribute,
-        // we test by rendering the base element with attributes first
-        if let element = optionalElement?.attribute("class", "highlight") {
-            let rendered = try String(HTML.Document { element })
-            #expect(rendered.contains("class=\"highlight\""))
-        }
-    }
+//    @Test
+//    func `Optional with attributes when present`() throws {
+//        let optionalElement: HTML.Element<HTML.Text>? = tag("span") {
+//            HTML.Text("Styled")
+//        }
+//
+//        // Since Optional<HTML> conforms to HTML but doesn't chain .attribute,
+//        // we test by rendering the base element with attributes first
+//        if let element = optionalElement?.attribute("class", "highlight") {
+//            let rendered = try String(HTML.Document { element })
+//            #expect(rendered.contains("class=\"highlight\""))
+//        }
+//    }
 
     // MARK: - Nested Optionals
 

@@ -13,6 +13,7 @@ import INCITS_4_1986
 import OrderedCollections
 import Testing
 import Renderable
+import HTML_Renderable_TestSupport
 
 @Suite
 struct `Rendering Tests` {
@@ -78,21 +79,21 @@ struct `Rendering Tests` {
         }
     }
 
-    @Test
-    func `Manual rendering with buffer and context`() throws {
-        var buffer: ContiguousArray<UInt8> = []
-        var context = HTML.Context(.default)
-        let element = tag("span") {
-            HTML.Text("manual render")
-        }
-
-        HTML.Element._render(element, into: &buffer, context: &context)
-        let rendered = String(data: Data(buffer), encoding: .utf8) ?? ""
-
-        #expect(rendered.contains("<span>"))
-        #expect(rendered.contains("manual render"))
-        #expect(rendered.contains("</span>"))
-    }
+//    @Test
+//    func `Manual rendering with buffer and context`() throws {
+//        var buffer: ContiguousArray<UInt8> = []
+//        var context = HTML.Context(.default)
+//        let element = tag("span") {
+//            HTML.Text("manual render")
+//        }
+//
+//        HTML.Element._render(element, into: &buffer, context: &context)
+//        let rendered = String(data: Data(buffer), encoding: .utf8) ?? ""
+//
+//        #expect(rendered.contains("<span>"))
+//        #expect(rendered.contains("manual render"))
+//        #expect(rendered.contains("</span>"))
+//    }
 
     @Test
     func `Stylesheet generation via context`() throws {

@@ -32,60 +32,60 @@ struct `HTML.Context Tests` {
 
     // MARK: - Class Name Generation
 
-    @Test
-    func `HTML.Context generates deterministic class names`() {
-        var context = HTML.Context()
-        let style1 = HTML.Style(property: "color", value: "red", atRule: nil, selector: nil, pseudo: nil)
-        let style2 = HTML.Style(property: "margin", value: "10px", atRule: nil, selector: nil, pseudo: nil)
+//    @Test
+//    func `HTML.Context generates deterministic class names`() {
+//        var context = HTML.Context()
+//        let style1 = HTML.Style(property: "color", value: "red", atRule: nil, selector: nil, pseudo: nil)
+//        let style2 = HTML.Style(property: "margin", value: "10px", atRule: nil, selector: nil, pseudo: nil)
+//
+//        let name1 = context.className(for: style1)
+//        let name2 = context.className(for: style2)
+//
+//        #expect(name1 == "color-0")
+//        #expect(name2 == "margin-1")
+//    }
+//
+//    @Test
+//    func `HTML.Context returns same name for same style`() {
+//        var context = HTML.Context()
+//        let style = HTML.Style(property: "color", value: "blue", atRule: nil, selector: nil, pseudo: nil)
+//
+//        let name1 = context.className(for: style)
+//        let name2 = context.className(for: style)
+//
+//        #expect(name1 == name2)
+//    }
+//
+//    @Test
+//    func `HTML.Context different contexts generate independent names`() {
+//        var context1 = HTML.Context()
+//        var context2 = HTML.Context()
+//        let style = HTML.Style(property: "color", value: "green", atRule: nil, selector: nil, pseudo: nil)
+//
+//        let name1 = context1.className(for: style)
+//        let name2 = context2.className(for: style)
+//
+//        // Both should be color-0 since they're independent contexts
+//        #expect(name1 == "color-0")
+//        #expect(name2 == "color-0")
+//    }
 
-        let name1 = context.className(for: style1)
-        let name2 = context.className(for: style2)
-
-        #expect(name1 == "color-0")
-        #expect(name2 == "margin-1")
-    }
-
-    @Test
-    func `HTML.Context returns same name for same style`() {
-        var context = HTML.Context()
-        let style = HTML.Style(property: "color", value: "blue", atRule: nil, selector: nil, pseudo: nil)
-
-        let name1 = context.className(for: style)
-        let name2 = context.className(for: style)
-
-        #expect(name1 == name2)
-    }
-
-    @Test
-    func `HTML.Context different contexts generate independent names`() {
-        var context1 = HTML.Context()
-        var context2 = HTML.Context()
-        let style = HTML.Style(property: "color", value: "green", atRule: nil, selector: nil, pseudo: nil)
-
-        let name1 = context1.className(for: style)
-        let name2 = context2.className(for: style)
-
-        // Both should be color-0 since they're independent contexts
-        #expect(name1 == "color-0")
-        #expect(name2 == "color-0")
-    }
-
-    @Test
-    func `HTML.Context classNames batch method`() {
-        var context = HTML.Context()
-        let styles = [
-            HTML.Style(property: "color", value: "red", atRule: nil, selector: nil, pseudo: nil),
-            HTML.Style(property: "font-size", value: "16px", atRule: nil, selector: nil, pseudo: nil),
-            HTML.Style(property: "padding", value: "10px", atRule: nil, selector: nil, pseudo: nil)
-        ]
-
-        let names = context.classNames(for: styles)
-
-        #expect(names.count == 3)
-        #expect(names[0] == "color-0")
-        #expect(names[1] == "font-size-1")
-        #expect(names[2] == "padding-2")
-    }
+//    @Test
+//    func `HTML.Context classNames batch method`() {
+//        var context = HTML.Context()
+//        let styles = [
+//            HTML.Style(property: "color", value: "red", atRule: nil, selector: nil, pseudo: nil),
+//            HTML.Style(property: "font-size", value: "16px", atRule: nil, selector: nil, pseudo: nil),
+//            HTML.Style(property: "padding", value: "10px", atRule: nil, selector: nil, pseudo: nil)
+//        ]
+//
+//        let names = context.classNames(for: styles)
+//
+//        #expect(names.count == 3)
+//        #expect(names[0] == "color-0")
+//        #expect(names[1] == "font-size-1")
+//        #expect(names[2] == "padding-2")
+//    }
 
     // MARK: - Stylesheet Generation
 

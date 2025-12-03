@@ -12,6 +12,6 @@ extension HTML_Standard_Elements.TableFoot {
     public func callAsFunction<Content: HTML.View>(
         @HTML.Builder _ content: () -> Content
     ) -> HTML.Element<Self, Content> {
-        HTML.Element(for: Self.self, tag: Self.tag) { content() }
+        HTML.Element(for: Self.self) { content() }
     }
 }

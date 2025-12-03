@@ -42,21 +42,5 @@ extension HTML.Tag {
         public init(stringLiteral value: String) {
             self.init(value)
         }
-
-        /// Creates an HTML element with this tag and the provided text content.
-        ///
-        /// - Parameter content: The text content for this element.
-        /// - Returns: An HTML element with this tag and the provided text content.
-        public func callAsFunction(_ content: String = "") -> HTML.Element<HTML.DynamicTag, HTML.Text> {
-            HTML_Renderable.tag(self.rawValue) { HTML.Text(content) }
-        }
-
-        /// Creates an HTML element with this tag and dynamically generated text content.
-        ///
-        /// - Parameter content: A closure that returns the text content for this element.
-        /// - Returns: An HTML element with this tag and the provided text content.
-        public func callAsFunction(_ content: () -> String) -> HTML.Element<HTML.DynamicTag, HTML.Text> {
-            HTML_Renderable.tag(self.rawValue) { HTML.Text(content()) }
-        }
     }
 }

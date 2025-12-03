@@ -10,7 +10,7 @@ import HTML_Attributes_Rendering
 extension Source: @retroactive Renderable {}
 extension HTML_Standard_Elements.Source: HTML.View {
     public var body: some HTML.View {
-        HTML.Element(for: Self.self, tag: Self.tag) { HTML.Empty() }
+        HTML.Element(for: Self.self) { HTML.Empty() }
             .type(self.type)
             .src(self.src)
             .srcset(self.srcset)

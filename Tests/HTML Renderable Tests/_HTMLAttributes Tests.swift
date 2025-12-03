@@ -176,10 +176,8 @@ extension `Snapshot Tests` {
                   <head>
                   </head>
                   <body>
-                    <div class="media-container"><img src="/images/hero.jpg" alt="Hero image" width="800" height="600" loading="lazy">
-                      <video controls width="640" height="480" poster="/images/video-poster.jpg">
-                        <source src="/videos/demo.mp4" type="video/mp4">Your browser does not support the video tag.
-                      </video>
+                    <div class="media-container"><img src="/images/hero.jpg" alt="Hero image" width="800" height="600" loading="lazy"><video controls width="640" height="480" poster="/images/video-poster.jpg">
+                      <source src="/videos/demo.mp4" type="video/mp4">Your browser does not support the video tag.</video>
                     </div>
                   </body>
                 </html>

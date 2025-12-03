@@ -10,12 +10,12 @@ import HTML_Attributes_Rendering
 
 // extension HTMLVoidElement where Self: HTML_Standard_Elements.HTMLElement & HTML.View {
 //    public var body: HTML.Element<HTML.Empty> {
-//        HTML.Element(for: Self.self, tag: Self.tag) { HTML.Empty() }
+//        HTML.Element(for: Self.self) { HTML.Empty() }
 //    }
 // }
 
 // WORKAROUND because Input and BR fail to compile when called as BR(). With this function BR()() works
-extension HTMLVoidElement where Self: HTML_Standard_Elements.HTMLElement & HTML.View {
+extension WHATWG_HTML.VoidElement where Self: HTML_Standard_Elements.WHATWG_HTML.Element & HTML.View {
     public func callAsFunction() -> some HTML.View {
         self
     }

@@ -8,6 +8,7 @@
 import Testing
 import TestingPerformance
 @testable import HTML_Renderable
+import HTML_Renderable_TestSupport
 
 extension `Performance Tests` {
 

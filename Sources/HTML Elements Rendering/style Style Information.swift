@@ -13,7 +13,7 @@ extension HTML_Standard_Elements.Style {
         @HTML.Builder _ content: () -> some HTML.View
     )
         -> some HTML.View {
-        HTML.Element(for: Self.self, tag: Self.tag) { content() }
+        HTML.Element(for: Self.self) { content() }
             .media(media)
             .blocking(blocking)
             .nonce(nonce)

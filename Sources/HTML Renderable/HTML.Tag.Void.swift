@@ -58,12 +58,5 @@ extension HTML.Tag {
         public init(stringLiteral value: String) {
             self.init(value)
         }
-
-        /// Creates an HTML void element with this tag.
-        ///
-        /// - Returns: An HTML void element with this tag.
-        public func callAsFunction() -> HTML.Element<HTML.DynamicTag, Empty> {
-            HTML_Renderable.tag(self.rawValue) { Empty() }
-        }
     }
 }

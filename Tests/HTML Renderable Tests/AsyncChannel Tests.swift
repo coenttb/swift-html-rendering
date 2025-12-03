@@ -7,6 +7,7 @@
 
 @testable import HTML_Renderable
 import HTML_Renderable_TestSupport
+import Renderable
 import Testing
 
 @Suite
@@ -250,12 +251,8 @@ extension `AsyncChannel Tests` {
                 ) async {
                     await html.state.markProducerStarted()
 
-                    // Render the actual content
-                    await HTML.Element<HTML.Text>._renderAsync(
-                        html.body as! HTML.Element<HTML.Text>,
-                        into: stream,
-                        context: &context
-                    )
+                    // Render via dynamic dispatch to avoid force cast
+                    await _renderAsyncDynamic(html.body, into: stream, context: &context)
 
                     await html.state.markProducerFinished()
                 }

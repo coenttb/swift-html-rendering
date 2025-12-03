@@ -1,5 +1,6 @@
 @testable import HTML_Renderable
 import Testing
+import HTML_Renderable_TestSupport
 
 @Suite
 struct `README Verification Tests` {

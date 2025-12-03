@@ -12,7 +12,7 @@ extension HTML_Standard_Elements.ContentTemplate {
     public func callAsFunction(
         @HTML.Builder _ content: () -> some HTML.View
     ) -> some HTML.View {
-        HTML.Element(for: Self.self, tag: Self.tag) { content() }
+        HTML.Element(for: Self.self) { content() }
             .shadowRootMode(shadowrootmode)
             .shadowRootClonable(shadowrootclonable)
             .shadowRootDelegatesFocus(shadowrootdelegatesfocus)

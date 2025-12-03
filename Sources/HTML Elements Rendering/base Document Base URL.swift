@@ -13,7 +13,7 @@ extension HTML_Standard_Elements.Base {
     public func callAsFunction(
         @HTML.Builder _ content: () -> some HTML.View
     ) -> some HTML.View {
-        let element = HTML.Element(for: Self.self, tag: Self.tag) { content() }
+        let element = HTML.Element(for: Self.self) { content() }
         switch self.configuration {
         case .href(let href):
             element.href(href)

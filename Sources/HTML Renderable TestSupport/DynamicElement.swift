@@ -1,93 +1,55 @@
 //
-//  HTML.Element.swift
+//  DynamicElement.swift
+//  swift-html-rendering
 //
-//
-//  Created by Point-Free, Inc
+//  Test support for creating HTML elements from string tag names.
 //
 
-import INCITS_4_1986
-import OrderedCollections
+import HTML_Renderable
 import Renderable
-public import WHATWG_HTML_Shared
+import WHATWG_HTML_Shared
+
+// MARK: - Dynamic Element for Testing
 
 extension HTML {
-    /// Represents an HTML element with a tag, attributes, and optional content.
+    /// A dynamic HTML element for testing purposes.
     ///
-    /// `HTML.Element` is a fundamental building block in the PointFreeHTML library,
-    /// representing a standard HTML element with a tag name, attributes, and optional
-    /// child content. This type handles the rendering of both opening and closing tags,
-    /// attribute formatting, and proper indentation based on block vs. inline elements.
-    ///
-    /// The `Tag` parameter must conform to `WHATWG_HTML.Element`, providing compile-time
-    /// type information about the element for type-safe rendering and PDF conversion.
-    ///
-    /// Example:
-    /// ```swift
-    /// let element = HTML.Element<WHATWG_HTML.Grouping.Div, _> {
-    ///     p { "Hello, world!" }
-    /// }
-    /// ```
-    ///
-    /// This type is typically not used directly by library consumers, who would
-    /// instead use the more convenient tag functions like `div`, `span`, `p`, etc.
-    public struct Element<Tag: WHATWG_HTML.Element, Content: HTML.View>: HTML.View {
-        /// The optional content contained within this element.
+    /// Unlike `HTML.Element<Tag, Content>` which requires a typed `WHATWG_HTML.Element`,
+    /// this type allows creating elements from string tag names. Use this only for testing.
+    public struct DynamicElement<Content: HTML.View>: HTML.View {
+        public let tagName: String
         @HTML.Builder public let content: Content?
 
-        /// Creates a new HTML element with the specified content.
-        ///
-        /// - Parameter content: A closure that returns the content of this element.
-        ///                      If no content is provided, the element will be empty.
         public init(
+            tag: String,
             @HTML.Builder content: () -> Content? = { Never?.none }
         ) {
+            self.tagName = tag
             self.content = content()
         }
 
-        /// Creates a new HTML element with an explicit Tag type.
-        ///
-        /// This initializer allows specifying the Tag type parameter explicitly,
-        /// which is useful when creating elements from typed marker types.
-        ///
-        /// - Parameters:
-        ///   - tagType: The type to use as the Tag parameter.
-        ///   - content: A closure that returns the content of this element.
-        public init(
-            for tagType: Tag.Type,
-            @HTML.Builder content: () -> Content? = { Never?.none }
-        ) {
-            self.content = content()
-        }
-
-        /// Renders this HTML element into the provided buffer.
         public static func _render<Buffer: RangeReplaceableCollection>(
             _ html: Self,
             into buffer: inout Buffer,
             context: inout HTML.Context
         ) where Buffer.Element == UInt8 {
-            // Special handling for pre elements to preserve formatting
-            let isPreElement = Tag.tag == "pre"
-            let htmlIsBlock = WHATWG_HTML.Flow(Tag.self) == .block
+            let isPreElement = html.tagName == "pre"
+            let htmlIsBlock = WHATWG_HTML.Flow(for: html.tagName) == .block
 
-            // Add newline and indentation for block elements
             if htmlIsBlock {
                 buffer.append(contentsOf: context.configuration.newline)
                 buffer.append(contentsOf: context.currentIndentation)
             }
 
-            // Write opening tag
             buffer.append(.ascii.lessThanSign)
-            buffer.append(contentsOf: Tag.tag.utf8)
+            buffer.append(contentsOf: html.tagName.utf8)
 
-            // Add attributes - single-pass escaping without intermediate allocation
             for (name, value) in context.attributes {
                 buffer.append(.ascii.space)
                 buffer.append(contentsOf: name.utf8)
                 if !value.isEmpty {
                     buffer.append(.ascii.equalsSign)
                     buffer.append(.ascii.dquote)
-
-                    // Single-pass: iterate directly over UTF-8 view, escape as needed
                     for byte in value.utf8 {
                         switch byte {
                         case .ascii.dquote:
@@ -104,13 +66,11 @@ extension HTML {
                             buffer.append(byte)
                         }
                     }
-
                     buffer.append(.ascii.dquote)
                 }
             }
             buffer.append(.ascii.greaterThanSign)
 
-            // Render content if present
             if let content = html.content {
                 let oldAttributes = context.attributes
                 let oldIndentation = context.currentIndentation
@@ -125,44 +85,37 @@ extension HTML {
                 Content._render(content, into: &buffer, context: &context)
             }
 
-            // Add closing tag unless it's a void element
-            if !Tag.isVoid {
+            if !WHATWG_HTML.isVoid(for: html.tagName) {
                 if htmlIsBlock && !isPreElement {
                     buffer.append(contentsOf: context.configuration.newline)
                     buffer.append(contentsOf: context.currentIndentation)
                 }
                 buffer.append(.ascii.lessThanSign)
                 buffer.append(.ascii.slant)
-                buffer.append(contentsOf: Tag.tag.utf8)
+                buffer.append(contentsOf: html.tagName.utf8)
                 buffer.append(.ascii.greaterThanSign)
             }
         }
 
-        /// This type uses direct rendering and doesn't have a body.
         public var body: Never {
             fatalError()
         }
     }
 }
 
-extension HTML.Element: Sendable where Content: Sendable {}
+extension HTML.DynamicElement: Sendable where Content: Sendable {}
 
-// MARK: - Async Rendering
+// MARK: - AsyncRenderable Conformance
 
-extension HTML.Element: AsyncRenderable where Content: AsyncRenderable {
-    /// Async renders this HTML element with backpressure support.
-    ///
-    /// This implementation mirrors the sync `_render` but uses async writes
-    /// to the stream, allowing suspension at strategic points.
+extension HTML.DynamicElement: AsyncRenderable where Content: AsyncRenderable {
     public static func _renderAsync<Stream: AsyncRenderingStreamProtocol>(
         _ html: Self,
         into stream: Stream,
         context: inout HTML.Context
     ) async {
-        let isPreElement = Tag.tag == "pre"
-        let htmlIsBlock = WHATWG_HTML.Flow(Tag.self) == .block
+        let isPreElement = html.tagName == "pre"
+        let htmlIsBlock = WHATWG_HTML.Flow(for: html.tagName) == .block
 
-        // Build opening tag into local buffer, then write once
         var openTag: [UInt8] = []
 
         if htmlIsBlock {
@@ -171,16 +124,14 @@ extension HTML.Element: AsyncRenderable where Content: AsyncRenderable {
         }
 
         openTag.append(.ascii.lessThanSign)
-        openTag.append(contentsOf: Tag.tag.utf8)
+        openTag.append(contentsOf: html.tagName.utf8)
 
-        // Add attributes
         for (name, value) in context.attributes {
             openTag.append(.ascii.space)
             openTag.append(contentsOf: name.utf8)
             if !value.isEmpty {
                 openTag.append(.ascii.equalsSign)
                 openTag.append(.ascii.dquote)
-
                 for byte in value.utf8 {
                     switch byte {
                     case .ascii.dquote:
@@ -197,7 +148,6 @@ extension HTML.Element: AsyncRenderable where Content: AsyncRenderable {
                         openTag.append(byte)
                     }
                 }
-
                 openTag.append(.ascii.dquote)
             }
         }
@@ -205,7 +155,6 @@ extension HTML.Element: AsyncRenderable where Content: AsyncRenderable {
 
         await stream.write(openTag)
 
-        // Render content if present
         if let content = html.content {
             let oldAttributes = context.attributes
             let oldIndentation = context.currentIndentation
@@ -220,8 +169,7 @@ extension HTML.Element: AsyncRenderable where Content: AsyncRenderable {
             await Content._renderAsync(content, into: stream, context: &context)
         }
 
-        // Add closing tag unless void element
-        if !Tag.isVoid {
+        if !WHATWG_HTML.isVoid(for: html.tagName) {
             var closeTag: [UInt8] = []
             if htmlIsBlock && !isPreElement {
                 closeTag.append(contentsOf: context.configuration.newline)
@@ -229,10 +177,108 @@ extension HTML.Element: AsyncRenderable where Content: AsyncRenderable {
             }
             closeTag.append(.ascii.lessThanSign)
             closeTag.append(.ascii.slant)
-            closeTag.append(contentsOf: Tag.tag.utf8)
+            closeTag.append(contentsOf: html.tagName.utf8)
             closeTag.append(.ascii.greaterThanSign)
 
             await stream.write(closeTag)
         }
+    }
+}
+
+// MARK: - Tag Function for Testing
+
+/// Creates an HTML element with the specified tag name and content.
+///
+/// This function is provided for testing purposes only. In production code,
+/// use the typed element functions like `div()`, `span()`, etc.
+///
+/// - Parameters:
+///   - tagName: The name of the HTML tag.
+///   - content: A closure that returns the content for this element.
+/// - Returns: A dynamic HTML element with the specified tag and content.
+public func tag<T: HTML.View>(
+    _ tagName: String,
+    @HTML.Builder _ content: () -> T = { Empty() }
+) -> HTML.DynamicElement<T> {
+    HTML.DynamicElement(tag: tagName, content: content)
+}
+
+// MARK: - String-based Inline Style for Testing
+
+import W3C_CSS_Shared
+
+/// A simple string-based CSS property for testing.
+///
+/// This is a workaround to support string-based property/value for tests.
+/// Since `Property.property` is static and we need dynamic names, we use
+/// a custom `Declaration` initializer.
+public struct TestProperty: Property, GlobalConvertible {
+    public static var property: String { "" }
+    public let name: String
+    public let value: String
+
+    public init(_ name: String, _ value: String) {
+        self.name = name
+        self.value = value
+    }
+
+    public static func global(_ global: Global) -> TestProperty {
+        TestProperty("", global.rawValue)
+    }
+
+    /// Returns just the value, since `Declaration.init` adds the property name
+    public var description: String {
+        value
+    }
+
+    /// Custom declaration that uses our dynamic name instead of the static property
+    public var declaration: Declaration {
+        Declaration(description: "\(name):\(value)")
+    }
+}
+
+extension HTML.View {
+    /// Applies a string-based inline style. For testing only.
+    public func inlineStyle(
+        _ property: String,
+        _ value: String,
+        atRule: HTML.AtRule? = nil,
+        selector: HTML.Selector? = nil,
+        pseudo: HTML.Pseudo? = nil
+    ) -> HTML.InlineStyle<Self, TestProperty> {
+        self.inlineStyle(TestProperty(property, value), atRule: atRule, selector: selector, pseudo: pseudo)
+    }
+}
+
+// MARK: - HTML.Tag callAsFunction for Testing
+
+extension HTML.Tag {
+    /// Creates an empty HTML element with this tag. For testing only.
+    public func callAsFunction() -> HTML.DynamicElement<Empty> {
+        HTML.DynamicElement(tag: self.rawValue) { Empty() }
+    }
+
+    /// Creates an HTML element with content. For testing only.
+    public func callAsFunction<T: HTML.View>(@HTML.Builder _ content: () -> T) -> HTML.DynamicElement<T> {
+        HTML.DynamicElement(tag: self.rawValue, content: content)
+    }
+}
+
+extension HTML.Tag.Void {
+    /// Creates an HTML void element with this tag. For testing only.
+    public func callAsFunction() -> HTML.DynamicElement<Empty> {
+        HTML.DynamicElement(tag: self.rawValue) { Empty() }
+    }
+}
+
+extension HTML.Tag.Text {
+    /// Creates an HTML element with text content. For testing only.
+    public func callAsFunction(_ content: String = "") -> HTML.DynamicElement<HTML.Text> {
+        HTML.DynamicElement(tag: self.rawValue) { HTML.Text(content) }
+    }
+
+    /// Creates an HTML element with dynamic text content. For testing only.
+    public func callAsFunction(_ content: () -> String) -> HTML.DynamicElement<HTML.Text> {
+        HTML.DynamicElement(tag: self.rawValue) { HTML.Text(content()) }
     }
 }
