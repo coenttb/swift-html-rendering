@@ -8,6 +8,7 @@
 @_exported import OrderedCollections
 @_exported import Renderable
 @_exported import INCITS_4_1986
+@_exported import W3C_CSS_Shared
 
 // Convenience typealiases for migration from pointfree-html
-public typealias HTMLInlineStyle<Content: HTML.View> = HTML.InlineStyle<Content>
+public typealias HTMLInlineStyle<Content: HTML.View, P: Property> = HTML.InlineStyle<Content, P>

@@ -5,18 +5,19 @@
 //  Created by Coen ten Thije Boonkkamp on 26/11/2025.
 //
 
-extension HTML {
-    /// Represents a CSS style with its property, value, and selectors.
-    ///
-    /// Used for tracking CSS styles applied to HTML elements. This type is used
-    /// by `HTML.InlineStyle` and can be extracted for PDF rendering or other
-    /// processing that needs access to computed CSS properties.
-    public struct Style: Hashable, Sendable {
-        /// The CSS property name (e.g., "color", "font-size", "margin")
-        public let property: String
+public import W3C_CSS_Shared
 
-        /// The CSS property value (e.g., "red", "16px", "1rem")
-        public let value: String
+extension HTML {
+    /// A typed CSS style preserving the original property value.
+    ///
+    /// `HTML.Style` carries a typed CSS property value from the W3C CSS library.
+    /// This enables type-safe CSS styling with compile-time guarantees.
+    ///
+    /// For browser output, use `.declaration` which produces the CSS string.
+    /// For PDF rendering, extract `.property` for direct typed conversion.
+    public struct Style<P: Property>: Hashable, Sendable {
+        /// The typed CSS property value
+        public let property: P
 
         /// Optional at-rule (e.g., media query)
         public let atRule: HTML.AtRule?
@@ -27,19 +28,26 @@ extension HTML {
         /// Optional pseudo-class or pseudo-element
         public let pseudo: HTML.Pseudo?
 
-        /// Create a new CSS style.
+        /// Create a new typed CSS style.
         public init(
-            property: String,
-            value: String,
+            _ property: P,
             atRule: HTML.AtRule? = nil,
             selector: HTML.Selector? = nil,
             pseudo: HTML.Pseudo? = nil
         ) {
             self.property = property
-            self.value = value
             self.atRule = atRule
             self.selector = selector
             self.pseudo = pseudo
         }
+
+        /// The CSS property name (e.g., "color", "font-size", "margin")
+        public var propertyName: String { P.property }
+
+        /// The CSS property value as a string
+        public var value: String { property.description }
+
+        /// The CSS declaration (property:value) for browser output
+        public var declaration: Declaration { property.declaration }
     }
 }

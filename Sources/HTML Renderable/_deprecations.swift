@@ -35,24 +35,5 @@ extension HTML.DocumentProtocol {
     }
 }
 
-extension HTML.View {
-    // For backwards compatibility. Also for future to transform the Media type into an AtRule.
-    @available(*, deprecated, message: "change 'pre' to 'selector'")
-    @_disfavoredOverload
-    public func inlineStyle(
-        _ property: String,
-        _ value: String?,
-        media mediaQuery: HTML.AtRule.Media? = nil,
-        pre selector: HTML.Selector? = nil,
-        pseudo: HTML.Pseudo? = nil
-    ) -> HTML.InlineStyle<Self> {
-        HTML.InlineStyle(
-            content: self,
-            property: property,
-            value: value,
-            atRule: mediaQuery,
-            selector: selector,
-            pseudo: pseudo
-        )
-    }
-}
+// String-based inlineStyle methods removed in favor of typed Property-based API.
+// Use: .inlineStyle(CSSProperty.value) instead of .inlineStyle("property", "value")

@@ -12,8 +12,8 @@ import Renderable
 /// This protocol enables type-safe style extraction for PDF rendering and other
 /// use cases that need access to the CSS properties applied to HTML elements.
 public protocol HTMLInlineStyleProtocol: HTML.View {
-    /// Extract the CSS styles applied to this element.
-    func extractStyles() -> [HTML.Style]
+    /// Extract the CSS style entries for rendering.
+    func extractStyleEntries() -> [HTML.StyleEntry]
 
     /// Extract the wrapped HTML content.
     func extractContent() -> any HTML.View

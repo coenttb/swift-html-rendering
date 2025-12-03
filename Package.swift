@@ -48,6 +48,9 @@ extension Target.Dependency {
     static var htmlStandardElements: Self {
         .product(name: "HTML Standard Elements", package: "swift-html-standard")
     }
+    static var w3cCSSShared: Self {
+        .product(name: "W3C CSS Shared", package: "swift-w3c-css")
+    }
 }
 
 let package = Package(
@@ -75,6 +78,7 @@ let package = Package(
         .package(url: "https://github.com/swift-standards/swift-standards", from: "0.8.0"),
         .package(url: "https://github.com/swift-standards/swift-iso-9899", from: "0.1.0"),
         .package(url: "https://github.com/swift-standards/swift-html-standard", from: "0.1.0"),
+        .package(url: "https://github.com/swift-standards/swift-w3c-css", from: "0.1.0"),
     ],
     targets: [
         .target(
@@ -85,7 +89,9 @@ let package = Package(
                 .product(name: "OrderedCollections", package: "swift-collections"),
                 .incits4_1986,
                 .standards,
-                .iso9899
+                .iso9899,
+                .w3cCSSShared,
+                .htmlStandard,
             ]
         ),
         .target(

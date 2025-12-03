@@ -43,9 +43,9 @@ extension HTML {
         /// Each render context starts at 0, ensuring deterministic naming.
         private var styleCounter: Int
 
-        /// Maps seen styles to their assigned class names within this render.
-        /// Same style always returns same class name within a single render.
-        private var seenStyles: [HTML.Style: String]
+        /// Maps seen style entries to their assigned class names within this render.
+        /// Same style entry always returns same class name within a single render.
+        private var seenEntries: [HTML.StyleEntry: String]
     }
 }
 
@@ -59,38 +59,38 @@ extension HTML.Context {
         self.configuration = configuration
         self.currentIndentation = []
         self.styleCounter = 0
-        self.seenStyles = [:]
+        self.seenEntries = [:]
     }
 }
 
 extension HTML.Context {
     // MARK: - Class Name Generation
 
-    /// Get or create a class name for a style.
+    /// Get or create a class name for a style entry.
     ///
-    /// Same style always returns same class name within a render context.
+    /// Same style entry always returns same class name within a render context.
     /// Class names are descriptive and sequential: `color-0`, `margin-1`, etc.
     ///
-    /// - Parameter style: The style to get a class name for.
-    /// - Returns: A deterministic class name for the style.
-    mutating func className(for style: HTML.Style) -> String {
-        if let existing = seenStyles[style] {
+    /// - Parameter entry: The style entry to get a class name for.
+    /// - Returns: A deterministic class name for the style entry.
+    mutating func className(for entry: HTML.StyleEntry) -> String {
+        if let existing = seenEntries[entry] {
             return existing
         }
-        let name = "\(style.property)-\(styleCounter)"
+        let name = "\(entry.propertyName)-\(styleCounter)"
         styleCounter += 1
-        seenStyles[style] = name
+        seenEntries[entry] = name
         return name
     }
 
-    /// Get or create class names for multiple styles.
+    /// Get or create class names for multiple style entries.
     ///
     /// Batch version of `className(for:)` for efficiency.
     ///
-    /// - Parameter styles: The styles to get class names for.
+    /// - Parameter entries: The style entries to get class names for.
     /// - Returns: An array of deterministic class names.
-    mutating func classNames(for styles: [HTML.Style]) -> [String] {
-        styles.map { className(for: $0) }
+    mutating func classNames(for entries: [HTML.StyleEntry]) -> [String] {
+        entries.map { className(for: $0) }
     }
 }
 
