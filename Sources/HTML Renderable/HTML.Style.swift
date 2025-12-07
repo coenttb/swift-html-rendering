@@ -8,46 +8,85 @@
 public import W3C_CSS_Shared
 
 extension HTML {
-    /// A typed CSS style preserving the original property value.
+    /// A CSS style declaration with optional scope modifiers.
     ///
-    /// `HTML.Style` carries a typed CSS property value from the W3C CSS library.
-    /// This enables type-safe CSS styling with compile-time guarantees.
+    /// `HTML.Style` captures a CSS declaration and its context (at-rule, selector, pseudo).
+    /// This is the unified representation for all styling operations.
     ///
-    /// For browser output, use `.declaration` which produces the CSS string.
-    /// For PDF rendering, extract `.property` for direct typed conversion.
-    public struct Style<P: Property>: Hashable, Sendable {
-        /// The typed CSS property value
-        public let property: P
+    /// Create styles from typed CSS properties for compile-time safety:
+    /// ```swift
+    /// HTML.Style(Color.red)
+    /// HTML.Style(Margin.px(10), pseudo: .hover)
+    /// ```
+    ///
+    /// Or from raw declaration strings when needed:
+    /// ```swift
+    /// HTML.Style(declaration: "color:red")
+    /// ```
+    public struct Style: Hashable, Sendable {
+        /// The CSS declaration string (e.g., "color:red")
+        public let declaration: String
 
-        /// Optional at-rule (e.g., media query)
+        /// Optional at-rule (e.g., @media query)
         public let atRule: HTML.AtRule?
 
-        /// Optional CSS selector
+        /// Optional CSS selector prefix
         public let selector: HTML.Selector?
 
         /// Optional pseudo-class or pseudo-element
         public let pseudo: HTML.Pseudo?
 
-        /// Create a new typed CSS style.
-        public init(
+        /// Create a style from a typed CSS property.
+        ///
+        /// This is the primary API for creating styles with compile-time type safety.
+        ///
+        /// - Parameters:
+        ///   - property: The typed CSS property value.
+        ///   - atRule: Optional at-rule (e.g., media query).
+        ///   - selector: Optional selector prefix.
+        ///   - pseudo: Optional pseudo-class or pseudo-element.
+        public init<P: Property>(
             _ property: P,
             atRule: HTML.AtRule? = nil,
             selector: HTML.Selector? = nil,
             pseudo: HTML.Pseudo? = nil
         ) {
-            self.property = property
+            self.declaration = property.declaration.description
             self.atRule = atRule
             self.selector = selector
             self.pseudo = pseudo
         }
 
-        /// The CSS property name (e.g., "color", "font-size", "margin")
-        public var propertyName: String { P.property }
+        /// Create a style from a raw declaration string.
+        ///
+        /// Use this when you need to bypass the typed property system.
+        ///
+        /// - Parameters:
+        ///   - declaration: The CSS declaration string (e.g., "color:red").
+        ///   - atRule: Optional at-rule (e.g., media query).
+        ///   - selector: Optional selector prefix.
+        ///   - pseudo: Optional pseudo-class or pseudo-element.
+        public init(
+            declaration: String,
+            atRule: HTML.AtRule? = nil,
+            selector: HTML.Selector? = nil,
+            pseudo: HTML.Pseudo? = nil
+        ) {
+            self.declaration = declaration
+            self.atRule = atRule
+            self.selector = selector
+            self.pseudo = pseudo
+        }
 
-        /// The CSS property value as a string
-        public var value: String { property.description }
-
-        /// The CSS declaration (property:value) for browser output
-        public var declaration: Declaration { property.declaration }
+        /// The CSS property name extracted from the declaration.
+        ///
+        /// For "color:red", returns "color".
+        /// Used for generating descriptive class names.
+        public var propertyName: String {
+            if let colonIndex = declaration.firstIndex(of: ":") {
+                return String(declaration[..<colonIndex])
+            }
+            return declaration
+        }
     }
 }

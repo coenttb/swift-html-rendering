@@ -70,7 +70,7 @@ extension HTML.View {
         atRule: HTML.AtRule? = nil,
         selector: HTML.Selector? = nil,
         pseudo: HTML.Pseudo? = nil
-    ) -> HTML.InlineStyle<Self> {
+    ) -> HTML.Styled<Self> {
         self.inlineStyle(TestProperty(property, value), atRule: atRule, selector: selector, pseudo: pseudo)
     }
 }

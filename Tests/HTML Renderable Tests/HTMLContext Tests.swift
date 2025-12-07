@@ -100,23 +100,23 @@ struct `HTML.Context Tests` {
     @Test
     func `HTML.Context stylesheet with styles`() {
         var context = HTML.Context()
-        let styleKey = HTML.StyleKey(nil, ".test-class")
-        context.styles[styleKey] = "color: red"
+        let style = HTML.Style(declaration: "color:red")
+        _ = context.pushStyle(style)
 
         let stylesheet = context.stylesheet
-        #expect(stylesheet.contains(".test-class{color: red}"))
+        #expect(stylesheet.contains("color:red"))
     }
 
     @Test
     func `HTML.Context stylesheet with media query`() {
         var context = HTML.Context()
         let atRule = HTML.AtRule(rawValue: "@media (max-width: 768px)")
-        let styleKey = HTML.StyleKey(atRule, ".mobile-class")
-        context.styles[styleKey] = "display: none"
+        let style = HTML.Style(declaration: "display:none", atRule: atRule)
+        _ = context.pushStyle(style)
 
         let stylesheet = context.stylesheet
         #expect(stylesheet.contains("@media (max-width: 768px)"))
-        #expect(stylesheet.contains(".mobile-class{display: none}"))
+        #expect(stylesheet.contains("display:none"))
     }
 
     @Test
@@ -129,8 +129,8 @@ struct `HTML.Context Tests` {
             reservedCapacity: config.reservedCapacity
         )
         var context = HTML.Context(config)
-        let styleKey = HTML.StyleKey(nil, ".important-class")
-        context.styles[styleKey] = "color: blue"
+        let style = HTML.Style(declaration: "color:blue")
+        _ = context.pushStyle(style)
 
         let stylesheet = context.stylesheet
         #expect(stylesheet.contains("!important"))

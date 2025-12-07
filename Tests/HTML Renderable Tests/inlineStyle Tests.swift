@@ -1,5 +1,5 @@
 //
-//  HTMLInlineStyleTests.swift
+//  inlineStyle Tests.swift
 //  swift-html-rendering
 //
 //  Created by Coen ten Thije Boonkkamp on 20/07/2025.
@@ -10,7 +10,7 @@ import HTML_Renderable_TestSupport
 import Testing
 
 @Suite
-struct `HTMLInlineStyle Tests` {
+struct `inlineStyle Tests` {
 
     @Test
     func `Basic inline style`() throws {
@@ -82,7 +82,7 @@ struct `HTMLInlineStyle Tests` {
 
 extension `Snapshot Tests` {
     @Suite
-    struct HTMLInlineStyleSnapshotTests {
+    struct inlineStyleSnapshotTests {
         @Test(
             "Basic inline style snapshot"
         )

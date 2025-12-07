@@ -28,8 +28,9 @@ extension HTML {
         /// The current set of attributes to apply to the next HTML element.
         public var attributes: OrderedDictionary<String, String>
 
-        /// The collected styles to be rendered in the document's stylesheet.
-        public var styles: OrderedDictionary<HTML.StyleKey, String>
+        /// The collected styles mapped to their generated class names.
+        /// Style → className (e.g., HTML.Style(Color.red) → "color-0")
+        public var styles: OrderedDictionary<HTML.Style, String>
 
         /// Configuration for rendering, including formatting options.
         public let configuration: Configuration
@@ -37,15 +38,9 @@ extension HTML {
         /// The current indentation level for pretty-printing.
         public var currentIndentation: [UInt8]
 
-        // MARK: - Style Tracking for Deterministic Class Names
-
         /// Counter for generating sequential class names.
         /// Each render context starts at 0, ensuring deterministic naming.
         private var styleCounter: Int
-
-        /// Maps seen style entries to their assigned class names within this render.
-        /// Same style entry always returns same class name within a single render.
-        private var seenEntries: [HTML.StyleEntry: String]
     }
 }
 
@@ -59,38 +54,27 @@ extension HTML.Context {
         self.configuration = configuration
         self.currentIndentation = []
         self.styleCounter = 0
-        self.seenEntries = [:]
     }
 }
 
 extension HTML.Context {
-    // MARK: - Class Name Generation
+    // MARK: - Style Push API
 
-    /// Get or create a class name for a style entry.
+    /// Push a style to the context and get its class name.
     ///
-    /// Same style entry always returns same class name within a render context.
+    /// Same style always returns same class name within a render context.
     /// Class names are descriptive and sequential: `color-0`, `margin-1`, etc.
     ///
-    /// - Parameter entry: The style entry to get a class name for.
-    /// - Returns: A deterministic class name for the style entry.
-    mutating func className(for entry: HTML.StyleEntry) -> String {
-        if let existing = seenEntries[entry] {
+    /// - Parameter style: The style to register.
+    /// - Returns: A deterministic class name for the style.
+    public mutating func pushStyle(_ style: HTML.Style) -> String {
+        if let existing = styles[style] {
             return existing
         }
-        let name = "\(entry.propertyName)-\(styleCounter)"
+        let className = "\(style.propertyName)-\(styleCounter)"
         styleCounter += 1
-        seenEntries[entry] = name
-        return name
-    }
-
-    /// Get or create class names for multiple style entries.
-    ///
-    /// Batch version of `className(for:)` for efficiency.
-    ///
-    /// - Parameter entries: The style entries to get class names for.
-    /// - Returns: An array of deterministic class names.
-    mutating func classNames(for entries: [HTML.StyleEntry]) -> [String] {
-        entries.map { className(for: $0) }
+        styles[style] = className
+        return className
     }
 }
 
@@ -105,31 +89,43 @@ extension HTML.Context {
     /// - Returns: The stylesheet bytes with proper indentation.
     public func stylesheetBytes(baseIndentation: [UInt8] = []) -> ContiguousArray<UInt8> {
         // Group styles by atRule
-        var grouped: OrderedDictionary<HTML.AtRule?, [(selector: String, style: String)]> = [:]
-        for (key, style) in styles {
-            grouped[key.atRule, default: []].append((key.selector, style))
+        var grouped: OrderedDictionary<HTML.AtRule?, [(style: HTML.Style, className: String)]> = [:]
+        for (style, className) in styles {
+            grouped[style.atRule, default: []].append((style, className))
         }
 
         var sheet = ContiguousArray<UInt8>()
         let sortedGroups = grouped.sorted(by: { $0.key == nil ? $1.key != nil : false })
 
-        for (mediaQuery, stylesForMedia) in sortedGroups {
-            if let mediaQuery {
+        for (atRule, stylesForAtRule) in sortedGroups {
+            if let atRule {
                 sheet.append(contentsOf: configuration.newline)
                 sheet.append(contentsOf: baseIndentation)
-                sheet.append(contentsOf: mediaQuery.rawValue.utf8)
+                sheet.append(contentsOf: atRule.rawValue.utf8)
                 sheet.append(.ascii.leftBrace)
             }
 
-            for (selector, style) in stylesForMedia {
+            for (style, className) in stylesForAtRule {
+                // Build selector: [selector] .className[:pseudo]
+                var selector = ""
+                if let pre = style.selector?.rawValue {
+                    selector.append(pre)
+                    selector.append(" ")
+                }
+                selector.append(".")
+                selector.append(className)
+                if let pseudo = style.pseudo?.rawValue {
+                    selector.append(pseudo)
+                }
+
                 sheet.append(contentsOf: configuration.newline)
                 sheet.append(contentsOf: baseIndentation)
-                if mediaQuery != nil {
+                if atRule != nil {
                     sheet.append(contentsOf: configuration.indentation)
                 }
                 sheet.append(contentsOf: selector.utf8)
                 sheet.append(.ascii.leftBrace)
-                sheet.append(contentsOf: style.utf8)
+                sheet.append(contentsOf: style.declaration.utf8)
                 if configuration.forceImportant {
                     sheet.append(
                         contentsOf: [.ascii.space] + .html.important
@@ -138,7 +134,7 @@ extension HTML.Context {
                 sheet.append(.ascii.rightBrace)
             }
 
-            if mediaQuery != nil {
+            if atRule != nil {
                 sheet.append(contentsOf: configuration.newline)
                 sheet.append(contentsOf: baseIndentation)
                 sheet.append(.ascii.rightBrace)

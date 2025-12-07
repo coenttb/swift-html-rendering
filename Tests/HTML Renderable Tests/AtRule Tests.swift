@@ -144,11 +144,11 @@ struct `AtRule Tests` {
     // MARK: - Integration
 
     @Test
-    func `AtRule used with StyleKey`() {
+    func `AtRule used with Style`() {
         let atRule = HTML.AtRule(rawValue: "@media print")
-        let styleKey = HTML.StyleKey(atRule, ".no-print")
+        let style = HTML.Style(declaration: "display:none", atRule: atRule)
 
-        #expect(styleKey.atRule == atRule)
-        #expect(styleKey.selector == ".no-print")
+        #expect(style.atRule == atRule)
+        #expect(style.declaration == "display:none")
     }
 }

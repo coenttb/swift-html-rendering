@@ -1,5 +1,5 @@
 //
-//  HTMLInlineStyleProtocol Tests.swift
+//  HTMLStyled Tests.swift
 //  swift-html-rendering
 //
 //  Created by Coen ten Thije Boonkkamp on 25/11/2025.
@@ -9,13 +9,12 @@ import HTML_Renderable
 import HTML_Renderable_TestSupport
 import Testing
 
-// Note: HTMLInlineStyleProtocol is an internal protocol used for type erasure.
-// We test it through the public HTMLInlineStyle type and the inlineStyle modifier.
+// Tests for HTML.Styled - the wrapper that applies CSS styles to HTML content.
 
 @Suite
-struct `HTMLInlineStyleProtocol Tests` {
+struct `HTMLStyled Tests` {
 
-    // MARK: - Style Extraction via inlineStyle
+    // MARK: - Style Application via inlineStyle
 
     @Test
     func `inlineStyle creates styled element`() throws {
@@ -29,7 +28,7 @@ struct `HTMLInlineStyleProtocol Tests` {
     }
 
     @Test
-    func `Multiple styles are extracted`() throws {
+    func `Multiple styles are applied`() throws {
         let html = tag("div") {
             HTML.Text("Content")
         }
@@ -43,7 +42,7 @@ struct `HTMLInlineStyleProtocol Tests` {
         #expect(rendered.contains("padding:5px"))
     }
 
-    // MARK: - Content Extraction
+    // MARK: - Content Preservation
 
     @Test
     func `Content is preserved through styling`() throws {
@@ -92,7 +91,7 @@ struct `HTMLInlineStyleProtocol Tests` {
     // MARK: - Style with Media Queries
 
     @Test
-    func `Style with media query extracted`() throws {
+    func `Style with media query`() throws {
         let html = tag("div") {
             HTML.Text("Responsive")
         }
@@ -145,11 +144,10 @@ struct `HTMLInlineStyleProtocol Tests` {
         #expect(rendered.contains("<div"))
     }
 
-    // MARK: - Complex Type Erasure Scenarios
+    // MARK: - Type Erasure
 
     @Test
-    func `Style extraction through type erasure`() throws {
-        // AnyHTML should preserve styles
+    func `Style preserved through type erasure`() throws {
         let original = tag("div") {
             HTML.Text("Erased")
         }
