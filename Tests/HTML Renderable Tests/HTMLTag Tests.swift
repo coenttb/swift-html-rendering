@@ -14,7 +14,7 @@ struct `HTML.Tag Tests` {
 
     @Test
     func `HTML.Tag basic functionality`() throws {
-        let tag: some HTML.View = HTML.Tag("div") {
+        let tag: some HTML.View = tag("div") {
             HTML.Text("content")
         }
 
@@ -26,7 +26,7 @@ struct `HTML.Tag Tests` {
 
     @Test
     func `HTML.Tag.Text for text content`() throws {
-        let textTag = HTML.Tag.Text("span") {
+        let textTag = tag("span") {
             "text content"
         }
 
@@ -38,7 +38,7 @@ struct `HTML.Tag Tests` {
 
     @Test
     func `HTMLVoidTag self-closing`() throws {
-        let voidTag = HTML.Tag.Void("br")()
+        let voidTag = tag("br")
 
         let rendered = try String(HTML.Document { voidTag })
         #expect(rendered.contains("<br"))
@@ -48,7 +48,7 @@ struct `HTML.Tag Tests` {
 
     @Test
     func `HTMLVoidTag with attributes`() throws {
-        let voidTag = HTML.Tag.Void("input")()
+        let voidTag = tag("input")
             .attribute("type", "text")
             .attribute("name", "username")
 
@@ -61,8 +61,8 @@ struct `HTML.Tag Tests` {
 
     @Test
     func `Nested HTML.Tags`() throws {
-        let outerTag = HTML.Tag("div") {
-            HTML.Tag("p") {
+        let outerTag = tag("div") {
+            tag("p") {
                 HTML.Text("nested paragraph")
             }
         }
@@ -77,7 +77,7 @@ struct `HTML.Tag Tests` {
 
     @Test
     func `Empty HTML.Tag`() throws {
-        let tag = HTML.Tag("div")()
+        let tag = tag("div")
 
         let rendered = try String(HTML.Document { tag })
         #expect(rendered.contains("<div>"))
@@ -95,19 +95,19 @@ extension `Snapshot Tests` {
             assertInlineSnapshot(
                 of: HTML.Document {
                     tag("main") {
-                        HTML.Tag("header") {
-                            HTML.Tag("nav") {
-                                HTML.Tag.Text("h1") {
+                        tag("header") {
+                            tag("nav") {
+                                tag("h1") {
                                     "Site Navigation"
                                 }
-                                HTML.Tag("ul") {
-                                    HTML.Tag("li") {
-                                        HTML.Tag.Text("a") {
+                                tag("ul") {
+                                    tag("li") {
+                                        tag("a") {
                                             "Home"
                                         }
                                     }
-                                    HTML.Tag("li") {
-                                        HTML.Tag.Text("a") {
+                                    tag("li") {
+                                        tag("a") {
                                             "About"
                                         }
                                     }
@@ -115,11 +115,11 @@ extension `Snapshot Tests` {
                             }
                         }
 
-                        HTML.Tag("section") {
-                            HTML.Tag.Text("h2") {
+                        tag("section") {
+                            tag("h2") {
                                 "Main Content"
                             }
-                            HTML.Tag.Text("p") {
+                            tag("p") {
                                 "This demonstrates semantic HTML structure using HTML.Tag components."
                             }
                         }
@@ -163,27 +163,27 @@ extension `Snapshot Tests` {
         func `HTMLVoidTag form elements snapshot`() {
             assertInlineSnapshot(
                 of: HTML.Document {
-                    HTML.Tag("form") {
-                        HTML.Tag("fieldset") {
-                            HTML.Tag.Text("legend") {
+                    tag("form") {
+                        tag("fieldset") {
+                            tag("legend") {
                                 "Contact Information"
                             }
 
-                            HTML.Tag.Void("input")()
+                            tag("input")
                                 .attribute("type", "text")
                                 .attribute("name", "name")
                                 .attribute("placeholder", "Your Name")
 
-                            HTML.Tag.Void("br")()
+                            tag("br")
 
-                            HTML.Tag.Void("input")()
+                            tag("input")
                                 .attribute("type", "email")
                                 .attribute("name", "email")
                                 .attribute("placeholder", "Your Email")
 
-                            HTML.Tag.Void("hr")()
+                            tag("hr")
 
-                            HTML.Tag("button") {
+                            tag("button") {
                                 HTML.Text("Submit Form")
                             }
                             .attribute("type", "submit")

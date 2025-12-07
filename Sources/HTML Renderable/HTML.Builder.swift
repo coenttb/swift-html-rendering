@@ -16,13 +16,13 @@ extension Builder {
         Empty()
     }
 
-    /// Converts a text expression to HTML text.
-    ///
-    /// - Parameter expression: The HTML text to convert.
-    /// - Returns: The same HTML text.
-    public static func buildExpression(_ expression: HTML.Text) -> HTML.Text {
-        expression
-    }
+//    /// Converts a text expression to HTML text.
+//    ///
+//    /// - Parameter expression: The HTML text to convert.
+//    /// - Returns: The same HTML text.
+//    public static func buildExpression(_ expression: HTML.Text) -> HTML.Text {
+//        expression
+//    }
 }
 
 extension HTML {

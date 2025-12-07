@@ -8,6 +8,12 @@
 import Renderable
 
 extension HTML {
+    public static var tag: HTML.Tag.Type {
+        HTML.Tag.self
+    }
+}
+
+extension HTML {
     /// Represents a standard HTML tag that can contain other HTML elements.
     ///
     /// `HTML.Tag` provides a convenient way to create HTML elements with a function-call
@@ -27,24 +33,16 @@ extension HTML {
     ///
     /// This struct is primarily used through the predefined tag variables like `div`, `span`,
     /// `h1`, etc., but can also be used directly with custom tag names.
-    public struct Tag: ExpressibleByStringLiteral {
+    public struct Tag {
         /// The name of the HTML tag.
         public let rawValue: String
 
         /// Creates a new HTML tag with the specified name.
         ///
         /// - Parameter rawValue: The name of the HTML tag.
-        public init(_ rawValue: String) {
+        internal init(_ rawValue: String) {
             self.rawValue = rawValue
         }
-
-        /// Creates a new HTML tag from a string literal.
-        ///
-        /// - Parameter value: The string literal representing the tag name.
-        public init(stringLiteral value: String) {
-            self.init(value)
-        }
-
     }
 }
 

@@ -13,40 +13,42 @@ import Testing
 struct `HTML.Tag.Text Tests` {
 
     // MARK: - Initialization
+    // NOTE: These tests tested the old HTML.Tag.Text type which no longer exists.
+    // The tag() function now returns HTML.Element<Empty> which doesn't have rawValue.
 
-    @Test
-    func `HTML.Tag.Text string initialization`() throws {
-        let textTag = HTML.Tag.Text("title")
-        #expect(textTag.rawValue == "title")
-    }
-
-    @Test
-    func `HTML.Tag.Text string literal initialization`() throws {
-        let textTag: HTML.Tag.Text = "option"
-        #expect(textTag.rawValue == "option")
-    }
+//    @Test
+//    func `HTML.Tag.Text string initialization`() throws {
+//        let textTag = tag("title")
+//        #expect(textTag.rawValue == "title")
+//    }
+//
+//    @Test
+//    func `HTML.Tag.Text string literal initialization`() throws {
+//        let textTag = tag("option")
+//        #expect(textTag.rawValue == "option")
+//    }
 
     // MARK: - Call As Function
 
     @Test
     func `HTML.Tag.Text with empty content`() throws {
-        let textTag = HTML.Tag.Text("title")
-        let element = textTag()
+        let textTag = tag("title")
+        let element = textTag
         let rendered = try String(element)
         #expect(rendered == "<title></title>")
     }
 
     @Test
     func `HTML.Tag.Text with string content`() throws {
-        let textTag = HTML.Tag.Text("title")
-        let element = textTag("Page Title")
+        let textTag = tag("title")
+        let element = textTag { "Page Title" }
         let rendered = try String(element)
         #expect(rendered == "<title>Page Title</title>")
     }
 
     @Test
     func `HTML.Tag.Text with closure content`() throws {
-        let textTag = HTML.Tag.Text("option")
+        let textTag = tag("option")
         let value = "Dynamic Value"
         let element = textTag { value }
         let rendered = try String(element)
@@ -57,8 +59,8 @@ struct `HTML.Tag.Text Tests` {
 
     @Test
     func `HTML.Tag.Text for title element`() throws {
-        let title = HTML.Tag.Text("title")
-        let element = title("My Website")
+        let title = tag("title")
+        let element = title { "My Website" }
         let rendered = try String(element)
         #expect(rendered.contains("<title>"))
         #expect(rendered.contains("My Website"))
@@ -67,24 +69,24 @@ struct `HTML.Tag.Text Tests` {
 
     @Test
     func `HTML.Tag.Text for option element`() throws {
-        let option = HTML.Tag.Text("option")
-        let element = option("Select me")
+        let option = tag("option")
+        let element = option { "Select me" }
         let rendered = try String(element)
         #expect(rendered == "<option>Select me</option>")
     }
 
     @Test
     func `HTML.Tag.Text for textarea element`() throws {
-        let textarea = HTML.Tag.Text("textarea")
-        let element = textarea("Default text")
+        let textarea = tag("textarea")
+        let element = textarea { "Default text" }
         let rendered = try String(element)
         #expect(rendered == "<textarea>Default text</textarea>")
     }
 
     @Test
     func `HTML.Tag.Text for label element`() throws {
-        let label = HTML.Tag.Text("label")
-        let element = label("Username:")
+        let label = tag("label")
+        let element = label { "Username:" }
         let rendered = try String(element)
         #expect(rendered == "<label>Username:</label>")
     }
@@ -93,8 +95,8 @@ struct `HTML.Tag.Text Tests` {
 
     @Test
     func `HTML.Tag.Text escapes special characters`() throws {
-        let textTag = HTML.Tag.Text("title")
-        let element = textTag("Page <Title> & More")
+        let textTag = tag("title")
+        let element = textTag { "Page <Title> & More" }
         let rendered = try String(element)
         #expect(rendered.contains("&lt;Title&gt;"))
         #expect(rendered.contains("&amp;"))
@@ -104,8 +106,8 @@ struct `HTML.Tag.Text Tests` {
 
     @Test
     func `HTML.Tag.Text with attributes`() throws {
-        let option = HTML.Tag.Text("option")
-        let element = option("First")
+        let option = tag("option")
+        let element = option { "First" }
             .attribute("value", "1")
             .attribute("selected", "")
 
@@ -122,7 +124,7 @@ struct `HTML.Tag.Text Tests` {
         let document = HTML.Document {
             Empty()
         } head: {
-            HTML.Tag.Text("title")("Document Title")
+            tag("title") { "Document Title" }
             tag("meta")
                 .attribute("charset", "utf-8")
         }
@@ -133,11 +135,11 @@ struct `HTML.Tag.Text Tests` {
 
     @Test
     func `HTML.Tag.Text in select element`() throws {
-        let option = HTML.Tag.Text("option")
+        let option = tag("option")
         let html = tag("select") {
-            option("Option 1").attribute("value", "1")
-            option("Option 2").attribute("value", "2")
-            option("Option 3").attribute("value", "3")
+            option { "Option 1" }.attribute("value", "1")
+            option { "Option 2" }.attribute("value", "2")
+            option { "Option 3" }.attribute("value", "3")
         }
 
         let rendered = try String(HTML.Document { html })
@@ -155,19 +157,19 @@ extension `Snapshot Tests` {
     struct HTMLTextTagSnapshotTests {
         @Test
         func `HTML.Tag.Text in form snapshot`() {
-            let option = HTML.Tag.Text("option")
-            let label = HTML.Tag.Text("label")
+            let option = tag("option")
+            let label = tag("label")
 
             assertInlineSnapshot(
                 of: HTML.Document {
                     tag("form") {
                         tag("div") {
-                            label("Country:")
+                            label { "Country:" }
                                 .attribute("for", "country")
                             tag("select") {
-                                option("USA").attribute("value", "us")
-                                option("UK").attribute("value", "uk")
-                                option("Canada").attribute("value", "ca")
+                                option { "USA" }.attribute("value", "us")
+                                option { "UK" }.attribute("value", "uk")
+                                option { "Canada" }.attribute("value", "ca")
                             }
                             .attribute("id", "country")
                             .attribute("name", "country")

@@ -24,12 +24,6 @@
 public enum HTML {}
 
 extension HTML {
-    public static var tag: HTML.Tag.Type {
-        HTML.Tag.self
-    }
-}
-
-extension HTML {
     /// &quot; - Double quotation mark HTML entity
     public static let doubleQuotationMark: [UInt8] = [
         .ascii.ampersand,

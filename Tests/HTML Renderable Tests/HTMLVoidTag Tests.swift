@@ -12,52 +12,52 @@ import Testing
 @Suite
 struct `HTMLVoidTag Tests` {
 
-    // MARK: - Initialization
-
-    @Test
-    func `HTMLVoidTag string initialization`() throws {
-        let voidTag = HTML.Tag.Void("br")
-        #expect(voidTag.rawValue == "br")
-    }
-
-    @Test
-    func `HTMLVoidTag string literal initialization`() throws {
-        let voidTag: HTML.Tag.Void = "hr"
-        #expect(voidTag.rawValue == "hr")
-    }
-
-    // MARK: - All Tags
-
-    @Test
-    func `HTML.Tag.Void.allTags contains expected tags`() {
-        let allTags = HTML.Tag.Void.allTags
-        #expect(allTags.contains("area"))
-        #expect(allTags.contains("base"))
-        #expect(allTags.contains("br"))
-        #expect(allTags.contains("col"))
-        #expect(allTags.contains("embed"))
-        #expect(allTags.contains("hr"))
-        #expect(allTags.contains("img"))
-        #expect(allTags.contains("input"))
-        #expect(allTags.contains("link"))
-        #expect(allTags.contains("meta"))
-        #expect(allTags.contains("param"))
-        #expect(allTags.contains("source"))
-        #expect(allTags.contains("track"))
-        #expect(allTags.contains("wbr"))
-    }
-
-    @Test
-    func `HTML.Tag.Void.allTags has correct count`() {
-        #expect(HTML.Tag.Void.allTags.count == 16)
-    }
+//    // MARK: - Initialization
+//
+//    @Test
+//    func `HTMLVoidTag string initialization`() throws {
+//        let voidTag = tag("br")
+//        #expect(voidTag.rawValue == "br")
+//    }
+//
+//    @Test
+//    func `HTMLVoidTag string literal initialization`() throws {
+//        let voidTag: tag = "hr"
+//        #expect(voidTag.rawValue == "hr")
+//    }
+//
+//    // MARK: - All Tags
+//
+//    @Test
+//    func `tag.allTags contains expected tags`() {
+//        let allTags = tag.allTags
+//        #expect(allTags.contains("area"))
+//        #expect(allTags.contains("base"))
+//        #expect(allTags.contains("br"))
+//        #expect(allTags.contains("col"))
+//        #expect(allTags.contains("embed"))
+//        #expect(allTags.contains("hr"))
+//        #expect(allTags.contains("img"))
+//        #expect(allTags.contains("input"))
+//        #expect(allTags.contains("link"))
+//        #expect(allTags.contains("meta"))
+//        #expect(allTags.contains("param"))
+//        #expect(allTags.contains("source"))
+//        #expect(allTags.contains("track"))
+//        #expect(allTags.contains("wbr"))
+//    }
+//
+//    @Test
+//    func `tag.allTags has correct count`() {
+//        #expect(tag.allTags.count == 16)
+//    }
 
     // MARK: - Call As Function
 
     @Test
     func `HTMLVoidTag creates self-closing element`() throws {
-        let br = HTML.Tag.Void("br")
-        let element = br()
+        let br = tag("br")
+        let element = br
         let rendered = try String(element)
         #expect(rendered.contains("<br"))
         #expect(!rendered.contains("</br>"))
@@ -67,22 +67,22 @@ struct `HTMLVoidTag Tests` {
 
     @Test
     func `HTMLVoidTag br element`() throws {
-        let br = HTML.Tag.Void("br")
-        let rendered = try String(br())
+        let br = tag("br")
+        let rendered = try String(br)
         #expect(rendered.contains("<br>"))
     }
 
     @Test
     func `HTMLVoidTag hr element`() throws {
-        let hr = HTML.Tag.Void("hr")
-        let rendered = try String(hr())
+        let hr = tag("hr")
+        let rendered = try String(hr)
         #expect(rendered.contains("<hr>"))
     }
 
     @Test
     func `HTMLVoidTag img element`() throws {
-        let img = HTML.Tag.Void("img")
-        let element = img()
+        let img = tag("img")
+        let element = img
             .attribute("src", "/image.jpg")
             .attribute("alt", "Description")
 
@@ -95,8 +95,8 @@ struct `HTMLVoidTag Tests` {
 
     @Test
     func `HTMLVoidTag input element`() throws {
-        let input = HTML.Tag.Void("input")
-        let element = input()
+        let input = tag("input")
+        let element = input
             .attribute("type", "text")
             .attribute("name", "username")
             .attribute("placeholder", "Enter username")
@@ -109,8 +109,8 @@ struct `HTMLVoidTag Tests` {
 
     @Test
     func `HTMLVoidTag meta element`() throws {
-        let meta = HTML.Tag.Void("meta")
-        let element = meta()
+        let meta = tag("meta")
+        let element = meta
             .attribute("charset", "utf-8")
 
         let rendered = try String(HTML.Document { element })
@@ -120,8 +120,8 @@ struct `HTMLVoidTag Tests` {
 
     @Test
     func `HTMLVoidTag link element`() throws {
-        let link = HTML.Tag.Void("link")
-        let element = link()
+        let link = tag("link")
+        let element = link
             .attribute("rel", "stylesheet")
             .attribute("href", "/styles.css")
 
@@ -135,8 +135,8 @@ struct `HTMLVoidTag Tests` {
 
     @Test
     func `HTMLVoidTag with multiple attributes`() throws {
-        let input = HTML.Tag.Void("input")
-        let element = input()
+        let input = tag("input")
+        let element = input
             .attribute("type", "email")
             .attribute("name", "email")
             .attribute("id", "email-field")
@@ -155,17 +155,17 @@ struct `HTMLVoidTag Tests` {
 
     @Test
     func `HTMLVoidTag in form`() throws {
-        let input = HTML.Tag.Void("input")
-        let br = HTML.Tag.Void("br")
+        let input = tag("input")
+        let br = tag("br")
 
         let html = tag("form") {
             tag("label") { HTML.Text("Name:") }
-            br()
-            input().attribute("type", "text").attribute("name", "name")
-            br()
+            br
+            input.attribute("type", "text").attribute("name", "name")
+            br
             tag("label") { HTML.Text("Email:") }
-            br()
-            input().attribute("type", "email").attribute("name", "email")
+            br
+            input.attribute("type", "email").attribute("name", "email")
         }
 
         let rendered = try String(HTML.Document { html })
@@ -176,15 +176,15 @@ struct `HTMLVoidTag Tests` {
 
     @Test
     func `HTMLVoidTag in head`() throws {
-        let meta = HTML.Tag.Void("meta")
-        let link = HTML.Tag.Void("link")
+        let meta = tag("meta")
+        let link = tag("link")
 
         let document = HTML.Document {
             Empty()
         } head: {
-            meta().attribute("charset", "utf-8")
-            meta().attribute("name", "viewport").attribute("content", "width=device-width")
-            link().attribute("rel", "stylesheet").attribute("href", "/styles.css")
+            meta.attribute("charset", "utf-8")
+            meta.attribute("name", "viewport").attribute("content", "width=device-width")
+            link.attribute("rel", "stylesheet").attribute("href", "/styles.css")
         }
 
         let rendered = try String(document)
@@ -201,8 +201,8 @@ extension `Snapshot Tests` {
     struct HTMLVoidTagSnapshotTests {
         @Test
         func `HTMLVoidTag form elements snapshot`() {
-            let input = HTML.Tag.Void("input")
-            let br = HTML.Tag.Void("br")
+            let input = tag("input")
+            let br = tag("br")
 
             assertInlineSnapshot(
                 of: HTML.Document {
@@ -210,15 +210,15 @@ extension `Snapshot Tests` {
                         tag("fieldset") {
                             tag("legend") { HTML.Text("Contact Form") }
                             tag("label") { HTML.Text("Name:") }
-                            br()
-                            input()
+                            br
+                            input
                                 .attribute("type", "text")
                                 .attribute("name", "name")
-                            br()
-                            br()
+                            br
+                            br
                             tag("label") { HTML.Text("Email:") }
-                            br()
-                            input()
+                            br
+                            input
                                 .attribute("type", "email")
                                 .attribute("name", "email")
                         }

@@ -89,21 +89,36 @@ extension HTML.Tag {
     }
 }
 
+// MARK: - HTML.Element callAsFunction for Testing
+
+extension HTML.Element where Content == Empty {
+    /// Creates a new HTML element with the same tag but different content. For testing only.
+    ///
+    /// This allows the pattern:
+    /// ```swift
+    /// let div = tag("div")  // Returns HTML.Element<Empty>
+    /// let content = div { "Hello" }  // Returns HTML.Element<String>
+    /// ```
+    public func callAsFunction<T: HTML.View>(@HTML.Builder _ content: () -> T) -> HTML.Element<T> {
+        HTML.Element<T>(tag: self.tagName, content: content)
+    }
+}
+
 //extension HTML.Tag.Void {
 //    /// Creates an HTML void element with this tag. For testing only.
 //    public func callAsFunction() -> HTML.Element<Empty> {
 //        HTML.Element(tag: self.rawValue) { Empty() }
 //    }
 //}
-
-extension HTML.Tag.Text {
-    /// Creates an HTML element with text content. For testing only.
-    public func callAsFunction(_ content: String = "") -> HTML.Element<HTML.Text> {
-        HTML.Element(tag: self.rawValue) { HTML.Text(content) }
-    }
-
-    /// Creates an HTML element with dynamic text content. For testing only.
-    public func callAsFunction(_ content: () -> String) -> HTML.Element<HTML.Text> {
-        HTML.Element(tag: self.rawValue) { HTML.Text(content()) }
-    }
-}
+//
+//extension HTML.Tag.Text {
+//    /// Creates an HTML element with text content. For testing only.
+//    public func callAsFunction(_ content: String = "") -> HTML.Element<HTML.Text> {
+//        HTML.Element(tag: self.rawValue) { HTML.Text(content) }
+//    }
+//
+//    /// Creates an HTML element with dynamic text content. For testing only.
+//    public func callAsFunction(_ content: () -> String) -> HTML.Element<HTML.Text> {
+//        HTML.Element(tag: self.rawValue) { HTML.Text(content()) }
+//    }
+//}
