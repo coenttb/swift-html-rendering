@@ -12,7 +12,9 @@ public import Renderable
 /// This provides the `Rendering` conformance with `HTML.Context` as the context type.
 /// Each domain module (HTML, XML, etc.) provides its own `Never` conformance.
 extension Never: @retroactive Renderable {
+    public typealias Content = Never
     public typealias Context = HTML.Context
+    public typealias Output = UInt8
 
     @inlinable
     public static func _render<Buffer: RangeReplaceableCollection>(

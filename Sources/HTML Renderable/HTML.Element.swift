@@ -10,6 +10,8 @@ import OrderedCollections
 import Renderable
 public import WHATWG_HTML_Shared
 
+
+
 extension HTML {
     /// Represents an HTML element with a tag, attributes, and optional content.
     ///
@@ -30,7 +32,7 @@ extension HTML {
     ///
     /// This type is typically not used directly by library consumers, who would
     /// instead use the more convenient tag functions like `div`, `span`, `p`, etc.
-    public struct Element<Tag: WHATWG_HTML.Element, Content: HTML.View>: HTML.View {
+    public struct Element<Tag: WHATWG_HTML.Element.`Protocol`, Content: HTML.View>: HTML.View {
         /// The optional content contained within this element.
         @HTML.Builder public let content: Content?
 
@@ -67,7 +69,10 @@ extension HTML {
         ) where Buffer.Element == UInt8 {
             // Special handling for pre elements to preserve formatting
             let isPreElement = Tag.tag == "pre"
-            let htmlIsBlock = WHATWG_HTML.Flow(Tag.self) == .block
+            // Only apply block-level formatting when pretty printing is enabled
+            // Block elements are those NOT in phrasing content (per WHATWG spec)
+            let isPrettyPrinting = !context.configuration.newline.isEmpty
+            let htmlIsBlock = isPrettyPrinting && !Tag.categories.contains(.phrasing)
 
             // Add newline and indentation for block elements
             if htmlIsBlock {
@@ -125,8 +130,8 @@ extension HTML {
                 Content._render(content, into: &buffer, context: &context)
             }
 
-            // Add closing tag unless it's a void element
-            if !Tag.isVoid {
+            // Add closing tag unless it's a void element (content model is "nothing")
+            if Tag.content.model != .nothing {
                 if htmlIsBlock && !isPreElement {
                     buffer.append(contentsOf: context.configuration.newline)
                     buffer.append(contentsOf: context.currentIndentation)
@@ -160,7 +165,10 @@ extension HTML.Element: AsyncRenderable where Content: AsyncRenderable {
         context: inout HTML.Context
     ) async {
         let isPreElement = Tag.tag == "pre"
-        let htmlIsBlock = WHATWG_HTML.Flow(Tag.self) == .block
+        // Only apply block-level formatting when pretty printing is enabled
+        // Block elements are those NOT in phrasing content (per WHATWG spec)
+        let isPrettyPrinting = !context.configuration.newline.isEmpty
+        let htmlIsBlock = isPrettyPrinting && !Tag.categories.contains(.phrasing)
 
         // Build opening tag into local buffer, then write once
         var openTag: [UInt8] = []
@@ -220,8 +228,8 @@ extension HTML.Element: AsyncRenderable where Content: AsyncRenderable {
             await Content._renderAsync(content, into: stream, context: &context)
         }
 
-        // Add closing tag unless void element
-        if !Tag.isVoid {
+        // Add closing tag unless it's a void element (content model is "nothing")
+        if Tag.content.model != .nothing {
             var closeTag: [UInt8] = []
             if htmlIsBlock && !isPreElement {
                 closeTag.append(contentsOf: context.configuration.newline)

@@ -32,6 +32,7 @@ extension HTML {
 
 extension HTML.Empty: @retroactive Renderable {
     public typealias Content = Never
+    public typealias Output = UInt8
     public typealias Context = HTML.Context
 
     public static func _render<Buffer: RangeReplaceableCollection>(

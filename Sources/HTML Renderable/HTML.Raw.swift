@@ -44,6 +44,7 @@ extension HTML {
 extension Raw: @retroactive Renderable {
     public typealias Content = Never
     public typealias Context = HTML.Context
+    public typealias Output = UInt8
 
     /// Renders the raw bytes directly to the buffer without any processing.
     public static func _render<Buffer: RangeReplaceableCollection>(

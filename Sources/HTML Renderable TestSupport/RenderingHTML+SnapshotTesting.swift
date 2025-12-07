@@ -14,10 +14,10 @@ extension Snapshotting where Value: HTML.DocumentProtocol, Format == String {
     }
 
     public static func html(
-        printerConfiguration: HTML.Context.Configuration = .pretty
+        configuration: HTML.Context.Configuration = .pretty
     ) -> Self {
         Snapshotting<String, String>.lines.pullback { value in
-            HTML.Context.Configuration.$current.withValue(printerConfiguration) {
+            HTML.Context.Configuration.$current.withValue(configuration) {
                 (try? String(value)) ?? "HTML rendering failed"
             }
         }
@@ -30,10 +30,10 @@ extension Snapshotting where Value: HTML.View, Format == String {
     }
 
     public static func html(
-        printerConfiguration: HTML.Context.Configuration = .pretty
+        configuration: HTML.Context.Configuration = .pretty
     ) -> Self {
         Snapshotting<String, String>.lines.pullback { value in
-            HTML.Context.Configuration.$current.withValue(printerConfiguration) {
+            HTML.Context.Configuration.$current.withValue(configuration) {
                 (try? String(value)) ?? "HTML rendering failed"
             }
         }

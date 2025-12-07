@@ -81,6 +81,7 @@ extension HTML.AnyView {
 // Keep AnyRenderable conformance for interoperability
 extension AnyRenderable: @retroactive Renderable where Context == HTML.Context {
     public typealias Content = Never
+    public typealias Output = UInt8
 
     public var body: Never { fatalError() }
 }

@@ -33,7 +33,7 @@ import Standards
 /// - Note: This protocol is similar in design to SwiftUI's `View` protocol,
 ///   making it familiar to Swift developers who have worked with SwiftUI.
 extension HTML {
-    public protocol View: Renderable where Content: HTML.View, Context == HTML.Context {
+    public protocol View: Renderable where Content: HTML.View, Context == HTML.Context, Output == UInt8 {
         @HTML.Builder var body: Content { get }
     }
 }

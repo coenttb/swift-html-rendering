@@ -34,7 +34,11 @@ extension HTML {
             context: inout HTML.Context
         ) where Buffer.Element == UInt8 {
             let isPreElement = html.tagName == "pre"
-            let htmlIsBlock = WHATWG_HTML.Flow(for: html.tagName) == .block
+            // Only apply block-level formatting when pretty printing is enabled
+            // Block elements are those NOT in phrasing content (per WHATWG spec)
+            let isPrettyPrinting = !context.configuration.newline.isEmpty
+            let categories = WHATWG_HTML.Element.Content.categories(for: html.tagName)
+            let htmlIsBlock = isPrettyPrinting && !categories.contains(.phrasing)
 
             if htmlIsBlock {
                 buffer.append(contentsOf: context.configuration.newline)
@@ -85,7 +89,8 @@ extension HTML {
                 Content._render(content, into: &buffer, context: &context)
             }
 
-            if !WHATWG_HTML.isVoid(for: html.tagName) {
+            // Add closing tag unless it's a void element (content model is "nothing")
+            if WHATWG_HTML.Element.Content.model(for: html.tagName) != .nothing {
                 if htmlIsBlock && !isPreElement {
                     buffer.append(contentsOf: context.configuration.newline)
                     buffer.append(contentsOf: context.currentIndentation)
@@ -114,7 +119,11 @@ extension HTML.DynamicElement: AsyncRenderable where Content: AsyncRenderable {
         context: inout HTML.Context
     ) async {
         let isPreElement = html.tagName == "pre"
-        let htmlIsBlock = WHATWG_HTML.Flow(for: html.tagName) == .block
+        // Only apply block-level formatting when pretty printing is enabled
+        // Block elements are those NOT in phrasing content (per WHATWG spec)
+        let isPrettyPrinting = !context.configuration.newline.isEmpty
+        let categories = WHATWG_HTML.Element.Content.categories(for: html.tagName)
+        let htmlIsBlock = isPrettyPrinting && !categories.contains(.phrasing)
 
         var openTag: [UInt8] = []
 
@@ -169,7 +178,8 @@ extension HTML.DynamicElement: AsyncRenderable where Content: AsyncRenderable {
             await Content._renderAsync(content, into: stream, context: &context)
         }
 
-        if !WHATWG_HTML.isVoid(for: html.tagName) {
+        // Add closing tag unless it's a void element (content model is "nothing")
+        if WHATWG_HTML.Element.Content.model(for: html.tagName) != .nothing {
             var closeTag: [UInt8] = []
             if htmlIsBlock && !isPreElement {
                 closeTag.append(contentsOf: context.configuration.newline)

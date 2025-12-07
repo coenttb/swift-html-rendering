@@ -1,4 +1,4 @@
-// swift-tools-version:6.2
+// swift-tools-version: 6.2
 
 import PackageDescription
 
@@ -56,11 +56,11 @@ extension Target.Dependency {
 let package = Package(
     name: "swift-html-rendering",
     platforms: [
-        .iOS(.v18),
-        .macOS(.v15),
-        .tvOS(.v18),
-        .watchOS(.v11),
-        .macCatalyst(.v18),
+        .iOS(.v26),
+        .macOS(.v26),
+        .tvOS(.v26),
+        .watchOS(.v26),
+        .macCatalyst(.v26),
     ],
     products: [
         .library(name: .htmlRenderable, targets: [.htmlRenderable]),
