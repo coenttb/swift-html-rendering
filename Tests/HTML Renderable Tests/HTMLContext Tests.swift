@@ -195,12 +195,12 @@ extension `Snapshot Tests` {
                 <html>
                   <head>
                     <style>
-                      .color-0{color:red}
-                      .padding-1{padding:10px}
+                      .padding-0{padding:10px}
+                      .color-1{color:red}
                     </style>
                   </head>
                   <body>
-                    <div class="color-0 padding-1">Styled content
+                    <div class="padding-0 color-1">Styled content
                     </div>
                   </body>
                 </html>

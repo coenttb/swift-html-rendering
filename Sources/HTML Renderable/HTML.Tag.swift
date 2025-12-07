@@ -5,7 +5,7 @@
 //  Created by Point-Free, Inc
 //
 
-public import Renderable
+import Renderable
 
 extension HTML {
     /// Represents a standard HTML tag that can contain other HTML elements.

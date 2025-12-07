@@ -89,12 +89,12 @@ extension HTML.Tag {
     }
 }
 
-extension HTML.Tag.Void {
-    /// Creates an HTML void element with this tag. For testing only.
-    public func callAsFunction() -> HTML.Element<Empty> {
-        HTML.Element(tag: self.rawValue) { Empty() }
-    }
-}
+//extension HTML.Tag.Void {
+//    /// Creates an HTML void element with this tag. For testing only.
+//    public func callAsFunction() -> HTML.Element<Empty> {
+//        HTML.Element(tag: self.rawValue) { Empty() }
+//    }
+//}
 
 extension HTML.Tag.Text {
     /// Creates an HTML element with text content. For testing only.

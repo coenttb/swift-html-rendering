@@ -94,13 +94,13 @@ extension `Snapshot Tests` {
                   <head>
                     <style>
                       @media (max-width: 768px){
-                        .color-0{color:blue}
-                        .font-size-1{font-size:14px}
+                        .font-size-0{font-size:14px}
+                        .color-1{color:blue}
                       }
                     </style>
                   </head>
                   <body>
-                    <div class="color-0 font-size-1">Mobile content
+                    <div class="font-size-0 color-1">Mobile content
                     </div>
                   </body>
                 </html>
@@ -126,13 +126,13 @@ extension `Snapshot Tests` {
                   <head>
                     <style>
                       @media print{
-                        .display-0{display:none}
-                        .color-1{color:black}
+                        .color-0{color:black}
+                        .display-1{display:none}
                       }
                     </style>
                   </head>
                   <body>
-                    <div class="display-0 color-1">Print content
+                    <div class="color-0 display-1">Print content
                     </div>
                   </body>
                 </html>
@@ -178,16 +178,16 @@ extension `Snapshot Tests` {
                 <html>
                   <head>
                     <style>
-                      @media (min-width: 768px){
-                        .font-size-0{font-size:24px}
-                        .margin-2{margin:1rem}
-                      }
                       @media (max-width: 767px){
-                        .font-size-1{font-size:18px}
+                        .font-size-0{font-size:18px}
                         .margin-3{margin:0.5rem}
                       }
+                      @media (min-width: 768px){
+                        .font-size-1{font-size:24px}
+                        .margin-4{margin:1rem}
+                      }
                       @media print{
-                        .display-4{display:none}
+                        .display-2{display:none}
                       }
                     </style>
                   </head>
@@ -195,7 +195,7 @@ extension `Snapshot Tests` {
                     <div>
                       <h1 class="font-size-0 font-size-1">Responsive Title
                       </h1>
-                      <p class="margin-2 margin-3 display-4">This paragraph adapts to different screen sizes
+                      <p class="display-2 margin-3 margin-4">This paragraph adapts to different screen sizes
                       </p>
                     </div>
                   </body>
@@ -221,12 +221,12 @@ extension `Snapshot Tests` {
                 <html>
                   <head>
                     <style>
-                      .color-0{color:red}
-                      .padding-1{padding:1rem}
+                      .padding-0{padding:1rem}
+                      .color-1{color:red}
                     </style>
                   </head>
                   <body>
-                    <div class="color-0 padding-1">Regular content without media queries
+                    <div class="padding-0 color-1">Regular content without media queries
                     </div>
                   </body>
                 </html>

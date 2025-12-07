@@ -102,12 +102,12 @@ extension `Snapshot Tests` {
                 <html>
                   <head>
                     <style>
-                      .color-0{color:red}
-                      .font-size-1{font-size:18px}
+                      .font-size-0{font-size:18px}
+                      .color-1{color:red}
                     </style>
                   </head>
                   <body>
-                    <div class="color-0 font-size-1">Styled content
+                    <div class="font-size-0 color-1">Styled content
                     </div>
                   </body>
                 </html>
@@ -142,18 +142,18 @@ extension `Snapshot Tests` {
                 <html>
                   <head>
                     <style>
-                      .color-0{color:navy}
-                      .font-family-1{font-family:Arial, sans-serif}
-                      .color-2{color:#333}
+                      .font-family-0{font-family:Arial, sans-serif}
+                      .color-1{color:navy}
+                      .background-color-2{background-color:#f5f5f5}
                       .padding-3{padding:10px}
-                      .background-color-4{background-color:#f5f5f5}
+                      .color-4{color:#333}
                     </style>
                   </head>
                   <body>
                     <div class="container">
-                      <h1 class="color-0 font-family-1">Welcome
+                      <h1 class="font-family-0 color-1">Welcome
                       </h1>
-                      <p class="color-2 padding-3 background-color-4">This paragraph has styling.
+                      <p class="background-color-2 padding-3 color-4">This paragraph has styling.
                       </p>
                     </div>
                   </body>
@@ -184,12 +184,12 @@ extension `Snapshot Tests` {
                   <head>
                     <style>
                       .padding-0{padding:20px}
-                      .color-1{color:#007bff}
-                      .text-decoration-2{text-decoration:none}
+                      .text-decoration-1{text-decoration:none}
+                      .color-2{color:#007bff}
                     </style>
                   </head>
                   <body>
-                    <div class="padding-0"><a class="color-1 text-decoration-2" href="https://example.com">Styled link</a>
+                    <div class="padding-0"><a class="text-decoration-1 color-2" href="https://example.com">Styled link</a>
                     </div>
                   </body>
                 </html>
