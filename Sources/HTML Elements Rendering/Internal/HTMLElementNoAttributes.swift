@@ -8,12 +8,12 @@
 import HTML_Standard_Elements
 import HTML_Attributes_Rendering
 
-protocol HTMLElementNoAttributes: WHATWG_HTML.Element {}
+protocol HTMLElementNoAttributes: WHATWG_HTML.Element.`Protocol` {}
 
 extension HTMLElementNoAttributes {
     public func callAsFunction<Content: HTML.View>(
         @HTML.Builder _ content: () -> Content
-    ) -> HTML.Element<Self, Content> {
+    ) -> HTML.Element<Content> {
         HTML.Element(for: Self.self) { content() }
     }
 }

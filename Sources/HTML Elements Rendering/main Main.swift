@@ -11,7 +11,7 @@ import HTML_Attributes_Rendering
 extension HTML_Standard_Elements.Main {
     public func callAsFunction<Content: HTML.View>(
         @HTML.Builder _ content: () -> Content
-    ) -> HTML.Element<Self, Content> {
+    ) -> HTML.Element<Content> {
         HTML.Element(for: Self.self) { content() }
     }
 }

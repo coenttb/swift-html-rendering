@@ -5,81 +5,10 @@
 //  Test support for creating HTML elements from string tag names.
 //
 
-@_spi(Internal) import HTML_Renderable
+import HTML_Renderable
 import Renderable
 import WHATWG_HTML_Shared
 
-// MARK: - Dynamic Element for Testing
-
-extension HTML {
-    /// A dynamic HTML element for testing purposes.
-    ///
-    /// Unlike `HTML.Element<Tag, Content>` which requires a typed `WHATWG_HTML.Element`,
-    /// this type allows creating elements from string tag names. Use this only for testing.
-    public struct DynamicElement<Content: HTML.View>: HTML.View {
-        public let tagName: String
-        @HTML.Builder public let content: Content?
-
-        public init(
-            tag: String,
-            @HTML.Builder content: () -> Content? = { Never?.none }
-        ) {
-            self.tagName = tag
-            self.content = content()
-        }
-
-        public static func _render<Buffer: RangeReplaceableCollection>(
-            _ html: Self,
-            into buffer: inout Buffer,
-            context: inout HTML.Context
-        ) where Buffer.Element == UInt8 {
-            let isPrettyPrinting = !context.configuration.newline.isEmpty
-            let info = ElementRenderingInfo.forTagName(html.tagName, isPrettyPrinting: isPrettyPrinting)
-
-            ElementRendering.renderOpenTag(info: info, context: &context, into: &buffer)
-
-            if let content = html.content {
-                let saved = ElementRendering.prepareContentContext(info: info, context: &context)
-                defer { ElementRendering.restoreContext(saved, context: &context) }
-                Content._render(content, into: &buffer, context: &context)
-            }
-
-            ElementRendering.renderCloseTag(info: info, context: &context, into: &buffer)
-        }
-
-        public var body: Never {
-            fatalError()
-        }
-    }
-}
-
-extension HTML.DynamicElement: Sendable where Content: Sendable {}
-
-// MARK: - AsyncRenderable Conformance
-
-extension HTML.DynamicElement: AsyncRenderable where Content: AsyncRenderable {
-    public static func _renderAsync<Stream: AsyncRenderingStreamProtocol>(
-        _ html: Self,
-        into stream: Stream,
-        context: inout HTML.Context
-    ) async {
-        let isPrettyPrinting = !context.configuration.newline.isEmpty
-        let info = ElementRenderingInfo.forTagName(html.tagName, isPrettyPrinting: isPrettyPrinting)
-
-        let openTag = ElementRendering.buildOpenTag(info: info, context: &context)
-        await stream.write(openTag)
-
-        if let content = html.content {
-            let saved = ElementRendering.prepareContentContext(info: info, context: &context)
-            defer { ElementRendering.restoreContext(saved, context: &context) }
-            await Content._renderAsync(content, into: stream, context: &context)
-        }
-
-        if let closeTag = ElementRendering.buildCloseTag(info: info, context: &context) {
-            await stream.write(closeTag)
-        }
-    }
-}
 
 // MARK: - Tag Function for Testing
 
@@ -91,12 +20,12 @@ extension HTML.DynamicElement: AsyncRenderable where Content: AsyncRenderable {
 /// - Parameters:
 ///   - tagName: The name of the HTML tag.
 ///   - content: A closure that returns the content for this element.
-/// - Returns: A dynamic HTML element with the specified tag and content.
+/// - Returns: An HTML element with the specified tag and content.
 public func tag<T: HTML.View>(
     _ tagName: String,
     @HTML.Builder _ content: () -> T = { Empty() }
-) -> HTML.DynamicElement<T> {
-    HTML.DynamicElement(tag: tagName, content: content)
+) -> HTML.Element<T> {
+    HTML.Element(tag: tagName, content: content)
 }
 
 // MARK: - String-based Inline Style for Testing
@@ -141,7 +70,7 @@ extension HTML.View {
         atRule: HTML.AtRule? = nil,
         selector: HTML.Selector? = nil,
         pseudo: HTML.Pseudo? = nil
-    ) -> HTML.InlineStyle<Self, TestProperty> {
+    ) -> HTML.InlineStyle<Self> {
         self.inlineStyle(TestProperty(property, value), atRule: atRule, selector: selector, pseudo: pseudo)
     }
 }
@@ -150,31 +79,31 @@ extension HTML.View {
 
 extension HTML.Tag {
     /// Creates an empty HTML element with this tag. For testing only.
-    public func callAsFunction() -> HTML.DynamicElement<Empty> {
-        HTML.DynamicElement(tag: self.rawValue) { Empty() }
+    public func callAsFunction() -> HTML.Element<Empty> {
+        HTML.Element(tag: self.rawValue) { Empty() }
     }
 
     /// Creates an HTML element with content. For testing only.
-    public func callAsFunction<T: HTML.View>(@HTML.Builder _ content: () -> T) -> HTML.DynamicElement<T> {
-        HTML.DynamicElement(tag: self.rawValue, content: content)
+    public func callAsFunction<T: HTML.View>(@HTML.Builder _ content: () -> T) -> HTML.Element<T> {
+        HTML.Element(tag: self.rawValue, content: content)
     }
 }
 
 extension HTML.Tag.Void {
     /// Creates an HTML void element with this tag. For testing only.
-    public func callAsFunction() -> HTML.DynamicElement<Empty> {
-        HTML.DynamicElement(tag: self.rawValue) { Empty() }
+    public func callAsFunction() -> HTML.Element<Empty> {
+        HTML.Element(tag: self.rawValue) { Empty() }
     }
 }
 
 extension HTML.Tag.Text {
     /// Creates an HTML element with text content. For testing only.
-    public func callAsFunction(_ content: String = "") -> HTML.DynamicElement<HTML.Text> {
-        HTML.DynamicElement(tag: self.rawValue) { HTML.Text(content) }
+    public func callAsFunction(_ content: String = "") -> HTML.Element<HTML.Text> {
+        HTML.Element(tag: self.rawValue) { HTML.Text(content) }
     }
 
     /// Creates an HTML element with dynamic text content. For testing only.
-    public func callAsFunction(_ content: () -> String) -> HTML.DynamicElement<HTML.Text> {
-        HTML.DynamicElement(tag: self.rawValue) { HTML.Text(content()) }
+    public func callAsFunction(_ content: () -> String) -> HTML.Element<HTML.Text> {
+        HTML.Element(tag: self.rawValue) { HTML.Text(content()) }
     }
 }

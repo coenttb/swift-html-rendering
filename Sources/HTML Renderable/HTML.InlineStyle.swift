@@ -17,16 +17,16 @@ extension HTML {
     /// This approach allows for efficient CSS generation and prevents duplication
     /// of styles across multiple elements.
     ///
-    /// The style is typed via the `Property` protocol, preserving type information
-    /// for PDF rendering while generating CSS strings for browser output.
-    public struct InlineStyle<Content: HTML.View, P: Property>: HTML.View {
+    /// The style is captured as a type-erased `StyleEntry` at construction time,
+    /// enabling both typed CSS property usage and efficient rendering.
+    public struct InlineStyle<Content: HTML.View>: HTML.View {
         /// The HTML content being styled.
         private let content: Content
 
-        /// The typed style to apply.
-        private let style: HTML.Style<P>?
+        /// The type-erased style entry to apply.
+        private let styleEntry: HTML.StyleEntry?
 
-        /// Creates a new styled HTML element.
+        /// Creates a new styled HTML element with a typed CSS property.
         ///
         /// - Parameters:
         ///   - content: The HTML element to style.
@@ -34,7 +34,7 @@ extension HTML {
         ///   - atRule: Optional at-rule (e.g., media query).
         ///   - selector: Optional selector prefix.
         ///   - pseudo: Optional pseudo-class or pseudo-element.
-        init(
+        public init<P: Property>(
             content: Content,
             property: P?,
             atRule: HTML.AtRule?,
@@ -42,14 +42,27 @@ extension HTML {
             pseudo: HTML.Pseudo?
         ) {
             self.content = content
-            self.style = property.map {
-                HTML.Style(
-                    $0,
+            self.styleEntry = property.map {
+                HTML.StyleEntry(
+                    declaration: $0.declaration,
                     atRule: atRule,
                     selector: selector,
                     pseudo: pseudo
                 )
             }
+        }
+
+        /// Creates a new styled HTML element with a pre-built style entry.
+        ///
+        /// - Parameters:
+        ///   - content: The HTML element to style.
+        ///   - styleEntry: The type-erased style entry to apply.
+        public init(
+            content: Content,
+            styleEntry: HTML.StyleEntry?
+        ) {
+            self.content = content
+            self.styleEntry = styleEntry
         }
 
         // Helper function to build CSS selector
@@ -82,7 +95,7 @@ extension HTML {
 
         /// Renders this styled HTML element into the provided buffer.
         public static func _render<Buffer: RangeReplaceableCollection>(
-            _ html: HTML.InlineStyle<Content, P>,
+            _ html: HTML.InlineStyle<Content>,
             into buffer: inout Buffer,
             context: inout HTML.Context
         ) where Buffer.Element == UInt8 {
@@ -165,8 +178,8 @@ extension HTML.InlineStyle: Sendable where Content: Sendable {}
 // Make HTML.InlineStyle conform to the protocol
 extension HTML.InlineStyle: HTMLInlineStyleProtocol {
     public func extractStyleEntries() -> [HTML.StyleEntry] {
-        guard let style = style else { return [] }
-        return [HTML.StyleEntry(style)]
+        guard let styleEntry = styleEntry else { return [] }
+        return [styleEntry]
     }
 
     public func extractContent() -> any HTML.View {
@@ -192,7 +205,7 @@ extension HTML.View {
         atRule: HTML.AtRule? = nil,
         selector: HTML.Selector? = nil,
         pseudo: HTML.Pseudo? = nil
-    ) -> HTML.InlineStyle<Self, P> {
+    ) -> HTML.InlineStyle<Self> {
         HTML.InlineStyle(
             content: self,
             property: property,
@@ -208,7 +221,7 @@ extension HTML.View {
         media: HTML.AtRule.Media? = nil,
         selector: HTML.Selector? = nil,
         pseudo: HTML.Pseudo? = nil
-    ) -> HTML.InlineStyle<Self, P> {
+    ) -> HTML.InlineStyle<Self> {
         HTML.InlineStyle(
             content: self,
             property: property,

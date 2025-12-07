@@ -11,7 +11,8 @@
 @_exported import W3C_CSS_Shared
 
 // Convenience typealiases for migration from pointfree-html
+@available(*, deprecated, message: "Use HTML.InlineStyle<Content> instead - Property generic is no longer needed")
 public typealias HTMLInlineStyle<
     Content: HTML.View,
     Property: W3C_CSS_Shared.Property
-> = HTML.InlineStyle<Content, Property>
+> = HTML.InlineStyle<Content>
