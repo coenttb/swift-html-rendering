@@ -5,7 +5,7 @@
 //  Test support for creating HTML elements from string tag names.
 //
 
-import HTML_Renderable
+@_spi(Internal) import HTML_Renderable
 import Renderable
 import WHATWG_HTML_Shared
 
@@ -33,73 +33,18 @@ extension HTML {
             into buffer: inout Buffer,
             context: inout HTML.Context
         ) where Buffer.Element == UInt8 {
-            let isPreElement = html.tagName == "pre"
-            // Only apply block-level formatting when pretty printing is enabled
-            // Block elements are those NOT in phrasing content (per WHATWG spec)
             let isPrettyPrinting = !context.configuration.newline.isEmpty
-            let categories = WHATWG_HTML.Element.Content.categories(for: html.tagName)
-            let htmlIsBlock = isPrettyPrinting && !categories.contains(.phrasing)
+            let info = ElementRenderingInfo.forTagName(html.tagName, isPrettyPrinting: isPrettyPrinting)
 
-            if htmlIsBlock {
-                buffer.append(contentsOf: context.configuration.newline)
-                buffer.append(contentsOf: context.currentIndentation)
-            }
-
-            buffer.append(.ascii.lessThanSign)
-            buffer.append(contentsOf: html.tagName.utf8)
-
-            for (name, value) in context.attributes {
-                buffer.append(.ascii.space)
-                buffer.append(contentsOf: name.utf8)
-                if !value.isEmpty {
-                    buffer.append(.ascii.equalsSign)
-                    buffer.append(.ascii.dquote)
-                    for byte in value.utf8 {
-                        switch byte {
-                        case .ascii.dquote:
-                            buffer.append(contentsOf: [UInt8].html.doubleQuotationMark)
-                        case .ascii.apostrophe:
-                            buffer.append(contentsOf: [UInt8].html.apostrophe)
-                        case .ascii.ampersand:
-                            buffer.append(contentsOf: [UInt8].html.ampersand)
-                        case .ascii.lessThanSign:
-                            buffer.append(contentsOf: [UInt8].html.lessThan)
-                        case .ascii.greaterThanSign:
-                            buffer.append(contentsOf: [UInt8].html.greaterThan)
-                        default:
-                            buffer.append(byte)
-                        }
-                    }
-                    buffer.append(.ascii.dquote)
-                }
-            }
-            buffer.append(.ascii.greaterThanSign)
+            ElementRendering.renderOpenTag(info: info, context: &context, into: &buffer)
 
             if let content = html.content {
-                let oldAttributes = context.attributes
-                let oldIndentation = context.currentIndentation
-                defer {
-                    context.attributes = oldAttributes
-                    context.currentIndentation = oldIndentation
-                }
-                context.attributes.removeAll()
-                if htmlIsBlock && !isPreElement {
-                    context.currentIndentation += context.configuration.indentation
-                }
+                let saved = ElementRendering.prepareContentContext(info: info, context: &context)
+                defer { ElementRendering.restoreContext(saved, context: &context) }
                 Content._render(content, into: &buffer, context: &context)
             }
 
-            // Add closing tag unless it's a void element (content model is "nothing")
-            if WHATWG_HTML.Element.Content.model(for: html.tagName) != .nothing {
-                if htmlIsBlock && !isPreElement {
-                    buffer.append(contentsOf: context.configuration.newline)
-                    buffer.append(contentsOf: context.currentIndentation)
-                }
-                buffer.append(.ascii.lessThanSign)
-                buffer.append(.ascii.slant)
-                buffer.append(contentsOf: html.tagName.utf8)
-                buffer.append(.ascii.greaterThanSign)
-            }
+            ElementRendering.renderCloseTag(info: info, context: &context, into: &buffer)
         }
 
         public var body: Never {
@@ -118,78 +63,19 @@ extension HTML.DynamicElement: AsyncRenderable where Content: AsyncRenderable {
         into stream: Stream,
         context: inout HTML.Context
     ) async {
-        let isPreElement = html.tagName == "pre"
-        // Only apply block-level formatting when pretty printing is enabled
-        // Block elements are those NOT in phrasing content (per WHATWG spec)
         let isPrettyPrinting = !context.configuration.newline.isEmpty
-        let categories = WHATWG_HTML.Element.Content.categories(for: html.tagName)
-        let htmlIsBlock = isPrettyPrinting && !categories.contains(.phrasing)
+        let info = ElementRenderingInfo.forTagName(html.tagName, isPrettyPrinting: isPrettyPrinting)
 
-        var openTag: [UInt8] = []
-
-        if htmlIsBlock {
-            openTag.append(contentsOf: context.configuration.newline)
-            openTag.append(contentsOf: context.currentIndentation)
-        }
-
-        openTag.append(.ascii.lessThanSign)
-        openTag.append(contentsOf: html.tagName.utf8)
-
-        for (name, value) in context.attributes {
-            openTag.append(.ascii.space)
-            openTag.append(contentsOf: name.utf8)
-            if !value.isEmpty {
-                openTag.append(.ascii.equalsSign)
-                openTag.append(.ascii.dquote)
-                for byte in value.utf8 {
-                    switch byte {
-                    case .ascii.dquote:
-                        openTag.append(contentsOf: [UInt8].html.doubleQuotationMark)
-                    case .ascii.apostrophe:
-                        openTag.append(contentsOf: [UInt8].html.apostrophe)
-                    case .ascii.ampersand:
-                        openTag.append(contentsOf: [UInt8].html.ampersand)
-                    case .ascii.lessThanSign:
-                        openTag.append(contentsOf: [UInt8].html.lessThan)
-                    case .ascii.greaterThanSign:
-                        openTag.append(contentsOf: [UInt8].html.greaterThan)
-                    default:
-                        openTag.append(byte)
-                    }
-                }
-                openTag.append(.ascii.dquote)
-            }
-        }
-        openTag.append(.ascii.greaterThanSign)
-
+        let openTag = ElementRendering.buildOpenTag(info: info, context: &context)
         await stream.write(openTag)
 
         if let content = html.content {
-            let oldAttributes = context.attributes
-            let oldIndentation = context.currentIndentation
-            defer {
-                context.attributes = oldAttributes
-                context.currentIndentation = oldIndentation
-            }
-            context.attributes.removeAll()
-            if htmlIsBlock && !isPreElement {
-                context.currentIndentation += context.configuration.indentation
-            }
+            let saved = ElementRendering.prepareContentContext(info: info, context: &context)
+            defer { ElementRendering.restoreContext(saved, context: &context) }
             await Content._renderAsync(content, into: stream, context: &context)
         }
 
-        // Add closing tag unless it's a void element (content model is "nothing")
-        if WHATWG_HTML.Element.Content.model(for: html.tagName) != .nothing {
-            var closeTag: [UInt8] = []
-            if htmlIsBlock && !isPreElement {
-                closeTag.append(contentsOf: context.configuration.newline)
-                closeTag.append(contentsOf: context.currentIndentation)
-            }
-            closeTag.append(.ascii.lessThanSign)
-            closeTag.append(.ascii.slant)
-            closeTag.append(contentsOf: html.tagName.utf8)
-            closeTag.append(.ascii.greaterThanSign)
-
+        if let closeTag = ElementRendering.buildCloseTag(info: info, context: &context) {
             await stream.write(closeTag)
         }
     }

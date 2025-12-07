@@ -13,8 +13,8 @@ extension HTML.View {
     /// Sets the direction attribute on an element
     @discardableResult
     package func direction(
-        _ value: Direction?
+        _ value: WHATWG_HTML_GlobalAttributes.Direction?
     ) -> HTML._Attributes<Self> {
-        self.attribute(Direction.attribute, value?.description)
+        self.attribute(WHATWG_HTML_GlobalAttributes.Direction.attribute, value?.description)
     }
 }

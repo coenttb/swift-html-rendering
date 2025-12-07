@@ -31,7 +31,7 @@ extension HTML {
 
 extension HTML {
     /// &quot; - Double quotation mark HTML entity
-    package static let doubleQuotationMark: [UInt8] = [
+    public static let doubleQuotationMark: [UInt8] = [
         .ascii.ampersand,
         .ascii.q,
         .ascii.u,
@@ -41,7 +41,7 @@ extension HTML {
     ]
 
     /// &#39; - Apostrophe HTML entity
-    package static let apostrophe: [UInt8] = [
+    public static let apostrophe: [UInt8] = [
         .ascii.ampersand,
         .ascii.numberSign,
         .ascii.3,
@@ -50,7 +50,7 @@ extension HTML {
     ]
 
     /// &amp; - Ampersand HTML entity
-    package static let ampersand: [UInt8] = [
+    public static let ampersand: [UInt8] = [
         .ascii.ampersand,
         .ascii.a,
         .ascii.m,
@@ -59,7 +59,7 @@ extension HTML {
     ]
 
     /// &lt; - Less-than HTML entity
-    package static let lessThan: [UInt8] = [
+    public static let lessThan: [UInt8] = [
         .ascii.ampersand,
         .ascii.l,
         .ascii.t,
@@ -67,7 +67,7 @@ extension HTML {
     ]
 
     /// &gt; - Greater-than HTML entity
-    package static let greaterThan: [UInt8] = [
+    public static let greaterThan: [UInt8] = [
         .ascii.ampersand,
         .ascii.g,
         .ascii.t,
