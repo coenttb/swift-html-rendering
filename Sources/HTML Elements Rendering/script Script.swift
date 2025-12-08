@@ -46,7 +46,6 @@ extension HTML_Standard_Elements.Script {
     }
 }
 
-
 extension HTML_Standard_Elements.Script: HTML.View {
     public var body: some HTML.View {
         Script(
