@@ -8,7 +8,7 @@
 import HTML_Standard_Elements
 import HTML_Attributes_Rendering
 
-extension HTML_Standard_Elements.Time {
+extension WHATWG_HTML_TextSemantics.Time {
     public func callAsFunction(
         @HTML.Builder _ content: () -> some HTML.View
     ) -> some HTML.View {

@@ -39,10 +39,10 @@ extension HTML {
         public let tagName: String
 
         /// Whether this is a block-level element (for pretty-printing).
-        let isBlock: Bool
+        public let isBlock: Bool
 
         /// Whether this is a void element (no closing tag).
-        let isVoid: Bool
+        public let isVoid: Bool
 
         /// Whether this is a pre element (preserves whitespace).
         let isPreElement: Bool

@@ -9,7 +9,7 @@
 public import HTML_Standard
 import HTML_Standard_Elements
 import HTML_Attributes_Rendering
-extension Input: @retroactive Renderable {}
+
 extension HTML_Standard.Input: HTML.View {}
 
 extension HTML_Standard.Input {

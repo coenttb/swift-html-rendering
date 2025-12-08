@@ -8,7 +8,6 @@
 import HTML_Standard_Elements
 import HTML_Attributes_Rendering
 
-extension ThematicBreak: @retroactive Renderable {}
 extension HTML_Standard_Elements.ThematicBreak: HTML.View {
     public var body: HTML.Element<HTML.Empty> {
         HTML.Element(for: Self.self) { HTML.Empty() }

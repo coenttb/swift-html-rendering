@@ -7,7 +7,6 @@
 
 import HTML_Attributes_Rendering
 
-extension Area: @retroactive Renderable {}
 extension HTML_Standard_Elements.Area: HTML.View {
     public var body: some HTML.View {
         HTML.Element(for: Self.self) { HTML.Empty() }

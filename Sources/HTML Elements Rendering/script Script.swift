@@ -46,7 +46,7 @@ extension HTML_Standard_Elements.Script {
     }
 }
 
-extension Script: @retroactive Renderable {}
+
 extension HTML_Standard_Elements.Script: HTML.View {
     public var body: some HTML.View {
         Script(

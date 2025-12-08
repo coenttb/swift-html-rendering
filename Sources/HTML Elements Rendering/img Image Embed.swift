@@ -8,8 +8,6 @@
 import HTML_Standard_Elements
 import HTML_Attributes_Rendering
 
-extension Image: @retroactive Renderable {}
-
 extension HTML_Standard_Elements.Image: HTML.View {
     public var body: some HTML.View {
         HTML.Element(for: Self.self)

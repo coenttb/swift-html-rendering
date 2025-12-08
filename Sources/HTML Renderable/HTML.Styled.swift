@@ -21,61 +21,63 @@ extension HTML {
     /// ```
     ///
     /// Styles are collected in the render context and output as a `<style>` block.
-    public struct Styled<Content> {
+    /// The `P` generic preserves the typed property for PDF rendering.
+    public struct Styled<Content, P: Property> {
         /// The HTML content being styled.
-        let content: Content
-        
-        /// The style to apply (nil if no style).
-        let style: HTML.Style?
-        
-        /// Creates a styled HTML element from a pre-built style.
+        public let content: Content
+
+        /// The typed CSS property (nil if no style).
+        public let property: P?
+
+        /// The style metadata for HTML rendering.
+        public let style: HTML.Style?
+
+        /// Optional at-rule (e.g., media query).
+        public let atRule: HTML.AtRule?
+
+        /// Optional CSS selector prefix.
+        public let selector: HTML.Selector?
+
+        /// Optional pseudo-class or pseudo-element.
+        public let pseudo: HTML.Pseudo?
+
+        /// Creates a styled HTML element from a typed CSS property.
         ///
         /// - Parameters:
         ///   - content: The HTML content to style.
-        ///   - style: The style to apply.
+        ///   - property: The typed CSS property value.
+        ///   - atRule: Optional at-rule (e.g., media query).
+        ///   - selector: Optional selector prefix.
+        ///   - pseudo: Optional pseudo-class or pseudo-element.
         public init(
             _ content: Content,
-            style: HTML.Style?
+            _ property: P?,
+            atRule: HTML.AtRule? = nil,
+            selector: HTML.Selector? = nil,
+            pseudo: HTML.Pseudo? = nil
         ) {
             self.content = content
-            self.style = style
+            self.property = property
+            self.style = property.map {
+                HTML.Style($0, atRule: atRule, selector: selector, pseudo: pseudo)
+            }
+            self.atRule = atRule
+            self.selector = selector
+            self.pseudo = pseudo
         }
     }
 }
 
-extension HTML.Styled {
-    /// Creates a styled HTML element from a typed CSS property.
-    ///
-    /// - Parameters:
-    ///   - content: The HTML content to style.
-    ///   - property: The typed CSS property value.
-    ///   - atRule: Optional at-rule (e.g., media query).
-    ///   - selector: Optional selector prefix.
-    ///   - pseudo: Optional pseudo-class or pseudo-element.
-    public init<P: Property>(
-        _ content: Content,
-        _ property: P?,
-        atRule: HTML.AtRule? = nil,
-        selector: HTML.Selector? = nil,
-        pseudo: HTML.Pseudo? = nil
-    ) {
-        self.content = content
-        self.style = property.map {
-            HTML.Style($0, atRule: atRule, selector: selector, pseudo: pseudo)
-        }
-    }
-}
-
-extension HTML.Styled: Renderable where Content: HTML.View {    
+extension HTML.Styled: Renderable where Content: HTML.View {
     public typealias Context = HTML.Context
-    
+
     public typealias Output = UInt8
 }
 
 extension HTML.Styled: HTML.View where Content: HTML.View {
     /// Renders this styled HTML element into the provided buffer.
     public static func _render<Buffer: RangeReplaceableCollection>(
-        _ html: HTML.Styled<Content>,
+        _ html: HTML.Styled<Content, P>,
         into buffer: inout Buffer,
         context: inout HTML.Context
     ) where Buffer.Element == UInt8 {
@@ -92,13 +94,13 @@ extension HTML.Styled: HTML.View where Content: HTML.View {
         // Render content with static dispatch
         Content._render(html.content, into: &buffer, context: &context)
     }
-    
+
     /// This type uses direct rendering and doesn't have a body.
     public var body: Never { fatalError() }
 }
 
 
-extension HTML.Styled: Sendable where Content: Sendable {}
+extension HTML.Styled: Sendable where Content: Sendable, P: Sendable {}
 
 // MARK: - HTML.View Extension
 
@@ -125,7 +127,7 @@ extension HTML.View {
         atRule: HTML.AtRule? = nil,
         selector: HTML.Selector? = nil,
         pseudo: HTML.Pseudo? = nil
-    ) -> HTML.Styled<Self> {
+    ) -> HTML.Styled<Self, P> {
         HTML.Styled(self, property, atRule: atRule, selector: selector, pseudo: pseudo)
     }
 
@@ -138,7 +140,7 @@ extension HTML.View {
         media: HTML.AtRule.Media?,
         selector: HTML.Selector? = nil,
         pseudo: HTML.Pseudo? = nil
-    ) -> HTML.Styled<Self> {
+    ) -> HTML.Styled<Self, P> {
         HTML.Styled(self, property, atRule: media, selector: selector, pseudo: pseudo)
     }
 }
