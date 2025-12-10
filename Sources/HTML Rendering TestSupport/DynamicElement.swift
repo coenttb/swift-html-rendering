@@ -6,7 +6,7 @@
 //
 
 import HTML_Renderable
-import Renderable
+import Rendering
 import WHATWG_HTML_Shared
 
 
@@ -64,6 +64,9 @@ public struct TestProperty: Property, GlobalConvertible {
 
 extension HTML.View {
     /// Applies a string-based inline style. For testing only.
+    ///
+    /// This version supports explicit atRule/selector/pseudo parameters for testing.
+    /// In production code, use the context-based API via CSS modifiers.
     public func inlineStyle(
         _ property: String,
         _ value: String,
@@ -71,7 +74,7 @@ extension HTML.View {
         selector: HTML.Selector? = nil,
         pseudo: HTML.Pseudo? = nil
     ) -> HTML.Styled<Self, TestProperty> {
-        self.inlineStyle(TestProperty(property, value), atRule: atRule, selector: selector, pseudo: pseudo)
+        HTML.Styled(self, TestProperty(property, value), atRule: atRule, selector: selector, pseudo: pseudo)
     }
 }
 

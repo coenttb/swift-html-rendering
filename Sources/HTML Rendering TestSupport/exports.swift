@@ -6,4 +6,4 @@
 //
 
 @_exported import HTML_Renderable
-@_exported import Renderable_TestSupport
+@_exported import Rendering_TestSupport

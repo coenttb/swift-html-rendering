@@ -6,7 +6,7 @@
 //
 
 public import HTML_Renderable
-import Renderable_TestSupport
+import Rendering_TestSupport
 
 extension Snapshotting where Value: HTML.DocumentProtocol, Format == String {
     public static var html: Self {

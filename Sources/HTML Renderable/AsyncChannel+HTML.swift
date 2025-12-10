@@ -5,7 +5,8 @@
 //  Created by Coen ten Thije Boonkkamp on 26/11/2025.
 //
 
-import Renderable
+import Rendering
+public import RenderingAsync
 
 extension AsyncChannel<ArraySlice<UInt8>> {
     /// Stream HTML with true progressive rendering and backpressure.
@@ -13,6 +14,10 @@ extension AsyncChannel<ArraySlice<UInt8>> {
     /// This is the canonical way to stream HTML when you need bounded memory.
     /// The producer suspends when the consumer is slow, ensuring memory
     /// usage is bounded to O(chunkSize) throughout the entire process.
+    ///
+    /// This is an HTML-specific convenience that wraps the generic
+    /// `AsyncChannel(rendering:chunkSize:)` from `RenderingAsync`,
+    /// adding `@HTML.Builder` syntax and `HTML.Context` configuration.
     ///
     /// ## When to Use
     ///
@@ -45,6 +50,10 @@ extension AsyncChannel<ArraySlice<UInt8>> {
     ///   - chunkSize: Size of each yielded chunk in bytes. Default is 4096.
     ///   - configuration: Rendering configuration. Uses default if nil.
     ///   - view: The HTML content to stream.
+    ///
+    /// - SeeAlso: `AsyncChannel(rendering:chunkSize:)` in `RenderingAsync` for
+    ///   the generic implementation and detailed explanation of the concurrent
+    ///   producer/consumer pattern.
     public convenience init<View: HTML.View & AsyncRenderable & Sendable>(
         chunkSize: Int = 4096,
         configuration: HTML.Context.Configuration? = nil,
@@ -55,30 +64,23 @@ extension AsyncChannel<ArraySlice<UInt8>> {
         let config = configuration ?? .current
         let channel = self
 
-        // IMPORTANT: Task.detached is required here for concurrent producer/consumer.
-        //
-        // Why not `async init`?
-        // - AsyncChannel.send() suspends until a consumer reads (backpressure)
-        // - If we made this init async and awaited rendering inline, send() would
-        //   suspend waiting for a consumer that can't start until init completes
-        // - Result: DEADLOCK
-        //
-        // With Task.detached:
-        // - init returns immediately with the channel
-        // - Producer runs concurrently in background
-        // - Consumer can start iterating while producer is still rendering
-        // - Backpressure works: send() suspends producer when consumer is slow
+        // Task.detached is required here for concurrent producer/consumer.
+        // See AsyncChannel(rendering:chunkSize:) in RenderingAsync for detailed explanation.
         Task.detached {
-            let stream = AsyncRenderingStream(channel: channel, chunkSize: chunkSize)
+            let sink = Rendering.Async.Sink.Buffered(channel: channel, chunkSize: chunkSize)
             var context = HTML.Context(config)
-            await View._renderAsync(view, into: stream, context: &context)
-            await stream.finish()
+            await View._renderAsync(view, into: sink, context: &context)
+            await sink.finish()
         }
     }
 }
 
 extension AsyncChannel<ArraySlice<UInt8>> {
     /// Stream an HTML document with true progressive rendering and backpressure.
+    ///
+    /// This is an HTML-specific convenience that wraps the generic
+    /// `AsyncChannel(rendering:chunkSize:)` from `RenderingAsync`,
+    /// adding `@HTML.Builder` syntax and `HTML.Context` configuration.
     ///
     /// ## Canonical Usage
     ///
@@ -93,6 +95,10 @@ extension AsyncChannel<ArraySlice<UInt8>> {
     ///   - chunkSize: Size of each yielded chunk in bytes. Default is 4096.
     ///   - configuration: Rendering configuration. Uses default if nil.
     ///   - document: The HTML document to stream.
+    ///
+    /// - SeeAlso: `AsyncChannel(rendering:chunkSize:)` in `RenderingAsync` for
+    ///   the generic implementation and detailed explanation of the concurrent
+    ///   producer/consumer pattern.
     public convenience init<Document: HTML.DocumentProtocol & AsyncRenderable & Sendable>(
         chunkSize: Int = 4096,
         configuration: HTML.Context.Configuration? = nil,
@@ -103,13 +109,13 @@ extension AsyncChannel<ArraySlice<UInt8>> {
         let config = configuration ?? .current
         let channel = self
 
-        // IMPORTANT: Task.detached is required here for concurrent producer/consumer.
-        // See the HTML.View init above for detailed explanation.
+        // Task.detached is required here for concurrent producer/consumer.
+        // See AsyncChannel(rendering:chunkSize:) in RenderingAsync for detailed explanation.
         Task.detached {
-            let stream = AsyncRenderingStream(channel: channel, chunkSize: chunkSize)
+            let sink = Rendering.Async.Sink.Buffered(channel: channel, chunkSize: chunkSize)
             var context = HTML.Context(config)
-            await Document._renderAsync(document, into: stream, context: &context)
-            await stream.finish()
+            await Document._renderAsync(document, into: sink, context: &context)
+            await sink.finish()
         }
     }
 }
