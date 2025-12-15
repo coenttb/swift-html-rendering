@@ -73,7 +73,7 @@ let package = Package(
         .library(name: .htmlRenderableTestSupport, targets: [.htmlRenderableTestSupport]),
     ],
     dependencies: [
-        .package(url: "https://github.com/coenttb/swift-renderable", from: "0.1.0"),
+        .package(url: "https://github.com/coenttb/swift-renderable", from: "3.0.0"),
         .package(url: "https://github.com/apple/swift-async-algorithms.git", from: "1.0.0"),
         .package(url: "https://github.com/apple/swift-collections.git", from: "1.1.2"),
         .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.18.3"),
