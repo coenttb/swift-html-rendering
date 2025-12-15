@@ -5,10 +5,11 @@
 //  Performance tests for buffer capacity pre-allocation optimization.
 //
 
+import HTML_Rendering_TestSupport
 import Testing
 import TestingPerformance
+
 @testable import HTML_Renderable
-import HTML_Rendering_TestSupport
 
 extension `Performance Tests` {
 

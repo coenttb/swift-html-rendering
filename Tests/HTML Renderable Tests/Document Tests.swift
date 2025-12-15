@@ -5,9 +5,10 @@
 //  Created by Coen ten Thije Boonkkamp on 25/11/2025.
 //
 
-@testable import HTML_Renderable
 import HTML_Rendering_TestSupport
 import Testing
+
+@testable import HTML_Renderable
 
 @Suite
 struct `Document Tests` {
@@ -243,7 +244,13 @@ struct `Document Tests` {
             tag("div") {
                 HTML.Text("Responsive")
             }
-            .inlineStyle("width", "100%", atRule: .init(rawValue: "@media (min-width: 768px)"), selector: nil, pseudo: nil)
+            .inlineStyle(
+                "width",
+                "100%",
+                atRule: .init(rawValue: "@media (min-width: 768px)"),
+                selector: nil,
+                pseudo: nil
+            )
         }
 
         let rendered = try String(document)

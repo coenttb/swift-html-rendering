@@ -15,7 +15,7 @@ extension _Tuple: @retroactive Renderable where repeat each Content: HTML.View {
     public typealias Context = HTML.Context
     public typealias Content = Never
     public typealias Output = UInt8
-    public var body: Never { fatalError() }
+    public var body: Never { fatalError("body should not be called") }
 
     public static func _render<Buffer: RangeReplaceableCollection>(
         _ html: Self,
@@ -33,7 +33,8 @@ extension _Tuple: @retroactive Renderable where repeat each Content: HTML.View {
 
 extension _Tuple: HTML.View where repeat each Content: HTML.View {}
 
-extension _Tuple: @retroactive AsyncRenderable where repeat each Content: AsyncRenderable, repeat each Content: HTML.View {
+extension _Tuple: @retroactive AsyncRenderable
+where repeat each Content: AsyncRenderable, repeat each Content: HTML.View {
     public static func _renderAsync<Stream: Rendering.Async.Sink.`Protocol`>(
         _ html: Self,
         into stream: Stream,

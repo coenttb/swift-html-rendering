@@ -7,9 +7,10 @@
 //  Cross-cutting tests for Unicode handling, internationalization, and encoding.
 //
 
-@testable import HTML_Renderable
 import HTML_Rendering_TestSupport
 import Testing
+
+@testable import HTML_Renderable
 
 @Suite
 struct `Unicode Tests` {

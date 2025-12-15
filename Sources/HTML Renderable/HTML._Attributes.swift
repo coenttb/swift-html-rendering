@@ -67,7 +67,7 @@ extension HTML {
         }
 
         /// This type uses direct rendering and doesn't have a body.
-        public var body: Never { fatalError() }
+        public var body: Never { fatalError("body should not be called") }
     }
 }
 

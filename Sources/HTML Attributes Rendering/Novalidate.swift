@@ -5,8 +5,8 @@
 /// Created by Coen ten Thije Boonkkamp on 03/04/2025.
 ///
 
-import HTML_Standard_Attributes
 import HTML_Renderable
+import HTML_Standard_Attributes
 
 extension HTML.View {
     /// Add the novalidate attribute to disable browser validation for a form

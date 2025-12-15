@@ -5,10 +5,11 @@
 //  Created by Coen ten Thije Boonkkamp on 26/11/2025.
 //
 
-@testable import HTML_Renderable
 import HTML_Rendering_TestSupport
 import Rendering
 import Testing
+
+@testable import HTML_Renderable
 
 @Suite
 struct `AsyncChannel Tests` {
@@ -282,12 +283,15 @@ extension `AsyncChannel Tests` {
             // The key assertion: with correct implementation, we should receive
             // chunks while the producer is still running (concurrent execution)
             #expect(result.started, "Producer should have started")
-            #expect(result.concurrent, """
+            #expect(
+                result.concurrent,
+                """
                 First chunk should arrive while producer is still running.
                 This indicates concurrent producer/consumer execution.
                 If this fails, the AsyncChannel init is blocking until rendering completes,
                 which defeats the purpose of streaming with backpressure.
-                """)
+                """
+            )
         }
     }
 }
@@ -366,7 +370,10 @@ extension `AsyncChannel Tests` {
                 }
 
                 // Verify each chunk respects the size limit
-                #expect(chunk.count <= chunkSize, "Chunk \(chunkCount) exceeded size limit: \(chunk.count) > \(chunkSize)")
+                #expect(
+                    chunk.count <= chunkSize,
+                    "Chunk \(chunkCount) exceeded size limit: \(chunk.count) > \(chunkSize)"
+                )
             }
 
             #expect(totalBytes > 1_000_000, "Should have rendered all content")
@@ -455,7 +462,9 @@ extension `Performance Tests` {
             }
 
             let elapsed = ContinuousClock.now - startTime
-            print("Completed: \(itemCount) items, \(totalBytes) bytes, \(chunkCount) chunks in \(elapsed)")
+            print(
+                "Completed: \(itemCount) items, \(totalBytes) bytes, \(chunkCount) chunks in \(elapsed)"
+            )
             #expect(totalBytes > 0)
         }
     }

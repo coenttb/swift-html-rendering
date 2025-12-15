@@ -5,9 +5,10 @@
 //  Created by Coen ten Thije Boonkkamp on 25/11/2025.
 //
 
-@testable import HTML_Renderable
 import HTML_Rendering_TestSupport
 import Testing
+
+@testable import HTML_Renderable
 
 @Suite
 struct `Never Tests` {
@@ -32,7 +33,7 @@ struct `Never Tests` {
         // Types that use custom rendering declare `body: Never`
         // This tests that such types work correctly
         struct CustomHTML: HTML.View {
-            var body: Never { fatalError() }
+            var body: Never { fatalError("body should not be called") }
 
             static func _render<Buffer: RangeReplaceableCollection>(
                 _ html: Self,

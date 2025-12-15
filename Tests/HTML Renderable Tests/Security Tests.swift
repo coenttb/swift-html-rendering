@@ -7,9 +7,10 @@
 //  Cross-cutting security tests for XSS prevention and safe HTML generation.
 //
 
-@testable import HTML_Renderable
 import HTML_Rendering_TestSupport
 import Testing
+
+@testable import HTML_Renderable
 
 @Suite
 struct `Security Tests` {

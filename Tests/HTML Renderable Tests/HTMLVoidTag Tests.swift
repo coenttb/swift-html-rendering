@@ -5,52 +5,53 @@
 //  Created by Coen ten Thije Boonkkamp on 25/11/2025.
 //
 
-@testable import HTML_Renderable
 import HTML_Rendering_TestSupport
 import Testing
+
+@testable import HTML_Renderable
 
 @Suite
 struct `HTMLVoidTag Tests` {
 
-//    // MARK: - Initialization
-//
-//    @Test
-//    func `HTMLVoidTag string initialization`() throws {
-//        let voidTag = tag("br")
-//        #expect(voidTag.rawValue == "br")
-//    }
-//
-//    @Test
-//    func `HTMLVoidTag string literal initialization`() throws {
-//        let voidTag: tag = "hr"
-//        #expect(voidTag.rawValue == "hr")
-//    }
-//
-//    // MARK: - All Tags
-//
-//    @Test
-//    func `tag.allTags contains expected tags`() {
-//        let allTags = tag.allTags
-//        #expect(allTags.contains("area"))
-//        #expect(allTags.contains("base"))
-//        #expect(allTags.contains("br"))
-//        #expect(allTags.contains("col"))
-//        #expect(allTags.contains("embed"))
-//        #expect(allTags.contains("hr"))
-//        #expect(allTags.contains("img"))
-//        #expect(allTags.contains("input"))
-//        #expect(allTags.contains("link"))
-//        #expect(allTags.contains("meta"))
-//        #expect(allTags.contains("param"))
-//        #expect(allTags.contains("source"))
-//        #expect(allTags.contains("track"))
-//        #expect(allTags.contains("wbr"))
-//    }
-//
-//    @Test
-//    func `tag.allTags has correct count`() {
-//        #expect(tag.allTags.count == 16)
-//    }
+    //    // MARK: - Initialization
+    //
+    //    @Test
+    //    func `HTMLVoidTag string initialization`() throws {
+    //        let voidTag = tag("br")
+    //        #expect(voidTag.rawValue == "br")
+    //    }
+    //
+    //    @Test
+    //    func `HTMLVoidTag string literal initialization`() throws {
+    //        let voidTag: tag = "hr"
+    //        #expect(voidTag.rawValue == "hr")
+    //    }
+    //
+    //    // MARK: - All Tags
+    //
+    //    @Test
+    //    func `tag.allTags contains expected tags`() {
+    //        let allTags = tag.allTags
+    //        #expect(allTags.contains("area"))
+    //        #expect(allTags.contains("base"))
+    //        #expect(allTags.contains("br"))
+    //        #expect(allTags.contains("col"))
+    //        #expect(allTags.contains("embed"))
+    //        #expect(allTags.contains("hr"))
+    //        #expect(allTags.contains("img"))
+    //        #expect(allTags.contains("input"))
+    //        #expect(allTags.contains("link"))
+    //        #expect(allTags.contains("meta"))
+    //        #expect(allTags.contains("param"))
+    //        #expect(allTags.contains("source"))
+    //        #expect(allTags.contains("track"))
+    //        #expect(allTags.contains("wbr"))
+    //    }
+    //
+    //    @Test
+    //    func `tag.allTags has correct count`() {
+    //        #expect(tag.allTags.count == 16)
+    //    }
 
     // MARK: - Call As Function
 
@@ -82,7 +83,8 @@ struct `HTMLVoidTag Tests` {
     @Test
     func `HTMLVoidTag img element`() throws {
         let img = tag("img")
-        let element = img
+        let element =
+            img
             .attribute("src", "/image.jpg")
             .attribute("alt", "Description")
 
@@ -96,7 +98,8 @@ struct `HTMLVoidTag Tests` {
     @Test
     func `HTMLVoidTag input element`() throws {
         let input = tag("input")
-        let element = input
+        let element =
+            input
             .attribute("type", "text")
             .attribute("name", "username")
             .attribute("placeholder", "Enter username")
@@ -110,7 +113,8 @@ struct `HTMLVoidTag Tests` {
     @Test
     func `HTMLVoidTag meta element`() throws {
         let meta = tag("meta")
-        let element = meta
+        let element =
+            meta
             .attribute("charset", "utf-8")
 
         let rendered = try String(HTML.Document { element })
@@ -121,7 +125,8 @@ struct `HTMLVoidTag Tests` {
     @Test
     func `HTMLVoidTag link element`() throws {
         let link = tag("link")
-        let element = link
+        let element =
+            link
             .attribute("rel", "stylesheet")
             .attribute("href", "/styles.css")
 
@@ -136,7 +141,8 @@ struct `HTMLVoidTag Tests` {
     @Test
     func `HTMLVoidTag with multiple attributes`() throws {
         let input = tag("input")
-        let element = input
+        let element =
+            input
             .attribute("type", "email")
             .attribute("name", "email")
             .attribute("id", "email-field")

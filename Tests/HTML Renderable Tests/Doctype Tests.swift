@@ -5,9 +5,10 @@
 //  Created by Coen ten Thije Boonkkamp on 20/07/2025.
 //
 
-@testable import HTML_Renderable
 import HTML_Rendering_TestSupport
 import Testing
+
+@testable import HTML_Renderable
 
 @Suite
 struct `Doctype Tests` {
@@ -87,7 +88,9 @@ extension `Snapshot Tests` {
                             HTML.Text("HTML5 Document")
                         }
                         tag("p") {
-                            HTML.Text("This document starts with a proper HTML5 doctype declaration.")
+                            HTML.Text(
+                                "This document starts with a proper HTML5 doctype declaration."
+                            )
                         }
                     }
                 } head: {

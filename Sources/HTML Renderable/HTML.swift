@@ -31,7 +31,7 @@ extension HTML {
         .ascii.u,
         .ascii.o,
         .ascii.t,
-        .ascii.semicolon
+        .ascii.semicolon,
     ]
 
     /// &#39; - Apostrophe HTML entity
@@ -40,7 +40,7 @@ extension HTML {
         .ascii.numberSign,
         .ascii.3,
         .ascii.9,
-        .ascii.semicolon
+        .ascii.semicolon,
     ]
 
     /// &amp; - Ampersand HTML entity
@@ -49,7 +49,7 @@ extension HTML {
         .ascii.a,
         .ascii.m,
         .ascii.p,
-        .ascii.semicolon
+        .ascii.semicolon,
     ]
 
     /// &lt; - Less-than HTML entity
@@ -57,7 +57,7 @@ extension HTML {
         .ascii.ampersand,
         .ascii.l,
         .ascii.t,
-        .ascii.semicolon
+        .ascii.semicolon,
     ]
 
     /// &gt; - Greater-than HTML entity
@@ -65,6 +65,6 @@ extension HTML {
         .ascii.ampersand,
         .ascii.g,
         .ascii.t,
-        .ascii.semicolon
+        .ascii.semicolon,
     ]
 }

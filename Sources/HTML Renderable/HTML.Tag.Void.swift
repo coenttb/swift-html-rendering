@@ -5,9 +5,9 @@
 ////  Created by Coen ten Thije Boonkkamp on 25/11/2025.
 ////
 //
-//public import Rendering
+// public import Rendering
 //
-//extension HTML.Tag {
+// extension HTML.Tag {
 //    /// Represents an HTML void element that cannot contain content.
 //    ///
 //    /// `HTML.Tag.Void` is a specialization of HTML tags for elements that are
@@ -59,4 +59,4 @@
 //            self.init(value)
 //        }
 //    }
-//}
+// }

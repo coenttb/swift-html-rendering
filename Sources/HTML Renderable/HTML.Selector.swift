@@ -81,27 +81,27 @@ extension HTML {
     /// ```
     public struct Selector: RawRepresentable, Hashable, Sendable, ExpressibleByStringLiteral,
         ExpressibleByStringInterpolation {
-    /// The raw CSS selector string.
-    public var rawValue: String
+        /// The raw CSS selector string.
+        public var rawValue: String
 
-    /// Creates a selector with the specified CSS selector string.
-    ///
-    /// - Parameter rawValue: The CSS selector string (e.g., "div", ".class", "#id").
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
+        /// Creates a selector with the specified CSS selector string.
+        ///
+        /// - Parameter rawValue: The CSS selector string (e.g., "div", ".class", "#id").
+        public init(rawValue: String) {
+            self.rawValue = rawValue
+        }
 
-    /// Creates a selector from a string literal.
-    ///
-    /// This allows you to write:
-    /// ```swift
-    /// let div: Selector = "div"
-    /// ```
-    ///
-    /// - Parameter value: The CSS selector string.
-    public init(stringLiteral value: String) {
-        self.init(rawValue: value)
-    }
+        /// Creates a selector from a string literal.
+        ///
+        /// This allows you to write:
+        /// ```swift
+        /// let div: Selector = "div"
+        /// ```
+        ///
+        /// - Parameter value: The CSS selector string.
+        public init(stringLiteral value: String) {
+            self.init(rawValue: value)
+        }
     }
 }
 

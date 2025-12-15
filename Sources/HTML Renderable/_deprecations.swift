@@ -26,7 +26,12 @@ extension HTML.DocumentProtocol {
     ///   // Or for String output
     ///   let string = try String(document)
     ///   ```
-    @available(*, deprecated, message: "Use ContiguousArray(html) or String(html) instead. The RFC pattern makes bytes canonical and String derived.")
+    @available(
+        *,
+        deprecated,
+        message:
+            "Use ContiguousArray(html) or String(html) instead. The RFC pattern makes bytes canonical and String derived."
+    )
     public func render() -> ContiguousArray<UInt8> {
         var buffer: ContiguousArray<UInt8> = []
         var context = HTML.Context(HTML.Context.Configuration.current)

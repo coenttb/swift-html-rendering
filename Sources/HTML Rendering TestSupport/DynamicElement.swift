@@ -7,8 +7,8 @@
 
 import HTML_Renderable
 import Rendering
+import W3C_CSS_Shared
 import WHATWG_HTML_Shared
-
 
 // MARK: - Tag Function for Testing
 
@@ -29,8 +29,6 @@ public func tag<T: HTML.View>(
 }
 
 // MARK: - String-based Inline Style for Testing
-
-import W3C_CSS_Shared
 
 /// A simple string-based CSS property for testing.
 ///
@@ -74,7 +72,13 @@ extension HTML.View {
         selector: HTML.Selector? = nil,
         pseudo: HTML.Pseudo? = nil
     ) -> HTML.Styled<Self, TestProperty> {
-        HTML.Styled(self, TestProperty(property, value), atRule: atRule, selector: selector, pseudo: pseudo)
+        HTML.Styled(
+            self,
+            TestProperty(property, value),
+            atRule: atRule,
+            selector: selector,
+            pseudo: pseudo
+        )
     }
 }
 
@@ -107,14 +111,14 @@ extension HTML.Element where Content == Empty {
     }
 }
 
-//extension HTML.Tag.Void {
+// extension HTML.Tag.Void {
 //    /// Creates an HTML void element with this tag. For testing only.
 //    public func callAsFunction() -> HTML.Element<Empty> {
 //        HTML.Element(tag: self.rawValue) { Empty() }
 //    }
-//}
+// }
 //
-//extension HTML.Tag.Text {
+// extension HTML.Tag.Text {
 //    /// Creates an HTML element with text content. For testing only.
 //    public func callAsFunction(_ content: String = "") -> HTML.Element<HTML.Text> {
 //        HTML.Element(tag: self.rawValue) { HTML.Text(content) }
@@ -124,4 +128,4 @@ extension HTML.Element where Content == Empty {
 //    public func callAsFunction(_ content: () -> String) -> HTML.Element<HTML.Text> {
 //        HTML.Element(tag: self.rawValue) { HTML.Text(content()) }
 //    }
-//}
+// }

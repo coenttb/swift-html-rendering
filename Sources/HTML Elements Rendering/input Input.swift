@@ -6,9 +6,9 @@
 //
 //
 
+import HTML_Attributes_Rendering
 public import HTML_Standard
 import HTML_Standard_Elements
-import HTML_Attributes_Rendering
 
 extension HTML_Standard.Input: HTML.View {}
 

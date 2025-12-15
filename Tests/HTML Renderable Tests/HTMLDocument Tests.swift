@@ -5,9 +5,10 @@
 //  Created by Coen ten Thije Boonkkamp on 25/11/2025.
 //
 
-@testable import HTML_Renderable
 import HTML_Rendering_TestSupport
 import Testing
+
+@testable import HTML_Renderable
 
 @Suite
 struct `HTML.Document Tests` {
@@ -52,13 +53,16 @@ struct `HTML.Document Tests` {
 
     @Test
     func `HTML.Document with disfavored initializer - head first`() throws {
-        let document = HTML.Document(head: {
-            tag("title") {
-                HTML.Text("Title First")
+        let document = HTML.Document(
+            head: {
+                tag("title") {
+                    HTML.Text("Title First")
+                }
+            },
+            body: {
+                HTML.Text("Body content")
             }
-        }, body: {
-            HTML.Text("Body content")
-        })
+        )
 
         let rendered = try String(document)
         #expect(rendered.contains("Title First"))

@@ -5,9 +5,10 @@
 //  Created by Coen ten Thije Boonkkamp on 25/11/2025.
 //
 
-@testable import HTML_Renderable
 import HTML_Rendering_TestSupport
 import Testing
+
+@testable import HTML_Renderable
 
 @Suite
 struct `HTML.Text Tests` {

@@ -8,12 +8,13 @@
 //
 
 import Foundation
-import INCITS_4_1986
-@testable import HTML_Renderable
-import OrderedCollections
-import Testing
-import Rendering
 import HTML_Rendering_TestSupport
+import INCITS_4_1986
+import OrderedCollections
+import Rendering
+import Testing
+
+@testable import HTML_Renderable
 
 @Suite
 struct `Rendering Tests` {
@@ -79,21 +80,21 @@ struct `Rendering Tests` {
         }
     }
 
-//    @Test
-//    func `Manual rendering with buffer and context`() throws {
-//        var buffer: ContiguousArray<UInt8> = []
-//        var context = HTML.Context(.default)
-//        let element = tag("span") {
-//            HTML.Text("manual render")
-//        }
-//
-//        HTML.Element._render(element, into: &buffer, context: &context)
-//        let rendered = String(data: Data(buffer), encoding: .utf8) ?? ""
-//
-//        #expect(rendered.contains("<span>"))
-//        #expect(rendered.contains("manual render"))
-//        #expect(rendered.contains("</span>"))
-//    }
+    //    @Test
+    //    func `Manual rendering with buffer and context`() throws {
+    //        var buffer: ContiguousArray<UInt8> = []
+    //        var context = HTML.Context(.default)
+    //        let element = tag("span") {
+    //            HTML.Text("manual render")
+    //        }
+    //
+    //        HTML.Element._render(element, into: &buffer, context: &context)
+    //        let rendered = String(data: Data(buffer), encoding: .utf8) ?? ""
+    //
+    //        #expect(rendered.contains("<span>"))
+    //        #expect(rendered.contains("manual render"))
+    //        #expect(rendered.contains("</span>"))
+    //    }
 
     @Test
     func `Stylesheet generation via context`() throws {

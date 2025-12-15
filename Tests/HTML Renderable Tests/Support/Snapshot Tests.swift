@@ -5,8 +5,8 @@
 //  Created by Coen ten Thije Boonkkamp on 25/11/2025.
 //
 
-import Testing
 import InlineSnapshotTesting
+import Testing
 
 @MainActor
 @Suite(

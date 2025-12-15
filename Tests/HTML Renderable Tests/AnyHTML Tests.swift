@@ -5,9 +5,10 @@
 //  Created by Coen ten Thije Boonkkamp on 25/11/2025.
 //
 
-@testable import HTML_Renderable
 import HTML_Rendering_TestSupport
 import Testing
+
+@testable import HTML_Renderable
 
 @Suite
 struct `AnyHTML Tests` {
@@ -64,7 +65,7 @@ struct `AnyHTML Tests` {
         let elements: [AnyHTML] = [
             .init(text),
             .init(div),
-            .init(span)
+            .init(span),
         ]
 
         let html = Group {
@@ -177,7 +178,7 @@ extension `Snapshot Tests` {
             let elements: [AnyHTML] = [
                 .init(h1),
                 .init(p1),
-                .init(p2)
+                .init(p2),
             ]
 
             assertInlineSnapshot(

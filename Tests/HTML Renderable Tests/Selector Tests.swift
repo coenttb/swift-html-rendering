@@ -5,9 +5,10 @@
 //  Created by Coen ten Thije Boonkkamp on 20/07/2025.
 //
 
-@testable import HTML_Renderable
 import HTML_Rendering_TestSupport
 import Testing
+
+@testable import HTML_Renderable
 
 @Suite
 struct `Selector Tests` {
@@ -148,7 +149,7 @@ struct `Selector Tests` {
 
     // MARK: - Combinator Method Tests
 
-        @Suite
+    @Suite
     struct `Combinator Tests` {
         @Test
         func `Descendant combinator method`() {
@@ -434,7 +435,9 @@ struct `Selector Tests` {
     @Test
     func `Complex attribute and pseudo combinations`() {
         // input[type="text"]:not(:disabled):focus
-        let focusedEnabledInput = HTML.Selector.inputText.withPseudo(.not(.disabled)).withPseudo(.focus)
+        let focusedEnabledInput = HTML.Selector.inputText.withPseudo(.not(.disabled)).withPseudo(
+            .focus
+        )
         #expect(focusedEnabledInput.rawValue == "input[type=\"text\"]:not(:disabled):focus")
     }
 }

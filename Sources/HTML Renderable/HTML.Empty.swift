@@ -7,6 +7,7 @@
 
 public import Rendering
 public import RenderingAsync
+
 public typealias RenderingEmpty = Empty
 
 /// Represents an empty HTML node that renders nothing.
@@ -44,7 +45,7 @@ extension HTML.Empty: @retroactive Renderable {
         // Produces no output
     }
 
-    public var body: Never { fatalError() }
+    public var body: Never { fatalError("body should not be called") }
 }
 
 extension HTML.Empty: HTML.View {}

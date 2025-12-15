@@ -5,9 +5,10 @@
 //  Created by Coen ten Thije Boonkkamp on 25/11/2025.
 //
 
-@testable import HTML_Renderable
 import HTML_Rendering_TestSupport
 import Testing
+
+@testable import HTML_Renderable
 
 @Suite
 struct `HTML.Context.Configuration Tests` {
@@ -56,8 +57,8 @@ struct `HTML.Context.Configuration Tests` {
     func `Configuration custom initialization`() {
         let config = HTML.Context.Configuration(
             forceImportant: true,
-            indentation: [.ascii.htab], // Tab
-            newline: .ascii.crlf, // CRLF
+            indentation: [.ascii.htab],  // Tab
+            newline: .ascii.crlf,  // CRLF
             reservedCapacity: 8192
         )
 

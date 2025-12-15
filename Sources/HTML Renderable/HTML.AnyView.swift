@@ -63,7 +63,7 @@ extension HTML {
             buffer.append(contentsOf: contiguousBuffer)
         }
 
-        public var body: Never { fatalError() }
+        public var body: Never { fatalError("body should not be called") }
     }
 }
 
@@ -83,7 +83,7 @@ extension AnyRenderable: @retroactive Renderable where Context == HTML.Context {
     public typealias Content = Never
     public typealias Output = UInt8
 
-    public var body: Never { fatalError() }
+    public var body: Never { fatalError("body should not be called") }
 }
 
 extension AnyRenderable: HTML.View where Context == HTML.Context {}

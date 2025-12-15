@@ -5,9 +5,10 @@
 //  Created by Coen ten Thije Boonkkamp on 25/11/2025.
 //
 
-@testable import HTML_Renderable
 import HTML_Rendering_TestSupport
 import Testing
+
+@testable import HTML_Renderable
 
 @Suite
 struct `HTML.Tag.Text Tests` {
@@ -16,17 +17,17 @@ struct `HTML.Tag.Text Tests` {
     // NOTE: These tests tested the old HTML.Tag.Text type which no longer exists.
     // The tag() function now returns HTML.Element<Empty> which doesn't have rawValue.
 
-//    @Test
-//    func `HTML.Tag.Text string initialization`() throws {
-//        let textTag = tag("title")
-//        #expect(textTag.rawValue == "title")
-//    }
-//
-//    @Test
-//    func `HTML.Tag.Text string literal initialization`() throws {
-//        let textTag = tag("option")
-//        #expect(textTag.rawValue == "option")
-//    }
+    //    @Test
+    //    func `HTML.Tag.Text string initialization`() throws {
+    //        let textTag = tag("title")
+    //        #expect(textTag.rawValue == "title")
+    //    }
+    //
+    //    @Test
+    //    func `HTML.Tag.Text string literal initialization`() throws {
+    //        let textTag = tag("option")
+    //        #expect(textTag.rawValue == "option")
+    //    }
 
     // MARK: - Call As Function
 

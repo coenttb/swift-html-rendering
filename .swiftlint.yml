@@ -14,6 +14,7 @@ disabled_rules:
   - implicit_optional_initialization  # Allow explicit = nil initialization
   - function_body_length  # Allow longer inline functions
   - file_length  # Allow longer files
+  - force_try  # Allow force try in test files
 
 opt_in_rules:
   - explicit_init

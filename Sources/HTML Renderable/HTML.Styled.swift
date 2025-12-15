@@ -96,9 +96,8 @@ extension HTML.Styled: HTML.View where Content: HTML.View {
     }
 
     /// This type uses direct rendering and doesn't have a body.
-    public var body: Never { fatalError() }
+    public var body: Never { fatalError("body should not be called") }
 }
-
 
 extension HTML.Styled: Sendable where Content: Sendable, P: Sendable {}
 
@@ -130,6 +129,12 @@ extension HTML.View {
         _ property: P?
     ) -> HTML.Styled<Self, P> {
         let ctx = HTML.Style.Context.current
-        return HTML.Styled(self, property, atRule: ctx.atRule, selector: ctx.selector, pseudo: ctx.pseudo)
+        return HTML.Styled(
+            self,
+            property,
+            atRule: ctx.atRule,
+            selector: ctx.selector,
+            pseudo: ctx.pseudo
+        )
     }
 }

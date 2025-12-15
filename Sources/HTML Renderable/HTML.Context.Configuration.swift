@@ -9,7 +9,7 @@ import INCITS_4_1986
 import Rendering
 
 extension HTML.Context {
-    
+
     /// Configuration options for HTML rendering.
     ///
     /// This struct provides options to control how HTML is rendered,
@@ -27,20 +27,20 @@ extension HTML.Context {
     /// }
     /// ```
     public struct Configuration: Sendable {
-        
+
         /// Whether to add `!important` to all CSS rules.
         public let forceImportant: Bool
-        
+
         /// The bytes to use for indentation.
         ///
         /// Stored as bytes to avoid UTF-8 conversion overhead during rendering.
         public let indentation: [UInt8]
-        
+
         /// The bytes to use for newlines.
         ///
         /// Stored as bytes to avoid UTF-8 conversion overhead during rendering.
         public let newline: [UInt8]
-        
+
         /// Reserved capacity for the byte buffer (in bytes).
         ///
         /// Pre-allocating capacity avoids multiple reallocations during rendering.
@@ -51,7 +51,7 @@ extension HTML.Context {
         /// - Medium documents (1-10KB): 4096 bytes
         /// - Large documents (> 10KB): 16384 bytes
         public let reservedCapacity: Int
-        
+
         /// Creates a custom HTML rendering configuration.
         ///
         /// - Parameters:
@@ -74,12 +74,17 @@ extension HTML.Context {
 }
 
 extension HTML.Context.Configuration {
-    
+
     /// Default configuration with no indentation or newlines.
     ///
     /// Pre-allocates 1KB to handle most simple documents without reallocation.
-    public static let `default` = Self(forceImportant: false, indentation: [], newline: [], reservedCapacity: 1024)
-    
+    public static let `default` = Self(
+        forceImportant: false,
+        indentation: [],
+        newline: [],
+        reservedCapacity: 1024
+    )
+
     /// Pretty-printing configuration with 2-space indentation and newlines.
     ///
     /// Pre-allocates 2KB to accommodate additional whitespace from formatting.
@@ -89,7 +94,7 @@ extension HTML.Context.Configuration {
         newline: [.ascii.lf],
         reservedCapacity: 2048
     )
-    
+
     /// Configuration optimized for email HTML with forced important styles.
     ///
     /// Pre-allocates 2KB as email HTML tends to be verbose with inline styles.
@@ -99,12 +104,17 @@ extension HTML.Context.Configuration {
         newline: [.ascii.lf],
         reservedCapacity: 2048
     )
-    
+
     /// Performance-optimized configuration for typical documents (~4KB).
     ///
     /// Pre-allocates 4096 bytes to avoid reallocations for most documents.
     /// Use this when rendering performance is critical.
-    public static let optimized = Self(forceImportant: false, indentation: [], newline: [], reservedCapacity: 4096)
+    public static let optimized = Self(
+        forceImportant: false,
+        indentation: [],
+        newline: [],
+        reservedCapacity: 4096
+    )
 }
 
 extension HTML.Context.Configuration {

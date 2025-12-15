@@ -24,7 +24,7 @@ extension Never: @retroactive Renderable {
         context: inout HTML.Context
     ) where Buffer.Element == UInt8 {}
 
-    public var body: Never { fatalError() }
+    public var body: Never { fatalError("body should not be called") }
 }
 
 /// Conformance of `Never` to `HTML.View` to support the type system.

@@ -5,8 +5,9 @@
 //  Created by Coen ten Thije Boonkkamp on 20/07/2025.
 //
 
-@testable import HTML_Renderable
 import Testing
+
+@testable import HTML_Renderable
 
 @Suite
 struct `HTML Protocol Tests` {

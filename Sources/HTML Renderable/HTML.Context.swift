@@ -170,6 +170,6 @@ extension HTML {
         .ascii.t,
         .ascii.a,
         .ascii.n,
-        .ascii.t
+        .ascii.t,
     ]
 }

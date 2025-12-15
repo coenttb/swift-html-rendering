@@ -7,9 +7,10 @@
 //  Cross-cutting tests for edge cases, boundary conditions, and unusual inputs.
 //
 
-@testable import HTML_Renderable
 import HTML_Rendering_TestSupport
 import Testing
+
+@testable import HTML_Renderable
 
 @Suite
 struct `Edge Cases Tests` {
@@ -268,7 +269,9 @@ struct `Edge Cases Tests` {
         // Self-closing elements shouldn't have content
         let html = tag("br")
         let rendered = try String(html)
-        #expect(rendered.contains("<br>") || rendered.contains("<br/>") || rendered.contains("<br />"))
+        #expect(
+            rendered.contains("<br>") || rendered.contains("<br/>") || rendered.contains("<br />")
+        )
     }
 
     @Test

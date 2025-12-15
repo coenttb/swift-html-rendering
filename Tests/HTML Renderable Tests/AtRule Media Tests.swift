@@ -5,9 +5,10 @@
 //  Created by Coen ten Thije Boonkkamp on 20/07/2025.
 //
 
-@testable import HTML_Renderable
 import HTML_Rendering_TestSupport
 import Testing
+
+@testable import HTML_Renderable
 
 @Suite
 struct `AtRule media Tests` {
@@ -23,7 +24,9 @@ struct `AtRule media Tests` {
     @Test
     func `AtRule media with different conditions`() throws {
         let mobileQuery = HTML.AtRule(rawValue: "screen and (max-width: 480px)")
-        let tabletQuery = HTML.AtRule(rawValue: "screen and (min-width: 481px) and (max-width: 1024px)")
+        let tabletQuery = HTML.AtRule(
+            rawValue: "screen and (min-width: 481px) and (max-width: 1024px)"
+        )
         let desktopQuery = HTML.AtRule(rawValue: "screen and (min-width: 1025px)")
 
         #expect(mobileQuery.rawValue.contains("max-width: 480px"))
@@ -79,7 +82,11 @@ extension `Snapshot Tests` {
                     tag("div") {
                         "Mobile content"
                     }
-                    .inlineStyle("color", "blue", atRule: HTML.AtRule(rawValue: "@media (max-width: 768px)"))
+                    .inlineStyle(
+                        "color",
+                        "blue",
+                        atRule: HTML.AtRule(rawValue: "@media (max-width: 768px)")
+                    )
                     .inlineStyle(
                         "font-size",
                         "14px",
@@ -168,7 +175,11 @@ extension `Snapshot Tests` {
                                 "0.5rem",
                                 atRule: HTML.AtRule(rawValue: "@media (max-width: 767px)")
                             )
-                            .inlineStyle("display", "none", atRule: HTML.AtRule(rawValue: "@media print"))
+                            .inlineStyle(
+                                "display",
+                                "none",
+                                atRule: HTML.AtRule(rawValue: "@media print")
+                            )
                     }
                 },
                 as: .html

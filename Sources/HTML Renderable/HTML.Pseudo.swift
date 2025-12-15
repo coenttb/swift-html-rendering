@@ -84,27 +84,27 @@ extension HTML {
     /// ```
     public struct Pseudo: RawRepresentable, Hashable, Sendable, ExpressibleByStringLiteral,
         ExpressibleByStringInterpolation {
-    /// The CSS pseudo-class or pseudo-element selector.
-    public var rawValue: String
+        /// The CSS pseudo-class or pseudo-element selector.
+        public var rawValue: String
 
-    /// Creates a pseudo-selector with the specified CSS selector string.
-    ///
-    /// - Parameter rawValue: The CSS pseudo-selector string (e.g., ":hover", "::before").
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
+        /// Creates a pseudo-selector with the specified CSS selector string.
+        ///
+        /// - Parameter rawValue: The CSS pseudo-selector string (e.g., ":hover", "::before").
+        public init(rawValue: String) {
+            self.rawValue = rawValue
+        }
 
-    /// Creates a pseudo-selector from a string literal.
-    ///
-    /// This allows you to write:
-    /// ```swift
-    /// let custom: Pseudo = ":custom-state"
-    /// ```
-    ///
-    /// - Parameter value: The CSS pseudo-selector string.
-    public init(stringLiteral value: String) {
-        self.init(rawValue: value)
-    }
+        /// Creates a pseudo-selector from a string literal.
+        ///
+        /// This allows you to write:
+        /// ```swift
+        /// let custom: Pseudo = ":custom-state"
+        /// ```
+        ///
+        /// - Parameter value: The CSS pseudo-selector string.
+        public init(stringLiteral value: String) {
+            self.init(rawValue: value)
+        }
     }
 }
 
@@ -192,10 +192,10 @@ extension HTML.Pseudo {
 }
 
 // MARK: - Pseudo-Classes
+// Pseudo-classes target elements based on their state or position.
+// They use single colon (:) syntax and are applied when elements
+// meet specific conditions or are in particular states.
 extension HTML.Pseudo {
-    /// Pseudo-classes target elements based on their state or position.
-    /// They use single colon (:) syntax and are applied when elements
-    /// meet specific conditions or are in particular states.
 
     // MARK: Interactive States
 

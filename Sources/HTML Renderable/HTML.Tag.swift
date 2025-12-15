@@ -55,7 +55,7 @@ extension HTML.Tag {
             .ascii.d, .ascii.o, .ascii.c, .ascii.t, .ascii.y, .ascii.p, .ascii.e,
             .ascii.space,
             .ascii.h, .ascii.t, .ascii.m, .ascii.l,
-            .ascii.greaterThanSign
+            .ascii.greaterThanSign,
         ]
     }
 
@@ -65,7 +65,7 @@ extension HTML.Tag {
         [
             .ascii.lessThanSign,
             .ascii.h, .ascii.t, .ascii.m, .ascii.l,
-            .ascii.greaterThanSign
+            .ascii.greaterThanSign,
         ]
     }
 
@@ -75,7 +75,7 @@ extension HTML.Tag {
         [
             .ascii.lessThanSign, .ascii.slant,
             .ascii.h, .ascii.t, .ascii.m, .ascii.l,
-            .ascii.greaterThanSign
+            .ascii.greaterThanSign,
         ]
     }
 
@@ -85,7 +85,7 @@ extension HTML.Tag {
         [
             .ascii.lessThanSign,
             .ascii.h, .ascii.e, .ascii.a, .ascii.d,
-            .ascii.greaterThanSign
+            .ascii.greaterThanSign,
         ]
     }
 
@@ -95,7 +95,7 @@ extension HTML.Tag {
         [
             .ascii.lessThanSign, .ascii.slant,
             .ascii.h, .ascii.e, .ascii.a, .ascii.d,
-            .ascii.greaterThanSign
+            .ascii.greaterThanSign,
         ]
     }
 
@@ -105,7 +105,7 @@ extension HTML.Tag {
         [
             .ascii.lessThanSign,
             .ascii.b, .ascii.o, .ascii.d, .ascii.y,
-            .ascii.greaterThanSign
+            .ascii.greaterThanSign,
         ]
     }
 
@@ -115,7 +115,7 @@ extension HTML.Tag {
         [
             .ascii.lessThanSign, .ascii.slant,
             .ascii.b, .ascii.o, .ascii.d, .ascii.y,
-            .ascii.greaterThanSign
+            .ascii.greaterThanSign,
         ]
     }
 
@@ -125,7 +125,7 @@ extension HTML.Tag {
         [
             .ascii.lessThanSign,
             .ascii.s, .ascii.t, .ascii.y, .ascii.l, .ascii.e,
-            .ascii.greaterThanSign
+            .ascii.greaterThanSign,
         ]
     }
 
@@ -135,7 +135,7 @@ extension HTML.Tag {
         [
             .ascii.lessThanSign, .ascii.slant,
             .ascii.s, .ascii.t, .ascii.y, .ascii.l, .ascii.e,
-            .ascii.greaterThanSign
+            .ascii.greaterThanSign,
         ]
     }
 }

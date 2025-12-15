@@ -5,10 +5,11 @@
 //  Performance tests for HTML attribute value escaping optimization.
 //
 
-@testable import HTML_Renderable
 import HTML_Rendering_TestSupport
 import Testing
 import TestingPerformance
+
+@testable import HTML_Renderable
 
 extension `Performance Tests` {
     @Suite

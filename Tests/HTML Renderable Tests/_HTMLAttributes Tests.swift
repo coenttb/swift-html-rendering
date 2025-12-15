@@ -5,9 +5,10 @@
 //  Created by Coen ten Thije Boonkkamp on 20/07/2025.
 //
 
-@testable import HTML_Renderable
 import HTML_Rendering_TestSupport
 import Testing
+
+@testable import HTML_Renderable
 
 @Suite
 struct `_HTMLAttributes Tests` {
@@ -28,8 +29,8 @@ struct `_HTMLAttributes Tests` {
         let element = tag("div") {
             HTML.Text("content")
         }
-            .attribute("class", "test-class")
-            .attribute("id", "test-id")
+        .attribute("class", "test-class")
+        .attribute("id", "test-id")
 
         let rendered = try String(HTML.Document { element })
         #expect(rendered.contains("class=\"test-class\""))

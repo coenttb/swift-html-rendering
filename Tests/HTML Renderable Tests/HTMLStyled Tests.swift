@@ -95,7 +95,13 @@ struct `HTMLStyled Tests` {
         let html = tag("div") {
             HTML.Text("Responsive")
         }
-        .inlineStyle("display", "none", atRule: .init(rawValue: "@media print"), selector: nil, pseudo: nil)
+        .inlineStyle(
+            "display",
+            "none",
+            atRule: .init(rawValue: "@media print"),
+            selector: nil,
+            pseudo: nil
+        )
 
         let rendered = try String(HTML.Document { html })
         #expect(rendered.contains("@media print"))
@@ -107,8 +113,20 @@ struct `HTMLStyled Tests` {
         let html = tag("div") {
             HTML.Text("Content")
         }
-        .inlineStyle("width", "100%", atRule: .init(rawValue: "@media (max-width: 768px)"), selector: nil, pseudo: nil)
-        .inlineStyle("width", "50%", atRule: .init(rawValue: "@media (min-width: 769px)"), selector: nil, pseudo: nil)
+        .inlineStyle(
+            "width",
+            "100%",
+            atRule: .init(rawValue: "@media (max-width: 768px)"),
+            selector: nil,
+            pseudo: nil
+        )
+        .inlineStyle(
+            "width",
+            "50%",
+            atRule: .init(rawValue: "@media (min-width: 769px)"),
+            selector: nil,
+            pseudo: nil
+        )
 
         let rendered = try String(HTML.Document { html })
         #expect(rendered.contains("@media (max-width: 768px)"))

@@ -5,9 +5,10 @@
 //  Created by Coen ten Thije Boonkkamp on 25/11/2025.
 //
 
-@testable import HTML_Renderable
 import HTML_Rendering_TestSupport
 import Testing
+
+@testable import HTML_Renderable
 
 @Suite
 struct `HTML.Context.Configuration.Error Tests` {
@@ -54,7 +55,9 @@ struct `HTML.Context.Configuration.Error Tests` {
 
     @Test
     func `Error with descriptive message`() {
-        let error = HTML.Context.Configuration.Error(message: "Invalid UTF-8 sequence at byte offset 42")
+        let error = HTML.Context.Configuration.Error(
+            message: "Invalid UTF-8 sequence at byte offset 42"
+        )
         #expect(error.message.contains("UTF-8"))
         #expect(error.message.contains("42"))
     }
@@ -62,10 +65,10 @@ struct `HTML.Context.Configuration.Error Tests` {
     @Test
     func `Error with multiline message`() {
         let message = """
-        Rendering failed:
-        - Invalid attribute value
-        - Missing closing tag
-        """
+            Rendering failed:
+            - Invalid attribute value
+            - Missing closing tag
+            """
         let error = HTML.Context.Configuration.Error(message: message)
         #expect(error.message.contains("Rendering failed"))
         #expect(error.message.contains("Invalid attribute"))

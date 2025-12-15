@@ -5,9 +5,9 @@
 ////  Created by Coen ten Thije Boonkkamp on 25/11/2025.
 ////
 //
-//import Rendering
+// import Rendering
 //
-//extension HTML.Tag {
+// extension HTML.Tag {
 //    /// Represents an HTML tag that typically contains text content.
 //    ///
 //    /// `HTML.Tag.Text` is a specialization of HTML tags for elements that primarily
@@ -43,4 +43,4 @@
 //            self.init(value)
 //        }
 //    }
-//}
+// }

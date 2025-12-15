@@ -7,9 +7,10 @@
 //  Cross-cutting tests for async rendering, streaming, and concurrency.
 //
 
-@testable import HTML_Renderable
 import HTML_Rendering_TestSupport
 import Testing
+
+@testable import HTML_Renderable
 
 @Suite
 struct `Async Tests` {
@@ -27,10 +28,14 @@ struct `Async Tests` {
             }
         }
 
-        let html = HTML.Document { TestHTML() } head: {
+        let html = HTML.Document {
+            TestHTML()
+        } head: {
             tag("title") { HTML.Text("Title") }
         }
-        let syncResult = { String(decoding: [UInt8](html, configuration: .pretty), as: UTF8.self) }()
+        let syncResult = {
+            String(decoding: [UInt8](html, configuration: .pretty), as: UTF8.self)
+        }()
         let asyncResult = await String(html, configuration: .pretty)
 
         #expect(syncResult == asyncResult)

@@ -5,11 +5,11 @@
 ////  Created by Coen ten Thije Boonkkamp on 26/11/2025.
 ////
 //
-//@testable import HTML_Renderable
-//import Testing
+// @testable import HTML_Renderable
+// import Testing
 //
-//@Suite
-//struct `HTML.Style Tests` {
+// @Suite
+// struct `HTML.Style Tests` {
 //
 //    // MARK: - Initialization
 //
@@ -120,4 +120,4 @@
 //        }
 //        #expect(true) // Compile-time check
 //    }
-//}
+// }

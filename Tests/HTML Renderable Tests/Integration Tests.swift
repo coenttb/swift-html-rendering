@@ -7,9 +7,10 @@
 //  Cross-cutting integration tests that verify multiple components work together.
 //
 
-@testable import HTML_Renderable
 import HTML_Rendering_TestSupport
 import Testing
+
+@testable import HTML_Renderable
 
 @Suite
 struct `Integration Tests` {
@@ -99,7 +100,7 @@ struct `Integration Tests` {
         let html = CardList(cards: [
             ("Card 1", "Content 1"),
             ("Card 2", "Content 2"),
-            ("Card 3", "Content 3")
+            ("Card 3", "Content 3"),
         ])
 
         let rendered = try String(html)
@@ -120,8 +121,20 @@ struct `Integration Tests` {
             tag("p") { HTML.Text("Responsive text") }
         }
         .inlineStyle("width", "100%")
-        .inlineStyle("width", "50%", atRule: .init(rawValue: "@media (min-width: 768px)"), selector: nil, pseudo: nil)
-        .inlineStyle("width", "33%", atRule: .init(rawValue: "@media (min-width: 1024px)"), selector: nil, pseudo: nil)
+        .inlineStyle(
+            "width",
+            "50%",
+            atRule: .init(rawValue: "@media (min-width: 768px)"),
+            selector: nil,
+            pseudo: nil
+        )
+        .inlineStyle(
+            "width",
+            "33%",
+            atRule: .init(rawValue: "@media (min-width: 1024px)"),
+            selector: nil,
+            pseudo: nil
+        )
 
         let rendered = try String(HTML.Document { html })
 
@@ -202,7 +215,7 @@ struct `Integration Tests` {
         let data = [
             Row(name: "Alpha", value: 100),
             Row(name: "Beta", value: 200),
-            Row(name: "Gamma", value: 300)
+            Row(name: "Gamma", value: 300),
         ]
 
         let html = tag("table") {
@@ -288,9 +301,11 @@ struct `Integration Tests` {
         let components: [AnyHTML] = [
             AnyHTML(tag("h1") { HTML.Text("Header") }),
             AnyHTML(tag("p") { HTML.Text("Paragraph") }),
-            AnyHTML(tag("ul") {
-                tag("li") { HTML.Text("Item") }
-            })
+            AnyHTML(
+                tag("ul") {
+                    tag("li") { HTML.Text("Item") }
+                }
+            ),
         ]
 
         let html = tag("div") {
@@ -352,7 +367,7 @@ struct `Integration Tests` {
         let items = [
             Item(id: 1, name: "First"),
             Item(id: 2, name: "Second"),
-            Item(id: 3, name: "Third")
+            Item(id: 3, name: "Third"),
         ]
 
         let html = tag("ul") {

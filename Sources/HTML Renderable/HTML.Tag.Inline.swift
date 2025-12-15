@@ -5,9 +5,9 @@
 ////  Created by Coen ten Thije Boonkkamp on 26/11/2025.
 ////
 //
-//import Rendering
+// import Rendering
 //
-//extension HTML.Tag {
+// extension HTML.Tag {
 //    package enum Inline: String, CaseIterable {
 //        case a = "a"
 //        case abbr = "abbr"
@@ -48,4 +48,4 @@
 //        case u = "u"
 //        case `var` = "var"
 //    }
-//}
+// }

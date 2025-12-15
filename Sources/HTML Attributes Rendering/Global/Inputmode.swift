@@ -5,8 +5,8 @@
 /// Created by Coen ten Thije Boonkkamp on 02/04/2025.
 ///
 
-import HTML_Standard_Attributes
 import HTML_Renderable
+import HTML_Standard_Attributes
 
 extension HTML.View {
     /// Sets the inputmode attribute to hint at what type of virtual keyboard to display
