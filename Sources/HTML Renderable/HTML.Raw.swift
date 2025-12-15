@@ -5,7 +5,8 @@
 //  Created by Point-Free, Inc
 //
 
-public import Renderable
+public import Rendering
+public import RenderingAsync
 
 // Public typealias to disambiguate between the Rendering module and Rendering protocol
 // when accessing the Raw type from the Rendering module.
@@ -63,7 +64,7 @@ extension Raw: HTML.View {}
 
 extension Raw: @retroactive AsyncRenderable {
     /// Async renders the raw bytes directly to the stream.
-    public static func _renderAsync<Stream: AsyncRenderingStreamProtocol>(
+    public static func _renderAsync<Stream: Rendering.Async.Sink.`Protocol`>(
         _ raw: Self,
         into stream: Stream,
         context: inout HTML.Context

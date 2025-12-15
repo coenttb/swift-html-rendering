@@ -5,7 +5,8 @@
 //  Created by Coen ten Thije Boonkkamp on 25/11/2025.
 //
 
-public import Renderable
+public import Rendering
+public import RenderingAsync
 
 // Extend the _Tuple type from Rendering module to conform to HTML.View
 // Note: _Tuple is a top-level type exported from the Rendering module.
@@ -33,7 +34,7 @@ extension _Tuple: @retroactive Renderable where repeat each Content: HTML.View {
 extension _Tuple: HTML.View where repeat each Content: HTML.View {}
 
 extension _Tuple: @retroactive AsyncRenderable where repeat each Content: AsyncRenderable, repeat each Content: HTML.View {
-    public static func _renderAsync<Stream: AsyncRenderingStreamProtocol>(
+    public static func _renderAsync<Stream: Rendering.Async.Sink.`Protocol`>(
         _ html: Self,
         into stream: Stream,
         context: inout HTML.Context

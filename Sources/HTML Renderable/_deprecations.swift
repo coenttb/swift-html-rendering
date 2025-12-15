@@ -5,7 +5,7 @@
 //  Created by Coen ten Thije Boonkkamp on 26/11/2025.
 //
 
-import Renderable
+import Rendering
 
 extension HTML.DocumentProtocol {
     /// Renders this HTML document to bytes.

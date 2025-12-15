@@ -5,7 +5,7 @@
 //  Created by Coen ten Thije Boonkkamp on 12/03/2025.
 //
 
-import Renderable
+import Rendering
 
 // MARK: - RFC Pattern: String Derived from Bytes
 

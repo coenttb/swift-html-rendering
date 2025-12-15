@@ -6,8 +6,8 @@
 //
 
 @testable import HTML_Renderable
-import HTML_Renderable_TestSupport
-import Renderable
+import HTML_Rendering_TestSupport
+import Rendering
 import Testing
 
 @Suite
@@ -244,7 +244,7 @@ extension `AsyncChannel Tests` {
                 }
 
                 // Custom async render that signals when it starts/finishes
-                static func _renderAsync<Stream: AsyncRenderingStreamProtocol>(
+                static func _renderAsync<Stream: Rendering.Async.Sink.`Protocol`>(
                     _ html: SlowRenderingHTML,
                     into stream: Stream,
                     context: inout HTML.Context

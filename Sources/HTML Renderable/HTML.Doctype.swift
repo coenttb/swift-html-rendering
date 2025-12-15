@@ -5,7 +5,7 @@
 //  Created by Point-Free, Inc
 //
 
-import Renderable
+import Rendering
 
 extension HTML {
     /// Represents the HTML doctype declaration.

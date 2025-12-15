@@ -5,7 +5,7 @@
 //  Created by Coen ten Thije Boonkkamp on 25/11/2025.
 //
 
-public import Renderable
+public import Rendering
 
 // Extend the _Array type from Rendering module to conform to HTML.View
 // Note: _Array is a top-level type exported from the Rendering module.

@@ -8,7 +8,7 @@
 
 import INCITS_4_1986
 public import OrderedCollections
-import Renderable
+import Rendering
 
 extension HTML {
     /// Rendering context for HTML streaming.

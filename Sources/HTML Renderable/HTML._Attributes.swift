@@ -6,7 +6,8 @@
 //
 
 import OrderedCollections
-import Renderable
+import Rendering
+public import RenderingAsync
 
 extension HTML {
     /// A wrapper that applies attributes to an HTML element.
@@ -74,7 +75,7 @@ extension HTML {
 
 extension HTML._Attributes: AsyncRenderable where Content: AsyncRenderable {
     /// Async renders this HTML element with attributes.
-    public static func _renderAsync<Stream: AsyncRenderingStreamProtocol>(
+    public static func _renderAsync<Stream: Rendering.Async.Sink.`Protocol`>(
         _ html: Self,
         into stream: Stream,
         context: inout HTML.Context

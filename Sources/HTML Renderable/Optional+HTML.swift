@@ -5,7 +5,7 @@
 //  Created by Coen ten Thije Boonkkamp on 25/11/2025.
 //
 
-public import Renderable
+public import Rendering
 
 /// Allows optional values to be used as HTML elements.
 ///

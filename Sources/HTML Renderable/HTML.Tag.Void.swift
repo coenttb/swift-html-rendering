@@ -5,7 +5,7 @@
 ////  Created by Coen ten Thije Boonkkamp on 25/11/2025.
 ////
 //
-//public import Renderable
+//public import Rendering
 //
 //extension HTML.Tag {
 //    /// Represents an HTML void element that cannot contain content.

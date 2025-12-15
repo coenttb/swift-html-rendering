@@ -7,7 +7,7 @@ extension String {
     static let htmlAttributesRendering: Self = "HTML Attributes Rendering"
     static let htmlElementsRendering: Self = "HTML Elements Rendering"
     static let htmlRendering: Self = "HTML Rendering"
-    static let htmlRenderableTestSupport: Self = "HTML Renderable TestSupport"
+    static let htmlRenderableTestSupport: Self = "HTML Rendering TestSupport"
 }
 
 extension Target.Dependency {
@@ -19,10 +19,13 @@ extension Target.Dependency {
 
 extension Target.Dependency {
     static var renderable: Self {
-        .product(name: "Renderable", package: "swift-renderable")
+        .product(name: "Rendering", package: "swift-renderable")
+    }
+    static var asyncRenderable: Self {
+        .product(name: "RenderingAsync", package: "swift-renderable")
     }
     static var renderableTestSupport: Self {
-        .product(name: "Renderable TestSupport", package: "swift-renderable")
+        .product(name: "Rendering TestSupport", package: "swift-renderable")
     }
     static var inlineSnapshotTesting: Self {
         .product(name: "InlineSnapshotTesting", package: "swift-snapshot-testing")
@@ -70,15 +73,15 @@ let package = Package(
         .library(name: .htmlRenderableTestSupport, targets: [.htmlRenderableTestSupport]),
     ],
     dependencies: [
-        .package(path: "../swift-renderable"),
+        .package(url: "https://github.com/coenttb/swift-renderable", from: "0.1.0"),
         .package(url: "https://github.com/apple/swift-async-algorithms.git", from: "1.0.0"),
         .package(url: "https://github.com/apple/swift-collections.git", from: "1.1.2"),
         .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.18.3"),
         .package(url: "https://github.com/swift-standards/swift-incits-4-1986", from: "0.4.0"),
-        .package(path: "../../swift-standards/swift-standards"),
-        .package(path: "../../swift-standards/swift-iso-9899"),
-        .package(path: "../../swift-standards/swift-html-standard"),
-        .package(path: "../../swift-standards/swift-w3c-css"),
+        .package(url: "https://github.com/swift-standards/swift-standards", from: "0.1.0"),
+        .package(url: "https://github.com/swift-standards/swift-iso-9899", from: "0.1.0"),
+        .package(url: "https://github.com/swift-standards/swift-html-standard", from: "0.1.0"),
+        .package(url: "https://github.com/swift-standards/swift-w3c-css", from: "0.1.0"),
     ],
     targets: [
         .target(

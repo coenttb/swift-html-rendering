@@ -12,8 +12,8 @@ import INCITS_4_1986
 @testable import HTML_Renderable
 import OrderedCollections
 import Testing
-import Renderable
-import HTML_Renderable_TestSupport
+import Rendering
+import HTML_Rendering_TestSupport
 
 @Suite
 struct `Rendering Tests` {

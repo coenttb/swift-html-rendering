@@ -5,7 +5,8 @@
 //  Created by Coen ten Thije Boonkkamp on 25/11/2025.
 //
 
-public import Renderable
+public import Rendering
+public import RenderingAsync
 
 /// Conformance of `Never` to `Rendering` to support the type system.
 ///
@@ -34,7 +35,7 @@ extension Never: HTML.View {}
 
 extension Never: @retroactive AsyncRenderable {
     @inlinable
-    public static func _renderAsync<Stream: AsyncRenderingStreamProtocol>(
+    public static func _renderAsync<Stream: Rendering.Async.Sink.`Protocol`>(
         _ markup: Self,
         into stream: Stream,
         context: inout HTML.Context

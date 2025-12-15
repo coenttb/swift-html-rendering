@@ -6,7 +6,7 @@
 //
 
 import OrderedCollections
-import Renderable
+import Rendering
 
 extension HTML {
     /// A protocol representing a complete HTML document.

@@ -5,7 +5,8 @@
 //  Created by Point-Free, Inc
 //
 
-public import Renderable
+public import Rendering
+public import RenderingAsync
 public typealias RenderingEmpty = Empty
 
 /// Represents an empty HTML node that renders nothing.
@@ -50,7 +51,7 @@ extension HTML.Empty: HTML.View {}
 
 extension HTML.Empty: @retroactive AsyncRenderable {
     /// Async renders nothing (empty content).
-    public static func _renderAsync<Stream: AsyncRenderingStreamProtocol>(
+    public static func _renderAsync<Stream: Rendering.Async.Sink.`Protocol`>(
         _ markup: Empty,
         into stream: Stream,
         context: inout HTML.Context

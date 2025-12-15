@@ -6,7 +6,7 @@
 //
 
 import INCITS_4_1986
-import Renderable
+import Rendering
 
 extension HTML.Context {
     

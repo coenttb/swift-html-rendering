@@ -5,7 +5,7 @@
 //  Applies CSS styles to HTML content via generated class names.
 //
 
-import Renderable
+import Rendering
 public import W3C_CSS_Shared
 
 extension HTML {
@@ -110,37 +110,26 @@ extension HTML.View {
     /// This method enables a type-safe, declarative approach to styling HTML elements
     /// directly in Swift code. It generates CSS classes and stylesheets automatically.
     ///
+    /// The at-rule, selector, and pseudo values are read from the current
+    /// `HTML.Style.Context` TaskLocal, allowing context-based styling:
+    ///
     /// ```swift
+    /// // Basic usage
     /// div { "Hello" }
     ///     .inlineStyle(Color.red)
     ///     .inlineStyle(Padding.px(10))
+    ///
+    /// // With context (via CSS modifiers)
+    /// div.css.dark { $0.color(.white) }
+    /// button.css.hover { $0.backgroundColor(.blue) }
     /// ```
     ///
-    /// - Parameters:
-    ///   - property: The typed CSS property value.
-    ///   - atRule: Optional at-rule to apply this style conditionally.
-    ///   - selector: Optional selector prefix for more complex CSS selectors.
-    ///   - pseudo: Optional pseudo-class or pseudo-element to apply.
+    /// - Parameter property: The typed CSS property value.
     /// - Returns: An HTML element with the specified style applied.
     public func inlineStyle<P: Property>(
-        _ property: P?,
-        atRule: HTML.AtRule? = nil,
-        selector: HTML.Selector? = nil,
-        pseudo: HTML.Pseudo? = nil
+        _ property: P?
     ) -> HTML.Styled<Self, P> {
-        HTML.Styled(self, property, atRule: atRule, selector: selector, pseudo: pseudo)
-    }
-
-    /// Applies a typed CSS property with a media query.
-    ///
-    /// Convenience overload that accepts `HTML.AtRule.Media` directly.
-    @_disfavoredOverload
-    public func inlineStyle<P: Property>(
-        _ property: P?,
-        media: HTML.AtRule.Media?,
-        selector: HTML.Selector? = nil,
-        pseudo: HTML.Pseudo? = nil
-    ) -> HTML.Styled<Self, P> {
-        HTML.Styled(self, property, atRule: media, selector: selector, pseudo: pseudo)
+        let ctx = HTML.Style.Context.current
+        return HTML.Styled(self, property, atRule: ctx.atRule, selector: ctx.selector, pseudo: ctx.pseudo)
     }
 }

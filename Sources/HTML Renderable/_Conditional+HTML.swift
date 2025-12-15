@@ -5,7 +5,7 @@
 //  Created by Coen ten Thije Boonkkamp on 25/11/2025.
 //
 
-public import Renderable
+public import Rendering
 
 // Extend the _Conditional type from Rendering module to conform to HTML.View
 // Note: _Conditional is a top-level type exported from the Rendering module.

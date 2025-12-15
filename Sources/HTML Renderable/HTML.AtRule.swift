@@ -5,7 +5,7 @@
 //  Created by Coen ten Thije Boonkkamp on 16/04/2025.
 //
 
-import Renderable
+import Rendering
 
 extension HTML {
     /// Represents a CSS media query for conditional styling.

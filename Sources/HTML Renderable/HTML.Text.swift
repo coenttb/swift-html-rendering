@@ -6,7 +6,8 @@
 //
 
 import INCITS_4_1986
-import Renderable
+import Rendering
+public import RenderingAsync
 
 extension HTML {
     /// Represents plain text content in HTML, with proper escaping.
@@ -76,7 +77,7 @@ extension HTML.Text: ExpressibleByStringInterpolation {}
 
 extension HTML.Text: AsyncRenderable {
     /// Async renders the text content with proper HTML escaping.
-    public static func _renderAsync<Stream: AsyncRenderingStreamProtocol>(
+    public static func _renderAsync<Stream: Rendering.Async.Sink.`Protocol`>(
         _ html: Self,
         into stream: Stream,
         context: inout HTML.Context

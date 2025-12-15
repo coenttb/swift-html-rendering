@@ -6,6 +6,6 @@
 //
 
 @_exported import OrderedCollections
-@_exported import Renderable
+@_exported import Rendering
 @_exported import INCITS_4_1986
 @_exported import W3C_CSS_Shared

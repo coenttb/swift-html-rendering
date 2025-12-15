@@ -5,7 +5,7 @@
 //  Created by Point-Free, Inc
 //
 
-public import Renderable
+public import Rendering
 
 extension HTML {
     /// A component that creates HTML content for each element in a collection.

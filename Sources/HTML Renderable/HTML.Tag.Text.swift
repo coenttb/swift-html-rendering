@@ -5,7 +5,7 @@
 ////  Created by Coen ten Thije Boonkkamp on 25/11/2025.
 ////
 //
-//import Renderable
+//import Rendering
 //
 //extension HTML.Tag {
 //    /// Represents an HTML tag that typically contains text content.

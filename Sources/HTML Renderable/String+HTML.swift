@@ -5,7 +5,7 @@
 //  Created by Coen ten Thije Boonkkamp on 09/04/2025.
 //
 
-import Renderable
+import Rendering
 
 extension String: @retroactive Renderable {
     public typealias Content = HTML.Text

@@ -7,7 +7,8 @@
 
 import INCITS_4_1986
 import OrderedCollections
-import Renderable
+import Rendering
+public import RenderingAsync
 public import WHATWG_HTML_Shared
 
 extension HTML {
@@ -188,7 +189,7 @@ extension HTML.Element: AsyncRenderable where Content: AsyncRenderable {
     ///
     /// This implementation mirrors the sync `_render` but uses async writes
     /// to the stream, allowing suspension at strategic points.
-    public static func _renderAsync<Stream: AsyncRenderingStreamProtocol>(
+    public static func _renderAsync<Stream: Rendering.Async.Sink.`Protocol`>(
         _ html: Self,
         into stream: Stream,
         context: inout HTML.Context

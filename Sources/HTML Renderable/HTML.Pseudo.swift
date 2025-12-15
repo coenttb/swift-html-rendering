@@ -5,7 +5,7 @@
 //  Created by Coen ten Thije Boonkkamp on 16/04/2025.
 //
 
-import Renderable
+import Rendering
 
 extension HTML {
     /// Represents CSS pseudo-classes and pseudo-elements for targeting element states and parts.
@@ -334,6 +334,14 @@ extension HTML.Pseudo {
     ///     .inlineStyle("background-color", "white", pseudo: ":read-write")
     /// ```
     public static let readWrite: Self = ":read-write"
+
+    /// `:placeholder-shown` targets input elements displaying placeholder text.
+    ///
+    /// ```swift
+    /// input { "" }
+    ///     .inlineStyle("border-color", "gray", pseudo: ":placeholder-shown")
+    /// ```
+    public static let placeholderShown: Self = ":placeholder-shown"
 
     // MARK: Structural Pseudo-Classes
 

@@ -5,7 +5,7 @@
 //  Created by Coen ten Thije Boonkkamp on 22/07/2025.
 //
 
-public import Renderable
+public import Rendering
 
 extension HTML {
     /// A complete HTML document with head and body sections.

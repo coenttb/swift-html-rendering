@@ -5,7 +5,7 @@
 //  Created by Point-Free, Inc
 //
 
-public import Renderable
+public import Rendering
 public typealias RenderingGroup = Group
 
 /// A container that groups multiple HTML elements together without adding a wrapper element.

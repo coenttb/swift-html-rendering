@@ -6,7 +6,8 @@
 //
 
 import OrderedCollections
-public import Renderable
+public import Rendering
+public import RenderingAsync
 import Standards
 
 /// A protocol representing an HTML element or component that can be rendered.
@@ -89,7 +90,7 @@ extension HTML.AsyncView {
     /// Default implementation delegates to content's async render method.
     @inlinable
     @_disfavoredOverload
-    public static func _renderAsync<Stream: AsyncRenderingStreamProtocol>(
+    public static func _renderAsync<Stream: Rendering.Async.Sink.`Protocol`>(
         _ html: Self,
         into stream: Stream,
         context: inout HTML.Context

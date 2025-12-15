@@ -5,7 +5,7 @@
 //  Created by Coen ten Thije Boonkkamp on 26/11/2025.
 //
 
-public import Renderable
+public import Rendering
 
 extension RangeReplaceableCollection<UInt8> {
     /// Creates a byte collection from rendered HTML.

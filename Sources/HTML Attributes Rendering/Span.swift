@@ -13,8 +13,8 @@ extension HTML.View {
     /// Sets the span attribute on an element
     @discardableResult
     package func span(
-        _ value: Span?
+        _ value: ColumnSpan?
     ) -> HTML._Attributes<Self> {
-        self.attribute(Span.attribute, value?.description)
+        self.attribute(ColumnSpan.attribute, value?.description)
     }
 }
