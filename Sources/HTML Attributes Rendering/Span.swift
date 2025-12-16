@@ -7,14 +7,15 @@
 
 import HTML_Renderable
 import HTML_Standard_Attributes
+import WHATWG_HTML_TableAttributes
 
 extension HTML.View {
 
     /// Sets the span attribute on an element
     @discardableResult
     package func span(
-        _ value: Span?
+        _ value: WHATWG_HTML_TableAttributes.Span?
     ) -> HTML._Attributes<Self> {
-        self.attribute(Span.attribute, value?.description)
+        self.attribute(WHATWG_HTML_TableAttributes.Span.attribute, value?.description)
     }
 }
