@@ -68,6 +68,8 @@ extension HTML {
     }
 }
 
+extension HTML.Styled: Sendable where Content: Sendable {}
+
 extension HTML.Styled: Renderable where Content: HTML.View {
     public typealias Context = HTML.Context
 
