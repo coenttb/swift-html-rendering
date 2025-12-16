@@ -71,6 +71,10 @@ extension HTML {
     }
 }
 
+// MARK: - Sendable
+
+extension HTML._Attributes: Sendable where Content: Sendable {}
+
 // MARK: - Async Rendering
 
 extension HTML._Attributes: AsyncRenderable where Content: AsyncRenderable {
