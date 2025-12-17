@@ -6,6 +6,7 @@
 //
 
 import Rendering
+public import WHATWG_HTML_Shared
 
 extension HTML {
     /// Represents a CSS media query for conditional styling.

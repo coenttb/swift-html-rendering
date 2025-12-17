@@ -8,6 +8,7 @@
 import OrderedCollections
 import Rendering
 public import RenderingAsync
+public import WHATWG_HTML_Shared
 
 extension HTML {
     /// A wrapper that applies attributes to an HTML element.

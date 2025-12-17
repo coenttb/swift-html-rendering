@@ -9,6 +9,7 @@ import OrderedCollections
 public import Rendering
 public import RenderingAsync
 import Standards
+public import WHATWG_HTML_Shared
 
 /// A protocol representing an HTML element or component that can be rendered.
 ///

@@ -6,6 +6,7 @@
 //
 
 import Rendering
+public import WHATWG_HTML_Shared
 
 extension HTML {
     /// Represents CSS pseudo-classes and pseudo-elements for targeting element states and parts.

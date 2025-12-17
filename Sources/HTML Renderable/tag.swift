@@ -5,7 +5,7 @@
 //  SPI-exposed function for creating HTML elements from string tag names.
 //
 
-import WHATWG_HTML_Shared
+public import WHATWG_HTML_Shared
 
 // MARK: - Tag Function (SPI)
 

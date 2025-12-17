@@ -7,6 +7,7 @@
 
 public import Rendering
 public import RenderingAsync
+public import WHATWG_HTML_Shared
 
 /// Conformance of `Never` to `Rendering` to support the type system.
 ///

@@ -7,6 +7,7 @@
 
 public import Rendering
 public import RenderingAsync
+public import WHATWG_HTML_Shared
 
 // Public typealias to disambiguate between the Rendering module and Rendering protocol
 // when accessing the Raw type from the Rendering module.

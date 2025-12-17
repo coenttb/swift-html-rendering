@@ -6,6 +6,7 @@
 //
 
 public import Rendering
+public import WHATWG_HTML_Shared
 
 extension HTML {
     /// Type-erased wrapper for any HTML content.

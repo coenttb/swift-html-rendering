@@ -4,6 +4,7 @@ import AppKit
 #endif
 @preconcurrency public import SwiftUI
 public import WebKit
+public import WHATWG_HTML_Shared
 
 // MARK: - Shared Implementation
 

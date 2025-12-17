@@ -7,6 +7,7 @@
 
 import Rendering
 public import W3C_CSS_Shared
+public import WHATWG_HTML_Shared
 
 extension HTML {
     /// A wrapper that applies a CSS style to HTML content.

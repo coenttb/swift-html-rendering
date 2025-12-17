@@ -7,6 +7,7 @@
 
 public import Rendering
 public import RenderingAsync
+public import WHATWG_HTML_Shared
 
 public typealias RenderingEmpty = Empty
 

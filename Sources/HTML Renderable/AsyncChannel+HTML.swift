@@ -6,6 +6,7 @@
 //
 
 import Rendering
+public import WHATWG_HTML_Shared
 public import RenderingAsync
 
 extension AsyncChannel<ArraySlice<UInt8>> {

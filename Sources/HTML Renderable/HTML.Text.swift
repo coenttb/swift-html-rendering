@@ -8,6 +8,7 @@
 import INCITS_4_1986
 import Rendering
 public import RenderingAsync
+public import WHATWG_HTML_Shared
 
 extension HTML {
     /// Represents plain text content in HTML, with proper escaping.

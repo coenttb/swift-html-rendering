@@ -6,6 +6,7 @@
 //
 
 public import W3C_CSS_Shared
+public import WHATWG_HTML_Shared
 
 extension HTML {
     /// A CSS style declaration with optional scope modifiers.

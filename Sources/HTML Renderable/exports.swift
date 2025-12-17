@@ -9,3 +9,4 @@
 @_exported import OrderedCollections
 @_exported import Rendering
 @_exported import W3C_CSS_Shared
+@_exported import enum WHATWG_HTML_Shared.HTML

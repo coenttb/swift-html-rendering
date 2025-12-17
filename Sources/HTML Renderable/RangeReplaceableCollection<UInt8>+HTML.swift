@@ -6,6 +6,7 @@
 //
 
 public import Rendering
+public import WHATWG_HTML_Shared
 
 extension RangeReplaceableCollection<UInt8> {
     /// Creates a byte collection from rendered HTML.

@@ -5,6 +5,8 @@
 //  TaskLocal-based context for CSS styling.
 //
 
+public import WHATWG_HTML_Shared
+
 extension HTML.Style {
     /// Context for CSS styling that captures at-rule, selector, and pseudo state.
     ///

@@ -6,6 +6,7 @@
 //
 
 import Rendering
+public import WHATWG_HTML_Shared
 
 // MARK: - RFC Pattern: String Derived from Bytes
 

@@ -8,7 +8,7 @@
 import HTML_Renderable
 import Rendering
 import W3C_CSS_Shared
-import WHATWG_HTML_Shared
+public import WHATWG_HTML_Shared
 
 // MARK: - Tag Function for Testing
 

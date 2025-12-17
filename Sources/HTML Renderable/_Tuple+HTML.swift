@@ -6,6 +6,7 @@
 //
 
 public import Rendering
+public import WHATWG_HTML_Shared
 public import RenderingAsync
 
 // Extend the _Tuple type from Rendering module to conform to HTML.View

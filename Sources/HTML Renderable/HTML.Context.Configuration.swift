@@ -7,6 +7,7 @@
 
 import INCITS_4_1986
 import Rendering
+public import WHATWG_HTML_Shared
 
 extension HTML.Context {
 

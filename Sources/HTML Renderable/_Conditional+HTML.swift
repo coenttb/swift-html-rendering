@@ -6,6 +6,7 @@
 //
 
 public import Rendering
+public import WHATWG_HTML_Shared
 
 // Extend the _Conditional type from Rendering module to conform to HTML.View
 // Note: _Conditional is a top-level type exported from the Rendering module.

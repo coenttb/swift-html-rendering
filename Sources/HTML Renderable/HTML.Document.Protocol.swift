@@ -7,6 +7,7 @@
 
 import OrderedCollections
 import Rendering
+public import WHATWG_HTML_Shared
 
 extension HTML {
     /// A protocol representing a complete HTML document.

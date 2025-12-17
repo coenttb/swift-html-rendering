@@ -6,6 +6,7 @@
 //
 
 public import Rendering
+public import WHATWG_HTML_Shared
 
 /// Allows optional values to be used as HTML elements.
 ///
