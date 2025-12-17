@@ -15,7 +15,7 @@ extension HTML_Standard.Input: HTML.View {}
 extension HTML_Standard.Input {
     @HTML.Builder
     public var body: some HTML.View {
-        let input = HTML.Element(for: Self.self) { HTML.Empty() }
+        let input = HTML.Element.Tag(for: Self.self) { HTML.Empty() }
             .name(name)
             .disabled(self.disabled)
             .attribute("type", self.type.label)

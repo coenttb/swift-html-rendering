@@ -36,7 +36,7 @@ extension HTML.View {
     /// Sets the title attribute using a Title struct
     @discardableResult
     public func title(
-        _ attribute: Title?
+        _ attribute: HTML_Standard_Attributes.Title?
     ) -> HTML._Attributes<Self> {
         self.attribute(Title.attribute, attribute?.description)
     }

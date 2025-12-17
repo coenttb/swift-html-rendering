@@ -9,7 +9,7 @@ import HTML_Attributes_Rendering
 import HTML_Standard_Elements
 
 extension HTML_Standard_Elements.BR: HTML.View {
-    public var body: HTML.Element<HTML.Empty> {
-        HTML.Element(for: Self.self) { HTML.Empty() }
+    public var body: HTML.Element.Tag<HTML.Empty> {
+        HTML.Element.Tag(for: Self.self) { HTML.Empty() }
     }
 }

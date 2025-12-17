@@ -78,10 +78,10 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-collections.git", from: "1.1.2"),
         .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.18.3"),
         .package(url: "https://github.com/swift-standards/swift-incits-4-1986", from: "0.4.0"),
-        .package(url: "https://github.com/swift-standards/swift-standards", from: "0.1.0"),
+        .package(url: "https://github.com/swift-standards/swift-standards", from: "0.16.1"),
         .package(url: "https://github.com/swift-standards/swift-iso-9899", from: "0.1.0"),
-        .package(url: "https://github.com/swift-standards/swift-html-standard", from: "0.1.4"),
-        .package(url: "https://github.com/swift-standards/swift-w3c-css", from: "0.1.0"),
+        .package(url: "https://github.com/swift-standards/swift-html-standard", from: "0.1.5"),
+        .package(url: "https://github.com/swift-standards/swift-w3c-css", from: "0.2.1"),
     ],
     targets: [
         .target(

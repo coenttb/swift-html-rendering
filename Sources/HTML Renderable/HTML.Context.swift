@@ -30,8 +30,8 @@ extension HTML {
         public var attributes: OrderedDictionary<String, String>
 
         /// The collected styles mapped to their generated class names.
-        /// Style → className (e.g., HTML.Style(Color.red) → "color-0")
-        public var styles: OrderedDictionary<HTML.Style, String>
+        /// Style → className (e.g., HTML.Element.Style(Color.red) → "color-0")
+        public var styles: OrderedDictionary<HTML.Element.Style, String>
 
         /// Configuration for rendering, including formatting options.
         public let configuration: Configuration
@@ -68,7 +68,9 @@ extension HTML.Context {
     ///
     /// - Parameter style: The style to register.
     /// - Returns: A deterministic class name for the style.
-    public mutating func pushStyle(_ style: HTML.Style) -> String {
+    public mutating func pushStyle(
+        _ style: HTML.Element.Style
+    ) -> String {
         if let existing = styles[style] {
             return existing
         }
@@ -90,7 +92,7 @@ extension HTML.Context {
     /// - Returns: The stylesheet bytes with proper indentation.
     public func stylesheetBytes(baseIndentation: [UInt8] = []) -> ContiguousArray<UInt8> {
         // Group styles by atRule
-        var grouped: OrderedDictionary<HTML.AtRule?, [(style: HTML.Style, className: String)]> = [:]
+        var grouped: OrderedDictionary<HTML.AtRule?, [(style: HTML.Element.Style, className: String)]> = [:]
         for (style, className) in styles {
             grouped[style.atRule, default: []].append((style, className))
         }

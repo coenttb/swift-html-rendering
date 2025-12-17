@@ -8,10 +8,10 @@
 import HTML_Attributes_Rendering
 import HTML_Standard_Elements
 
-extension HTML_Standard_Elements.FrameFallback {
+extension WHATWG_HTML_Obsolete.FrameFallback {
     public func callAsFunction<Content: HTML.View>(
         @HTML.Builder _ content: () -> Content
-    ) -> HTML.Element<Content> {
-        HTML.Element(for: Self.self) { content() }
+    ) -> HTML.Element.Tag<Content> {
+        HTML.Element.Tag(for: Self.self) { content() }
     }
 }

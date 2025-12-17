@@ -8,7 +8,7 @@
 public import W3C_CSS_Shared
 public import WHATWG_HTML_Shared
 
-extension HTML {
+extension HTML.Element {
     /// A CSS style declaration with optional scope modifiers.
     ///
     /// `HTML.Style` captures a CSS declaration and its context (at-rule, selector, pseudo).

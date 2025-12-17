@@ -10,7 +10,7 @@ import HTML_Standard_Elements
 
 extension HTML_Standard_Elements.Image: HTML.View {
     public var body: some HTML.View {
-        HTML.Element(for: Self.self)
+        HTML.Element.Tag(for: Self.self)
             .src(self.src)
             .alt(self.alt)
             .loading(self.loading)

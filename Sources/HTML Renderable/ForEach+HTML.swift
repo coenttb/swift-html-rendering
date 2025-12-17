@@ -6,7 +6,7 @@
 //
 
 public import Rendering
-public import WHATWG_HTML_Shared
+public import HTML_Standard
 
 // Extend the ForEach type from Rendering module to conform to HTML.View
 // Note: ForEach is a top-level type exported from the Rendering module.

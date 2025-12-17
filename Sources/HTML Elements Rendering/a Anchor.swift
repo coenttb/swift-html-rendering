@@ -8,11 +8,11 @@
 import HTML_Attributes_Rendering
 import HTML_Standard_Elements
 
-extension HTML_Standard_Elements.Anchor {
+extension WHATWG_HTML_TextSemantics.Anchor {
     public func callAsFunction(
         @HTML.Builder _ content: () -> some HTML.View
     ) -> some HTML.View {
-        HTML.Element(for: Self.self) { content() }
+        HTML.Element.Tag(for: Self.self) { content() }
             .attributionSrc(self.attributionsrc)
             .download(self.download)
             .href(self.href)

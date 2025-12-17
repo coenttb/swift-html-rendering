@@ -10,7 +10,7 @@ import HTML_Standard_Elements
 
 extension HTML_Standard_Elements.Track: HTML.View {
     public var body: some HTML.View {
-        HTML.Element(for: Self.self) { HTML.Empty() }
+        HTML.Element.Tag(for: Self.self) { HTML.Empty() }
             .default(self.default)
             .kind(self.kind)
             .label(self.label)

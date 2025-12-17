@@ -24,8 +24,8 @@ public import WHATWG_HTML_Shared
 public func tag<T: HTML.View>(
     _ tagName: String,
     @HTML.Builder _ content: () -> T = { Empty() }
-) -> HTML.Element<T> {
-    HTML.Element(tag: tagName, content: content)
+) -> HTML.Element.Tag<T> {
+    HTML.Element.Tag(tag: tagName, content: content)
 }
 
 // MARK: - String-based Inline Style for Testing
@@ -86,46 +86,46 @@ extension HTML.View {
 
 extension HTML.Tag {
     /// Creates an empty HTML element with this tag. For testing only.
-    public func callAsFunction() -> HTML.Element<Empty> {
-        HTML.Element(tag: self.rawValue) { Empty() }
+    public func callAsFunction() -> HTML.Element.Tag<Empty> {
+        HTML.Element.Tag(tag: self.rawValue) { Empty() }
     }
 
     /// Creates an HTML element with content. For testing only.
-    public func callAsFunction<T: HTML.View>(@HTML.Builder _ content: () -> T) -> HTML.Element<T> {
-        HTML.Element(tag: self.rawValue, content: content)
+    public func callAsFunction<T: HTML.View>(@HTML.Builder _ content: () -> T) -> HTML.Element.Tag<T> {
+        HTML.Element.Tag(tag: self.rawValue, content: content)
     }
 }
 
 // MARK: - HTML.Element callAsFunction for Testing
 
-extension HTML.Element where Content == Empty {
+extension HTML.Element.Tag where Content == Empty {
     /// Creates a new HTML element with the same tag but different content. For testing only.
     ///
     /// This allows the pattern:
     /// ```swift
-    /// let div = tag("div")  // Returns HTML.Element<Empty>
-    /// let content = div { "Hello" }  // Returns HTML.Element<String>
+    /// let div = tag("div")  // Returns HTML.Element.Tag<Empty>
+    /// let content = div { "Hello" }  // Returns HTML.Element.Tag<String>
     /// ```
-    public func callAsFunction<T: HTML.View>(@HTML.Builder _ content: () -> T) -> HTML.Element<T> {
-        HTML.Element<T>(tag: self.tagName, content: content)
+    public func callAsFunction<T: HTML.View>(@HTML.Builder _ content: () -> T) -> HTML.Element.Tag<T> {
+        HTML.Element.Tag<T>(tag: self.tagName, content: content)
     }
 }
 
 // extension HTML.Tag.Void {
 //    /// Creates an HTML void element with this tag. For testing only.
-//    public func callAsFunction() -> HTML.Element<Empty> {
-//        HTML.Element(tag: self.rawValue) { Empty() }
+//    public func callAsFunction() -> HTML.Element.Tag<Empty> {
+//        HTML.Element.Tag(tag: self.rawValue) { Empty() }
 //    }
 // }
 //
 // extension HTML.Tag.Text {
 //    /// Creates an HTML element with text content. For testing only.
-//    public func callAsFunction(_ content: String = "") -> HTML.Element<HTML.Text> {
-//        HTML.Element(tag: self.rawValue) { HTML.Text(content) }
+//    public func callAsFunction(_ content: String = "") -> HTML.Element.Tag<HTML.Text> {
+//        HTML.Element.Tag(tag: self.rawValue) { HTML.Text(content) }
 //    }
 //
 //    /// Creates an HTML element with dynamic text content. For testing only.
-//    public func callAsFunction(_ content: () -> String) -> HTML.Element<HTML.Text> {
-//        HTML.Element(tag: self.rawValue) { HTML.Text(content()) }
+//    public func callAsFunction(_ content: () -> String) -> HTML.Element.Tag<HTML.Text> {
+//        HTML.Element.Tag(tag: self.rawValue) { HTML.Text(content()) }
 //    }
 // }

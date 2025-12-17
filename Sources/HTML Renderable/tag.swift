@@ -26,8 +26,8 @@ public import WHATWG_HTML_Shared
 public func tag<T: HTML.View>(
     _ tagName: String,
     @HTML.Builder _ content: () -> T = { Empty() }
-) -> HTML.Element<T> {
-    HTML.Element(tag: tagName, content: content)
+) -> HTML.Element.Tag<T> {
+    HTML.Element.Tag(tag: tagName, content: content)
 }
 
 /// Creates an empty HTML element with the specified tag name.
@@ -36,6 +36,6 @@ public func tag<T: HTML.View>(
 /// - Returns: An HTML element with the specified tag and no content.
 @_spi(DynamicHTML)
 @inlinable
-public func tag(_ tagName: String) -> HTML.Element<Empty> {
-    HTML.Element(tag: tagName) { Empty() }
+public func tag(_ tagName: String) -> HTML.Element.Tag<Empty> {
+    HTML.Element.Tag(tag: tagName) { Empty() }
 }

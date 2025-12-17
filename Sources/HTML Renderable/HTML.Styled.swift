@@ -31,7 +31,7 @@ extension HTML {
         public let property: P?
 
         /// The style metadata for HTML rendering.
-        public let style: HTML.Style?
+        public let style: HTML.Element.Style?
 
         /// Optional at-rule (e.g., media query).
         public let atRule: HTML.AtRule?
@@ -60,7 +60,7 @@ extension HTML {
             self.content = content
             self.property = property
             self.style = property.map {
-                HTML.Style($0, atRule: atRule, selector: selector, pseudo: pseudo)
+                HTML.Element.Style($0, atRule: atRule, selector: selector, pseudo: pseudo)
             }
             self.atRule = atRule
             self.selector = selector
@@ -69,7 +69,7 @@ extension HTML {
     }
 }
 
-extension HTML.Styled: Sendable where Content: Sendable {}
+
 
 extension HTML.Styled: Renderable where Content: HTML.View {
     public typealias Context = HTML.Context

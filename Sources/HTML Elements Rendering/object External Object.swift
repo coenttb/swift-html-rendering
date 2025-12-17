@@ -12,7 +12,7 @@ extension HTML_Standard_Elements.ExternalObject {
     public func callAsFunction(
         @HTML.Builder _ content: () -> some HTML.View
     ) -> some HTML.View {
-        HTML.Element(for: Self.self) { content() }
+        HTML.Element.Tag(for: Self.self) { content() }
             .data(self.data)
             .type(self.type)
             .form(self.form)

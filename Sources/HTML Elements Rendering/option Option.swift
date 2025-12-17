@@ -10,7 +10,7 @@ import HTML_Standard_Elements
 
 extension HTML_Standard_Elements.Option: HTML.View {
     public var body: some HTML.View {
-        HTML.Element(for: Self.self)
+        HTML.Element.Tag(for: Self.self)
             .disabled(self.disabled)
             .label(self.label)
             .selected(self.selected)
@@ -20,7 +20,7 @@ extension HTML_Standard_Elements.Option: HTML.View {
     public func callAsFunction(
         @HTML.Builder _ content: () -> some HTML.View
     ) -> some HTML.View {
-        HTML.Element(for: Self.self) { content() }
+        HTML.Element.Tag(for: Self.self) { content() }
             .disabled(self.disabled)
             .label(self.label)
             .selected(self.selected)

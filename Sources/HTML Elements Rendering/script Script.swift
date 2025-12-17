@@ -29,7 +29,7 @@ extension HTML_Standard_Elements.Script {
             }
         }
 
-        return HTML.Element(for: Self.self) {
+        return HTML.Element.Tag(for: Self.self) {
             if script.isEmpty { HTML.Empty() } else { HTML.Raw(escaped) }
         }
         .src(self.src)

@@ -8,9 +8,9 @@
 import HTML_Attributes_Rendering
 import HTML_Standard_Elements
 
-extension HTML_Standard_Elements.Param: HTML.View {
+extension WHATWG_HTML_Obsolete.Param: HTML.View {
     public var body: some HTML.View {
-        HTML.Element(for: Self.self) { HTML.Empty() }
+        HTML.Element.Tag(for: Self.self) { HTML.Empty() }
             .name(self.name)
             .value(self.value)
     }

@@ -13,7 +13,7 @@ import HTML_Standard_Elements
 extension HTML_Standard_Elements.Address {
     public func callAsFunction<Content: HTML.View>(
         @HTML.Builder _ content: () -> Content
-    ) -> HTML.Element<Content> {
-        HTML.Element(for: Self.self) { content() }
+    ) -> HTML.Element.Tag<Content> {
+        HTML.Element.Tag(for: Self.self) { content() }
     }
 }

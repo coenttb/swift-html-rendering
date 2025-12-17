@@ -11,47 +11,47 @@ import HTML_Standard_Elements
 extension HTML_Standard_Elements.H1 {
     public func callAsFunction<Content: HTML.View>(
         @HTML.Builder _ content: () -> Content
-    ) -> HTML.Element<Content> {
-        HTML.Element(for: Self.self) { content() }
+    ) -> HTML.Element.Tag<Content> {
+        HTML.Element.Tag(for: Self.self) { content() }
     }
 }
 
 extension HTML_Standard_Elements.H2 {
     public func callAsFunction<Content: HTML.View>(
         @HTML.Builder _ content: () -> Content
-    ) -> HTML.Element<Content> {
-        HTML.Element(for: Self.self) { content() }
+    ) -> HTML.Element.Tag<Content> {
+        HTML.Element.Tag(for: Self.self) { content() }
     }
 }
 
 extension HTML_Standard_Elements.H3 {
     public func callAsFunction<Content: HTML.View>(
         @HTML.Builder _ content: () -> Content
-    ) -> HTML.Element<Content> {
-        HTML.Element(for: Self.self) { content() }
+    ) -> HTML.Element.Tag<Content> {
+        HTML.Element.Tag(for: Self.self) { content() }
     }
 }
 
 extension HTML_Standard_Elements.H4 {
     public func callAsFunction<Content: HTML.View>(
         @HTML.Builder _ content: () -> Content
-    ) -> HTML.Element<Content> {
-        HTML.Element(for: Self.self) { content() }
+    ) -> HTML.Element.Tag<Content> {
+        HTML.Element.Tag(for: Self.self) { content() }
     }
 }
 
 extension HTML_Standard_Elements.H5 {
     public func callAsFunction<Content: HTML.View>(
         @HTML.Builder _ content: () -> Content
-    ) -> HTML.Element<Content> {
-        HTML.Element(for: Self.self) { content() }
+    ) -> HTML.Element.Tag<Content> {
+        HTML.Element.Tag(for: Self.self) { content() }
     }
 }
 
 extension HTML_Standard_Elements.H6 {
     public func callAsFunction<Content: HTML.View>(
         @HTML.Builder _ content: () -> Content
-    ) -> HTML.Element<Content> {
-        HTML.Element(for: Self.self) { content() }
+    ) -> HTML.Element.Tag<Content> {
+        HTML.Element.Tag(for: Self.self) { content() }
     }
 }
