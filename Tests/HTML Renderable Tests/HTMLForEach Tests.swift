@@ -1,5 +1,5 @@
 //
-//  HTML.ForEachTests.swift
+//  ForEachTests.swift
 //  swift-html-rendering
 //
 //  Created by Coen ten Thije Boonkkamp on 20/07/2025.
@@ -11,12 +11,12 @@ import Testing
 @testable import HTML_Renderable
 
 @Suite
-struct `HTML.ForEach Tests` {
+struct `ForEach Tests` {
 
     @Test
-    func `HTML.ForEach with array of strings`() throws {
+    func `ForEach with array of strings`() throws {
         let items = ["apple", "banana", "cherry"]
-        let forEach = HTML.ForEach(items) { item in
+        let forEach = ForEach(items) { item in
             HTML.Text(item)
         }
 
@@ -25,9 +25,9 @@ struct `HTML.ForEach Tests` {
     }
 
     @Test
-    func `HTML.ForEach with elements`() throws {
+    func `ForEach with elements`() throws {
         let items = ["first", "second", "third"]
-        let forEach = HTML.ForEach(items) { item in
+        let forEach = ForEach(items) { item in
             tag("li") {
                 HTML.Text(item)
             }
@@ -40,9 +40,9 @@ struct `HTML.ForEach Tests` {
     }
 
     @Test
-    func `HTML.ForEach with empty array`() throws {
+    func `ForEach with empty array`() throws {
         let items: [String] = []
-        let forEach = HTML.ForEach(items) { item in
+        let forEach = ForEach(items) { item in
             HTML.Text(item)
         }
 
@@ -51,9 +51,9 @@ struct `HTML.ForEach Tests` {
     }
 
     @Test
-    func `HTML.ForEach with numbers`() throws {
+    func `ForEach with numbers`() throws {
         let numbers = [1, 2, 3, 4, 5]
-        let forEach = HTML.ForEach(numbers) { number in
+        let forEach = ForEach(numbers) { number in
             HTML.Text(String(number))
         }
 
@@ -62,10 +62,10 @@ struct `HTML.ForEach Tests` {
     }
 
     @Test
-    func `HTML.ForEach nested in elements`() throws {
+    func `ForEach nested in elements`() throws {
         let items = ["item1", "item2", "item3"]
         let list = tag("ul") {
-            HTML.ForEach(items) { item in
+            ForEach(items) { item in
                 tag("li") {
                     HTML.Text(item)
                 }
@@ -81,7 +81,7 @@ struct `HTML.ForEach Tests` {
     }
 
     @Test
-    func `HTML.ForEach with complex content`() throws {
+    func `ForEach with complex content`() throws {
         struct Item {
             let title: String
             let description: String
@@ -92,7 +92,7 @@ struct `HTML.ForEach Tests` {
             Item(title: "Second", description: "Second description"),
         ]
 
-        let forEach = HTML.ForEach(items) { item in
+        let forEach = ForEach(items) { item in
             tag("div") {
                 tag("h3") {
                     HTML.Text(item.title)
@@ -117,14 +117,14 @@ extension `Snapshot Tests` {
     @Suite
     struct HTMLForEachSnapshotTests {
         @Test
-        func `HTML.ForEach list generation snapshot`() {
+        func `ForEach list generation snapshot`() {
             let items = ["Home", "About", "Services", "Contact"]
 
             assertInlineSnapshot(
                 of: HTML.Document {
                     tag("nav") {
                         tag("ul") {
-                            HTML.ForEach(items) { item in
+                            ForEach(items) { item in
                                 tag("li") {
                                     tag("a") {
                                         HTML.Text(item)
@@ -163,7 +163,7 @@ extension `Snapshot Tests` {
         }
 
         @Test
-        func `HTML.ForEach complex content snapshot`() {
+        func `ForEach complex content snapshot`() {
             struct Product {
                 let name: String
                 let price: String
@@ -189,7 +189,7 @@ extension `Snapshot Tests` {
                         tag("h1") {
                             HTML.Text("Our Products")
                         }
-                        HTML.ForEach(products) { product in
+                        ForEach(products) { product in
                             tag("article") {
                                 tag("h2") {
                                     HTML.Text(product.name)

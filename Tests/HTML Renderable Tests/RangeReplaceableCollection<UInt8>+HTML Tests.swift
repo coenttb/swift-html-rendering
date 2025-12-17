@@ -135,7 +135,7 @@ struct `RangeReplaceableCollection<UInt8>+HTML Tests` {
     @Test
     func `Renders ForEach`() {
         let items = ["one", "two", "three"]
-        let html = HTML.ForEach(items) { item in
+        let html = ForEach(items) { item in
             tag("li") { HTML.Text(item) }
         }
         let bytes: [UInt8] = .init(html)

@@ -60,7 +60,7 @@ struct BlogPost: HTML.View {
             
             if !post.tags.isEmpty {
                 footer {
-                    HTML.ForEach(post.tags) { tag in
+                    ForEach(post.tags) { tag in
                         span { tag }
                             .background", .color(.hex("#eee")))
                             .padding(.rem(0.25), .rem(0.5))
@@ -242,7 +242,7 @@ struct ProductGrid: HTML.View {
     
     var body: some HTML.View {
         tag("div") {
-            HTML.ForEach(products) { product in
+            ForEach(products) { product in
                 ProductCard(product: product)
             }
         }
@@ -332,7 +332,7 @@ PointFreeHTML makes HTML generation in Swift a pleasure. Whether you're building
 - ``HTMLRaw``
 - ``Empty``
 - ``Group``
-- ``HTML.ForEach``
+- ``ForEach``
 
 ### HTML attributes
 

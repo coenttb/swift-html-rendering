@@ -355,10 +355,10 @@ struct `Integration Tests` {
         #expect(rendered.contains("\n"))
     }
 
-    // MARK: - HTML.ForEach Integration
+    // MARK: - ForEach Integration
 
     @Test
-    func `HTML.ForEach with identifiable data`() throws {
+    func `ForEach with identifiable data`() throws {
         struct Item: Identifiable {
             let id: Int
             let name: String
@@ -371,7 +371,7 @@ struct `Integration Tests` {
         ]
 
         let html = tag("ul") {
-            HTML.ForEach(items) { item in
+            ForEach(items) { item in
                 tag("li") { HTML.Text(item.name) }
                     .attribute("data-id", String(item.id))
             }

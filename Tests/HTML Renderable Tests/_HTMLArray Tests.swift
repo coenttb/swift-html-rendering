@@ -121,12 +121,12 @@ struct `_Array Tests` {
         #expect(rendered.contains("2: Third"))
     }
 
-    // MARK: - HTML.ForEach Integration
+    // MARK: - ForEach Integration
 
     @Test
-    func `_Array via HTML.ForEach`() throws {
+    func `_Array via ForEach`() throws {
         let items = ["Alpha", "Beta", "Gamma"]
-        let html = HTML.ForEach(items) { item in
+        let html = ForEach(items) { item in
             tag("option") {
                 HTML.Text(item)
             }
