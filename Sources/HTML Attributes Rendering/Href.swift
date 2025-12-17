@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Add an href attribute to specify a hyperlink destination
     @discardableResult
     public func href(
         _ value: Href?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Href.attribute, value?.description)
     }
 }

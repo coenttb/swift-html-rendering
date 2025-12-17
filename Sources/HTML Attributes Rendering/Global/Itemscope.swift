@@ -8,9 +8,9 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Sets the itemscope attribute, creating a new microdata item
-    public var itemscope: HTML._Attributes<Self> {
+    public var itemscope: WHATWG_HTML._Attributes<Self> {
         self.attribute(Itemscope.attribute)
     }
 
@@ -18,7 +18,7 @@ extension HTML.View {
     @discardableResult
     public func itemscope(
         _ value: Itemscope?
-    ) -> some HTML.View {
+    ) -> some WHATWG_HTML.View {
         self.attribute(boolean: value)
     }
 }

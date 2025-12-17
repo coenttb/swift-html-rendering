@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
 
     /// Sets the popovertargetaction attribute on an element
     @discardableResult
     package func popoverTargetAction(
         _ value: PopoverTargetAction?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(PopoverTargetAction.attribute, value?.description)
     }
 }

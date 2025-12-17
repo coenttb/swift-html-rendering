@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Sets the placeholder attribute on an element
     @discardableResult
     package func placeholder(
         _ value: Placeholder?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Placeholder.attribute, value?.description)
     }
 }

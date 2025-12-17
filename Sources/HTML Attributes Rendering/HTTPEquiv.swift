@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
 
     /// Sets the httpEquiv attribute on an element
     @discardableResult
     package func httpEquiv(
         _ value: HttpEquiv?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute("http-equiv", value?.description)
     }
 }

@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
 
     /// Sets the data attribute on an object element
     @discardableResult
     package func data(
         _ value: ObjectData?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(ObjectData.attribute, value?.description)
     }
 }

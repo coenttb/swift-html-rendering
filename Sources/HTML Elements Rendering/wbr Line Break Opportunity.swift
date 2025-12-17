@@ -8,8 +8,8 @@
 import HTML_Attributes_Rendering
 import HTML_Standard_Elements
 
-extension HTML_Standard_Elements.LineBreakOpportunity: HTML.View {
-    public var body: HTML.Element.Tag<HTML.Empty> {
-        HTML.Element.Tag(for: Self.self) { HTML.Empty() }
+extension HTML_Standard_Elements.LineBreakOpportunity: WHATWG_HTML.View {
+    public var body: WHATWG_HTML.Element.Tag<WHATWG_HTML.Empty> {
+        WHATWG_HTML.Element.Tag(for: Self.self) { WHATWG_HTML.Empty() }
     }
 }

@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
 
     /// Sets the disablepictureinpicture attribute on an element
     @discardableResult
     package func disablePictureInPicture(
         _ value: DisablePictureInPicture?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(DisablePictureInPicture.attribute, value?.description)
     }
 }

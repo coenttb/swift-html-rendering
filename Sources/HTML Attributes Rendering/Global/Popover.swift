@@ -8,10 +8,10 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Sets the popover attribute as a boolean (equivalent to popover="auto")
     @discardableResult
-    public func popover() -> HTML._Attributes<Self> {
+    public func popover() -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Popover.attribute, "")
     }
 
@@ -19,7 +19,7 @@ extension HTML.View {
     @discardableResult
     public func popover(
         _ type: Popover
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Popover.attribute, type.description)
     }
 
@@ -27,17 +27,17 @@ extension HTML.View {
     @discardableResult
     public func popover(
         _ value: String
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Popover.attribute, value)
     }
 }
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Sets the popovertarget attribute with the ID of the target popover
     @discardableResult
     public func popovertarget(
         _ id: String
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(PopoverTarget.attribute, id)
     }
 
@@ -45,17 +45,17 @@ extension HTML.View {
     @discardableResult
     public func popovertarget(
         _ attribute: PopoverTarget?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(PopoverTarget.attribute, attribute?.description)
     }
 }
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Sets the popovertargetaction attribute with an action
     @discardableResult
     public func popovertargetaction(
         _ action: PopoverTargetAction?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(PopoverTargetAction.attribute, action?.description)
     }
 }

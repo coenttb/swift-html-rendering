@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Sets the itemtype attribute with a vocabulary URL
     @discardableResult
     public func itemtype(
         _ value: String
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Itemtype.attribute, value)
     }
 
@@ -21,7 +21,7 @@ extension HTML.View {
     @discardableResult
     public func itemtype(
         _ values: [String]
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Itemtype.attribute, values.joined(separator: " "))
     }
 
@@ -29,7 +29,7 @@ extension HTML.View {
     @discardableResult
     public func itemtype(
         _ values: String...
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.itemtype(values)
     }
 
@@ -37,7 +37,7 @@ extension HTML.View {
     @discardableResult
     public func itemtype(
         _ attribute: Itemtype
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Itemtype.attribute, attribute.description)
     }
 
@@ -45,7 +45,7 @@ extension HTML.View {
     @discardableResult
     public func itemtype(
         schemaOrg type: String
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.itemtype(Itemtype(schemaOrg: type))
     }
 }

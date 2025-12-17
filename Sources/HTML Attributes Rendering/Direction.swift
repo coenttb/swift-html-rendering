@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
 
     /// Sets the direction attribute on an element
     @discardableResult
     package func direction(
         _ value: WHATWG_HTML_GlobalAttributes.Direction?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(WHATWG_HTML_GlobalAttributes.Direction.attribute, value?.description)
     }
 }

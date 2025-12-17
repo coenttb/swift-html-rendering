@@ -8,17 +8,17 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
-    public var autofocus: HTML._Attributes<Self> {
+extension WHATWG_HTML.View {
+    public var autofocus: WHATWG_HTML._Attributes<Self> {
         self.attribute(Autofocus.attribute)
     }
 }
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     @discardableResult
     public func autofocus(
         _ value: Autofocus?
-    ) -> some HTML.View {
+    ) -> some WHATWG_HTML.View {
         self.attribute(boolean: value)
     }
 }

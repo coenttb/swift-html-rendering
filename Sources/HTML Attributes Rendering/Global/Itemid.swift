@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Sets the itemid attribute with a global identifier
     @discardableResult
     public func itemid(
         _ identifier: String
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Itemid.attribute, Itemid(identifier).description)
     }
 
@@ -21,7 +21,7 @@ extension HTML.View {
     @discardableResult
     public func itemid(
         _ value: Itemid
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Itemid.attribute, value.description)
     }
 }

@@ -11,9 +11,9 @@ import HTML_Standard_Elements
 // extension Address: HTMLElementNoAttributes {}
 
 extension HTML_Standard_Elements.Address {
-    public func callAsFunction<Content: HTML.View>(
-        @HTML.Builder _ content: () -> Content
-    ) -> HTML.Element.Tag<Content> {
-        HTML.Element.Tag(for: Self.self) { content() }
+    public func callAsFunction<Content: WHATWG_HTML.View>(
+        @WHATWG_HTML.Builder _ content: () -> Content
+    ) -> WHATWG_HTML.Element.Tag<Content> {
+        WHATWG_HTML.Element.Tag(for: Self.self) { content() }
     }
 }

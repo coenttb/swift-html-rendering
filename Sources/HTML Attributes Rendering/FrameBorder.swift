@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Sets the maxlength attribute on an element
     @discardableResult
     package func frameBorder(
         _ value: FrameBorder?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(FrameBorder.attribute, value?.description)
     }
 }

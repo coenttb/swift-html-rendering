@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
 
     /// Sets the selected attribute on an element
     @discardableResult
     package func selected(
         _ value: Selected?
-    ) -> some HTML.View {
+    ) -> some WHATWG_HTML.View {
         self.attribute(boolean: value)
     }
 }

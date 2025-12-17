@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Add an EncType attribute to specify the form data encoding type
     @discardableResult
     package func EncType(
         _ value: EncType?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(WHATWG_HTML_FormAttributes.EncType.attribute, value?.description)
     }
 }

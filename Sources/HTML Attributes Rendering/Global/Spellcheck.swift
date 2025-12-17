@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Sets the spellcheck attribute using a Spellcheck enum value
     @discardableResult
     package func spellcheck(
         _ attribute: Spellcheck?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Spellcheck.attribute, attribute?.description)
     }
 }

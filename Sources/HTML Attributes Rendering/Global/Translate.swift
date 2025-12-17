@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Sets the translate attribute using a Translate enum value
     @discardableResult
     public func translate(
         _ attribute: Translate
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Translate.attribute, attribute.description)
     }
 }

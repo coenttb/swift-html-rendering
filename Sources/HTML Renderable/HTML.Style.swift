@@ -1,5 +1,5 @@
 //
-//  HTML.Style.swift
+//  WHATWG_HTML.Style.swift
 //  swift-html-rendering
 //
 //  Created by Coen ten Thije Boonkkamp on 26/11/2025.
@@ -8,34 +8,34 @@
 public import W3C_CSS_Shared
 public import WHATWG_HTML_Shared
 
-extension HTML.Element {
+extension WHATWG_HTML.Element {
     /// A CSS style declaration with optional scope modifiers.
     ///
-    /// `HTML.Style` captures a CSS declaration and its context (at-rule, selector, pseudo).
+    /// `WHATWG_HTML.Style` captures a CSS declaration and its context (at-rule, selector, pseudo).
     /// This is the unified representation for all styling operations.
     ///
     /// Create styles from typed CSS properties for compile-time safety:
     /// ```swift
-    /// HTML.Style(Color.red)
-    /// HTML.Style(Margin.px(10), pseudo: .hover)
+    /// WHATWG_HTML.Style(Color.red)
+    /// WHATWG_HTML.Style(Margin.px(10), pseudo: .hover)
     /// ```
     ///
     /// Or from raw declaration strings when needed:
     /// ```swift
-    /// HTML.Style(declaration: "color:red")
+    /// WHATWG_HTML.Style(declaration: "color:red")
     /// ```
     public struct Style: Hashable, Sendable {
         /// The CSS declaration string (e.g., "color:red")
         public let declaration: String
 
         /// Optional at-rule (e.g., @media query)
-        public let atRule: HTML.AtRule?
+        public let atRule: WHATWG_HTML.AtRule?
 
         /// Optional CSS selector prefix
-        public let selector: HTML.Selector?
+        public let selector: WHATWG_HTML.Selector?
 
         /// Optional pseudo-class or pseudo-element
-        public let pseudo: HTML.Pseudo?
+        public let pseudo: WHATWG_HTML.Pseudo?
 
         /// Create a style from a typed CSS property.
         ///
@@ -48,9 +48,9 @@ extension HTML.Element {
         ///   - pseudo: Optional pseudo-class or pseudo-element.
         public init<P: Property>(
             _ property: P,
-            atRule: HTML.AtRule? = nil,
-            selector: HTML.Selector? = nil,
-            pseudo: HTML.Pseudo? = nil
+            atRule: WHATWG_HTML.AtRule? = nil,
+            selector: WHATWG_HTML.Selector? = nil,
+            pseudo: WHATWG_HTML.Pseudo? = nil
         ) {
             self.declaration = property.declaration.description
             self.atRule = atRule
@@ -69,9 +69,9 @@ extension HTML.Element {
         ///   - pseudo: Optional pseudo-class or pseudo-element.
         public init(
             declaration: String,
-            atRule: HTML.AtRule? = nil,
-            selector: HTML.Selector? = nil,
-            pseudo: HTML.Pseudo? = nil
+            atRule: WHATWG_HTML.AtRule? = nil,
+            selector: WHATWG_HTML.Selector? = nil,
+            pseudo: WHATWG_HTML.Pseudo? = nil
         ) {
             self.declaration = declaration
             self.atRule = atRule

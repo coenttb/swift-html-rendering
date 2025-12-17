@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Sets the itemref attribute with a single element ID
     @discardableResult
     public func itemref(
         _ id: String
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Itemref.attribute, id)
     }
 
@@ -21,7 +21,7 @@ extension HTML.View {
     @discardableResult
     public func itemref(
         _ ids: [String]
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Itemref.attribute, ids.joined(separator: " "))
     }
 
@@ -29,7 +29,7 @@ extension HTML.View {
     @discardableResult
     public func itemref(
         _ ids: String...
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.itemref(ids)
     }
 
@@ -37,7 +37,7 @@ extension HTML.View {
     @discardableResult
     public func itemref(
         _ attribute: Itemref
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Itemref.attribute, attribute.description)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  HTML.AtRule.swift
+//  WHATWG_HTML.AtRule.swift
 //  swift-html-rendering
 //
 //  Created by Coen ten Thije Boonkkamp on 16/04/2025.
@@ -8,10 +8,10 @@
 import Rendering
 public import WHATWG_HTML_Shared
 
-extension HTML {
+extension WHATWG_HTML {
     /// Represents a CSS media query for conditional styling.
     ///
-    /// `HTML.AtRule` allows you to apply styles conditionally based on
+    /// `WHATWG_HTML.AtRule` allows you to apply styles conditionally based on
     /// device characteristics or user preferences.
     ///
     /// Example:

@@ -1,5 +1,5 @@
 //
-//  Optional+HTML.swift
+//  Optional+WHATWG_HTML.swift
 //  swift-html-rendering
 //
 //  Created by Coen ten Thije Boonkkamp on 25/11/2025.
@@ -12,4 +12,4 @@ public import WHATWG_HTML_Shared
 ///
 /// This conformance allows for convenient handling of optional HTML content,
 /// where `nil` values simply render nothing.
-extension Optional: HTML.View where Wrapped: HTML.View {}
+extension Optional: WHATWG_HTML.View where Wrapped: WHATWG_HTML.View {}

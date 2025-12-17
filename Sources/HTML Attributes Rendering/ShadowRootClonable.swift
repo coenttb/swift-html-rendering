@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
 
     /// Sets the shadowrootclonable attribute on an element
     @discardableResult
     package func shadowRootClonable(
         _ value: ShadowRootClonable?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(ShadowRootClonable.attribute, value?.description)
     }
 }

@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
 
     /// Sets the content attribute on an element
     @discardableResult
     package func content(
         _ value: HTML_Standard_Attributes.Content?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(HTML_Standard_Attributes.Content.attribute, value?.description)
     }
 }

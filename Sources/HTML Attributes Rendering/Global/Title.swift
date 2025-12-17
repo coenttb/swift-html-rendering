@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Sets the title attribute with text
     @discardableResult
     public func title(
         _ value: String
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Title.attribute, value)
     }
 
@@ -21,7 +21,7 @@ extension HTML.View {
     @discardableResult
     public func title(
         lines: [String]
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Title.attribute, lines.joined(separator: "\n"))
     }
 
@@ -29,7 +29,7 @@ extension HTML.View {
     @discardableResult
     public func title(
         lines: String...
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.title(lines: lines)
     }
 
@@ -37,13 +37,13 @@ extension HTML.View {
     @discardableResult
     public func title(
         _ attribute: HTML_Standard_Attributes.Title?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Title.attribute, attribute?.description)
     }
 
     /// Sets an empty title to prevent inheriting from ancestors
     @discardableResult
-    public func noTitle() -> HTML._Attributes<Self> {
+    public func noTitle() -> WHATWG_HTML._Attributes<Self> {
         self.title(Title.empty)
     }
 }

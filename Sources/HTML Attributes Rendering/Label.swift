@@ -8,14 +8,14 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
 
     /// Sets the disablepictureinpicture attribute on an element
     @discardableResult
     @_disfavoredOverload
     package func label(
         _ value: HTML_Standard_Attributes.Label?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Label.attribute, value?.description)
     }
 }

@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
 
     /// Sets the disableremoteplayback attribute on an element
     @discardableResult
     package func disableRemotePlayback(
         _ value: DisableRemotePlayback?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(DisableRemotePlayback.attribute, value?.description)
     }
 }

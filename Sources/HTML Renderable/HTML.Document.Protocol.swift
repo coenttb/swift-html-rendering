@@ -1,5 +1,5 @@
 //
-//  HTML.Document.Protocol.swift
+//  WHATWG_HTML.Document.Protocol.swift
 //
 //
 //  Created by Point-Free, Inc
@@ -9,24 +9,24 @@ import OrderedCollections
 import Rendering
 public import WHATWG_HTML_Shared
 
-extension HTML {
+extension WHATWG_HTML {
     /// A protocol representing a complete HTML document.
     ///
-    /// The `HTML.Document.Protocol` extends `HTML.View` to specifically represent
+    /// The `WHATWG_HTML.Document.Protocol` extends `WHATWG_HTML.View` to specifically represent
     /// a complete HTML document with both head and body sections. This allows
     /// for structured creation of full HTML pages with proper doctype, head
     /// metadata, and body content.
     ///
     /// Example:
     /// ```swift
-    /// struct MyDocument: HTML.Document.Protocol {
-    ///     var head: some HTML.View {
+    /// struct MyDocument: WHATWG_HTML.Document.Protocol {
+    ///     var head: some WHATWG_HTML.View {
     ///         title { "My Web Page" }
     ///         meta().charset("utf-8")
     ///         meta().name("viewport").content("width=device-width, initial-scale=1")
     ///     }
     ///
-    ///     var body: some HTML.View {
+    ///     var body: some WHATWG_HTML.View {
     ///         div {
     ///             h1 { "Welcome to My Website" }
     ///             p { "This is a complete HTML document." }
@@ -34,20 +34,20 @@ extension HTML {
     ///     }
     /// }
     /// ```
-    public protocol DocumentProtocol: HTML.View {
+    public protocol DocumentProtocol: WHATWG_HTML.View {
         /// The type of HTML content for the document's head section.
-        associatedtype Head: HTML.View
+        associatedtype Head: WHATWG_HTML.View
 
         /// The head section of the HTML document.
         ///
         /// This property defines metadata, title, stylesheets, scripts, and other
         /// elements that should appear in the document's head section.
-        @HTML.Builder
+        @WHATWG_HTML.Builder
         var head: Head { get }
     }
 }
 
-extension HTML.DocumentProtocol {
+extension WHATWG_HTML.DocumentProtocol {
     /// Streaming render for HTML documents.
     ///
     /// Documents require two-phase rendering:
@@ -56,7 +56,7 @@ extension HTML.DocumentProtocol {
     public static func _render<Buffer: RangeReplaceableCollection>(
         _ html: Self,
         into buffer: inout Buffer,
-        context: inout HTML.Context
+        context: inout WHATWG_HTML.Context
     ) where Buffer.Element == UInt8 {
         let configuration = context.configuration
         let indent = configuration.indentation
@@ -64,7 +64,7 @@ extension HTML.DocumentProtocol {
         // Phase 1: Render body to collect styles
         // Body content is 2 levels deep: html > body > content
         var bodyBuffer: [UInt8] = []
-        var bodyContext = HTML.Context(configuration)
+        var bodyContext = WHATWG_HTML.Context(configuration)
         bodyContext.currentIndentation = indent + indent
         Content._render(html.body, into: &bodyBuffer, context: &bodyContext)
 
@@ -74,7 +74,7 @@ extension HTML.DocumentProtocol {
         }
 
         // Phase 2: Write document structure directly (more performant than building HTML tree)
-        // Match HTML.Element's block-level rendering behavior for consistent output
+        // Match WHATWG_HTML.Element's block-level rendering behavior for consistent output
         let newline = configuration.newline
 
         // <!doctype html>
@@ -140,7 +140,7 @@ extension HTML.DocumentProtocol {
     }
 }
 
-extension HTML.DocumentProtocol {
+extension WHATWG_HTML.DocumentProtocol {
     /// Asynchronously render this document to a complete byte array.
     ///
     /// Convenience method that delegates to `[UInt8].html.init(document:configuration:)`.
@@ -149,7 +149,7 @@ extension HTML.DocumentProtocol {
     /// - Returns: Complete rendered bytes.
     @inlinable
     public func asyncDocumentBytes(
-        configuration: HTML.Context.Configuration? = nil
+        configuration: WHATWG_HTML.Context.Configuration? = nil
     ) async -> [UInt8] {
         await [UInt8](self, configuration: configuration)
     }
@@ -162,12 +162,12 @@ extension HTML.DocumentProtocol {
     /// - Returns: Rendered HTML document string.
     @inlinable
     public func asyncDocumentString(
-        configuration: HTML.Context.Configuration? = nil
+        configuration: WHATWG_HTML.Context.Configuration? = nil
     ) async -> String {
         await String(self, configuration: configuration)
     }
 }
 
-// Streaming extensions for HTML.DocumentProtocol are defined in:
+// Streaming extensions for WHATWG_HTML.DocumentProtocol are defined in:
 // - AsyncStream.swift (asyncStream)
 // - AsyncThrowingStream.swift (asyncThrowingStream)

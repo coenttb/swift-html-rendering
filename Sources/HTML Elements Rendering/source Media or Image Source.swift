@@ -8,9 +8,9 @@
 import HTML_Attributes_Rendering
 import HTML_Standard_Elements
 
-extension HTML_Standard_Elements.Source: HTML.View {
-    public var body: some HTML.View {
-        HTML.Element.Tag(for: Self.self) { HTML.Empty() }
+extension HTML_Standard_Elements.Source: WHATWG_HTML.View {
+    public var body: some WHATWG_HTML.View {
+        WHATWG_HTML.Element.Tag(for: Self.self) { WHATWG_HTML.Empty() }
             .type(self.type)
             .src(self.src)
             .srcset(self.srcset)

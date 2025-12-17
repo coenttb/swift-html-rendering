@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Sets the lang attribute with a language tag
     @discardableResult
     public func lang(
         _ language: String
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Lang.attribute, language)
     }
 
@@ -23,7 +23,7 @@ extension HTML.View {
         language: String,
         script: String? = nil,
         region: String? = nil
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.lang(Lang(language: language, script: script, region: region))
     }
 
@@ -31,7 +31,7 @@ extension HTML.View {
     @discardableResult
     public func lang(
         _ attribute: Lang
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Lang.attribute, attribute.description)
     }
 }

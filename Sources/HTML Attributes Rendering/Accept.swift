@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Add an accept attribute to specify which file types are allowed
     @discardableResult
     package func accept(
         _ value: Accept?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Accept.attribute, value?.description)
     }
 
@@ -21,7 +21,7 @@ extension HTML.View {
     @discardableResult
     package func accept(
         _ fileTypes: Accept.FileType?...
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.accept(Accept(fileTypes.compactMap { $0 }))
     }
 
@@ -29,7 +29,7 @@ extension HTML.View {
     @discardableResult
     package func accept(
         _ fileTypes: [Accept.FileType?]
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.accept(Accept(fileTypes.compactMap { $0 }))
     }
 }

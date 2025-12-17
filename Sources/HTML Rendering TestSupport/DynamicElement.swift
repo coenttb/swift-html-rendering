@@ -21,11 +21,11 @@ public import WHATWG_HTML_Shared
 ///   - tagName: The name of the HTML tag.
 ///   - content: A closure that returns the content for this element.
 /// - Returns: An HTML element with the specified tag and content.
-public func tag<T: HTML.View>(
+public func tag<T: WHATWG_HTML.View>(
     _ tagName: String,
-    @HTML.Builder _ content: () -> T = { Empty() }
-) -> HTML.Element.Tag<T> {
-    HTML.Element.Tag(tag: tagName, content: content)
+    @WHATWG_HTML.Builder _ content: () -> T = { Empty() }
+) -> WHATWG_HTML.Element.Tag<T> {
+    WHATWG_HTML.Element.Tag(tag: tagName, content: content)
 }
 
 // MARK: - String-based Inline Style for Testing
@@ -60,7 +60,7 @@ public struct TestProperty: Property, GlobalConvertible {
     }
 }
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Applies a string-based inline style. For testing only.
     ///
     /// This version supports explicit atRule/selector/pseudo parameters for testing.
@@ -68,11 +68,11 @@ extension HTML.View {
     public func inlineStyle(
         _ property: String,
         _ value: String,
-        atRule: HTML.AtRule? = nil,
-        selector: HTML.Selector? = nil,
-        pseudo: HTML.Pseudo? = nil
-    ) -> HTML.Styled<Self, TestProperty> {
-        HTML.Styled(
+        atRule: WHATWG_HTML.AtRule? = nil,
+        selector: WHATWG_HTML.Selector? = nil,
+        pseudo: WHATWG_HTML.Pseudo? = nil
+    ) -> WHATWG_HTML.Styled<Self, TestProperty> {
+        WHATWG_HTML.Styled(
             self,
             TestProperty(property, value),
             atRule: atRule,
@@ -82,50 +82,50 @@ extension HTML.View {
     }
 }
 
-// MARK: - HTML.Tag callAsFunction for Testing
+// MARK: - WHATWG_HTML.Tag callAsFunction for Testing
 
-extension HTML.Tag {
+extension WHATWG_HTML.Tag {
     /// Creates an empty HTML element with this tag. For testing only.
-    public func callAsFunction() -> HTML.Element.Tag<Empty> {
-        HTML.Element.Tag(tag: self.rawValue) { Empty() }
+    public func callAsFunction() -> WHATWG_HTML.Element.Tag<Empty> {
+        WHATWG_HTML.Element.Tag(tag: self.rawValue) { Empty() }
     }
 
     /// Creates an HTML element with content. For testing only.
-    public func callAsFunction<T: HTML.View>(@HTML.Builder _ content: () -> T) -> HTML.Element.Tag<T> {
-        HTML.Element.Tag(tag: self.rawValue, content: content)
+    public func callAsFunction<T: WHATWG_HTML.View>(@WHATWG_HTML.Builder _ content: () -> T) -> WHATWG_HTML.Element.Tag<T> {
+        WHATWG_HTML.Element.Tag(tag: self.rawValue, content: content)
     }
 }
 
-// MARK: - HTML.Element callAsFunction for Testing
+// MARK: - WHATWG_HTML.Element callAsFunction for Testing
 
-extension HTML.Element.Tag where Content == Empty {
+extension WHATWG_HTML.Element.Tag where Content == Empty {
     /// Creates a new HTML element with the same tag but different content. For testing only.
     ///
     /// This allows the pattern:
     /// ```swift
-    /// let div = tag("div")  // Returns HTML.Element.Tag<Empty>
-    /// let content = div { "Hello" }  // Returns HTML.Element.Tag<String>
+    /// let div = tag("div")  // Returns WHATWG_HTML.Element.Tag<Empty>
+    /// let content = div { "Hello" }  // Returns WHATWG_HTML.Element.Tag<String>
     /// ```
-    public func callAsFunction<T: HTML.View>(@HTML.Builder _ content: () -> T) -> HTML.Element.Tag<T> {
-        HTML.Element.Tag<T>(tag: self.tagName, content: content)
+    public func callAsFunction<T: WHATWG_HTML.View>(@WHATWG_HTML.Builder _ content: () -> T) -> WHATWG_HTML.Element.Tag<T> {
+        WHATWG_HTML.Element.Tag<T>(tag: self.tagName, content: content)
     }
 }
 
-// extension HTML.Tag.Void {
+// extension WHATWG_HTML.Tag.Void {
 //    /// Creates an HTML void element with this tag. For testing only.
-//    public func callAsFunction() -> HTML.Element.Tag<Empty> {
-//        HTML.Element.Tag(tag: self.rawValue) { Empty() }
+//    public func callAsFunction() -> WHATWG_HTML.Element.Tag<Empty> {
+//        WHATWG_HTML.Element.Tag(tag: self.rawValue) { Empty() }
 //    }
 // }
 //
-// extension HTML.Tag.Text {
+// extension WHATWG_HTML.Tag.Text {
 //    /// Creates an HTML element with text content. For testing only.
-//    public func callAsFunction(_ content: String = "") -> HTML.Element.Tag<HTML.Text> {
-//        HTML.Element.Tag(tag: self.rawValue) { HTML.Text(content) }
+//    public func callAsFunction(_ content: String = "") -> WHATWG_HTML.Element.Tag<WHATWG_HTML.Text> {
+//        WHATWG_HTML.Element.Tag(tag: self.rawValue) { WHATWG_HTML.Text(content) }
 //    }
 //
 //    /// Creates an HTML element with dynamic text content. For testing only.
-//    public func callAsFunction(_ content: () -> String) -> HTML.Element.Tag<HTML.Text> {
-//        HTML.Element.Tag(tag: self.rawValue) { HTML.Text(content()) }
+//    public func callAsFunction(_ content: () -> String) -> WHATWG_HTML.Element.Tag<WHATWG_HTML.Text> {
+//        WHATWG_HTML.Element.Tag(tag: self.rawValue) { WHATWG_HTML.Text(content()) }
 //    }
 // }

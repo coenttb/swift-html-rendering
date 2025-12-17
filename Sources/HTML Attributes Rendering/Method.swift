@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Add a method attribute to specify the HTTP method for form submission
     @discardableResult
     package func method(
         _ value: Method?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Method.attribute, value?.description)
     }
 }

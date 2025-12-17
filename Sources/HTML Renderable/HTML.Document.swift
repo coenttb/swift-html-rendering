@@ -1,5 +1,5 @@
 //
-//  HTML.Document.swift
+//  WHATWG_HTML.Document.swift
 //  swift-html-rendering
 //
 //  Created by Coen ten Thije Boonkkamp on 22/07/2025.
@@ -8,16 +8,16 @@
 public import Rendering
 public import WHATWG_HTML_Shared
 
-extension HTML {
+extension WHATWG_HTML {
     /// A complete HTML document with head and body sections.
     ///
-    /// `HTML.Document` represents a full HTML page with proper structure including
+    /// `WHATWG_HTML.Document` represents a full HTML page with proper structure including
     /// doctype, html, head, and body elements. Use this type when you need
     /// to render a complete HTML document rather than just a fragment.
     ///
     /// Example:
     /// ```swift
-    /// let page = HTML.Document {
+    /// let page = WHATWG_HTML.Document {
     ///     div {
     ///         h1 { "Welcome" }
     ///         p { "Hello, World!" }
@@ -27,7 +27,7 @@ extension HTML {
     ///     meta().charset("utf-8")
     /// }
     /// ```
-    public struct Document<Body: HTML.View, Head: HTML.View>: HTML.DocumentProtocol {
+    public struct Document<Body: WHATWG_HTML.View, Head: WHATWG_HTML.View>: WHATWG_HTML.DocumentProtocol {
         public let head: Head
         public let body: Body
 
@@ -37,8 +37,8 @@ extension HTML {
         ///   - body: A builder closure that returns the body content.
         ///   - head: A builder closure that returns the head content. Defaults to empty.
         public init(
-            @HTML.Builder body: () -> Body,
-            @HTML.Builder head: () -> Head = { Empty() }
+            @WHATWG_HTML.Builder body: () -> Body,
+            @WHATWG_HTML.Builder head: () -> Head = { Empty() }
         ) {
             self.body = body()
             self.head = head()
@@ -46,7 +46,7 @@ extension HTML {
     }
 }
 
-extension HTML.Document {
+extension WHATWG_HTML.Document {
     /// Creates a new HTML document with head specified first.
     ///
     /// This overload allows specifying head before body for cases where
@@ -57,12 +57,12 @@ extension HTML.Document {
     ///   - body: A builder closure that returns the body content.
     @_disfavoredOverload
     public init(
-        @HTML.Builder head: () -> Head = { Empty() },
-        @HTML.Builder body: () -> Body
+        @WHATWG_HTML.Builder head: () -> Head = { Empty() },
+        @WHATWG_HTML.Builder body: () -> Body
     ) {
         self.body = body()
         self.head = head()
     }
 }
 
-extension HTML.Document: Sendable where Body: Sendable, Head: Sendable {}
+extension WHATWG_HTML.Document: Sendable where Body: Sendable, Head: Sendable {}

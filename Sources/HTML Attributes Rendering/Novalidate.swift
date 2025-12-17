@@ -8,17 +8,17 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Add the novalidate attribute to disable browser validation for a form
-    package var novalidate: HTML._Attributes<Self> {
+    package var novalidate: WHATWG_HTML._Attributes<Self> {
         self.attribute(Novalidate.attribute)
     }
 
     /// Conditionally adds the required attribute to the element
-    @HTML.Builder
+    @WHATWG_HTML.Builder
     package func novalidate(
         _ value: Novalidate?
-    ) -> some HTML.View {
+    ) -> some WHATWG_HTML.View {
         self.attribute(boolean: value)
     }
 }

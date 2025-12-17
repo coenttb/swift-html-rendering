@@ -1,5 +1,5 @@
 //
-//  Group+HTML.swift
+//  Group+WHATWG_HTML.swift
 //
 //
 //  Created by Point-Free, Inc
@@ -19,7 +19,7 @@ public typealias RenderingGroup = Group
 ///
 /// Example:
 /// ```swift
-/// func navigation() -> some HTML.View {
+/// func navigation() -> some WHATWG_HTML.View {
 ///     Group {
 ///         a().href("/home") { "Home" }
 ///         a().href("/about") { "About" }
@@ -27,7 +27,7 @@ public typealias RenderingGroup = Group
 ///     }
 /// }
 ///
-/// var body: some HTML.View {
+/// var body: some WHATWG_HTML.View {
 ///     nav {
 ///         navigation()
 ///     }
@@ -43,8 +43,8 @@ public typealias RenderingGroup = Group
 /// </nav>
 /// ```
 
-extension HTML {
+extension WHATWG_HTML {
     public typealias Group = RenderingGroup
 }
 
-extension HTML.Group: HTML.View where Content: HTML.View {}
+extension WHATWG_HTML.Group: WHATWG_HTML.View where Content: WHATWG_HTML.View {}

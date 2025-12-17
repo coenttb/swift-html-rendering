@@ -8,15 +8,15 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Adds the multiple attribute to the element
-    package var multiple: HTML._Attributes<Self> {
+    package var multiple: WHATWG_HTML._Attributes<Self> {
         self.attribute(Multiple.attribute)
     }
 
     /// Conditionally adds the multiple attribute to the element
-    @HTML.Builder
-    package func multiple(_ value: Multiple?) -> some HTML.View {
+    @WHATWG_HTML.Builder
+    package func multiple(_ value: Multiple?) -> some WHATWG_HTML.View {
         self.attribute(boolean: value)
     }
 }

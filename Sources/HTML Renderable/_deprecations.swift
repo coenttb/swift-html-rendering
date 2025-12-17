@@ -8,7 +8,7 @@
 import Rendering
 public import WHATWG_HTML_Shared
 
-extension HTML.DocumentProtocol {
+extension WHATWG_HTML.DocumentProtocol {
     /// Renders this HTML document to bytes.
     ///
     /// This method creates a printer with the current configuration and
@@ -35,7 +35,7 @@ extension HTML.DocumentProtocol {
     )
     public func render() -> ContiguousArray<UInt8> {
         var buffer: ContiguousArray<UInt8> = []
-        var context = HTML.Context(HTML.Context.Configuration.current)
+        var context = WHATWG_HTML.Context(WHATWG_HTML.Context.Configuration.current)
         Self._render(self, into: &buffer, context: &context)
         return buffer
     }

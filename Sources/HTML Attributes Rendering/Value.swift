@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Sets the value attribute on an element
     @discardableResult
     package func value<Element: CustomStringConvertible>(
         _ value: Value<Element>?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Value<Element>.attribute, value?.description)
     }
 }

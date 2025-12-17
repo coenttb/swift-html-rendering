@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
 
     /// Sets the controlslist attribute on an element
     @discardableResult
     package func controlsList(
         _ value: ControlsList?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(ControlsList.attribute, value?.description)
     }
 }

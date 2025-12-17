@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
 
     /// Sets the async attribute on an element
     @discardableResult
     package func async(
         _ value: Async?
-    ) -> some HTML.View {
+    ) -> some WHATWG_HTML.View {
         self.attribute(boolean: value)
     }
 }

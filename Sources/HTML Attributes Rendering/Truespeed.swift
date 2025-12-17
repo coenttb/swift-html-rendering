@@ -8,17 +8,17 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Adds the truespeed attribute to the element
-    package var truespeed: HTML._Attributes<Self> {
+    package var truespeed: WHATWG_HTML._Attributes<Self> {
         self.attribute(Truespeed.attribute)
     }
 
     /// Conditionally adds the truespeed attribute to the element
-    @HTML.Builder
+    @WHATWG_HTML.Builder
     package func truespeed(
         _ value: Truespeed?
-    ) -> some HTML.View {
+    ) -> some WHATWG_HTML.View {
         self.attribute(boolean: value)
     }
 }

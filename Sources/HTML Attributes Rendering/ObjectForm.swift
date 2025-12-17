@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
 
     /// Sets the form attribute on an object element
     @discardableResult
     package func form(
         _ value: HTML_Standard_Attributes.Form.ID?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute("form", value?.description)
     }
 }

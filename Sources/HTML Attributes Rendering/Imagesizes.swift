@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
 
     /// Sets the sizes attribute on an image element
     @discardableResult
     package func sizes(
         _ value: ImageSizes?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(ImageSizes.attribute, value?.description)
     }
 }

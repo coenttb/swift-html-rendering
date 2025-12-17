@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
 
     /// Sets the cite attribute on an element
     @discardableResult
     package func cite(
         _ value: HTML_Standard_Attributes.Cite?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Cite.attribute, value?.description)
     }
 }

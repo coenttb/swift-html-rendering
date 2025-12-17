@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
 
     /// Sets the referrerpolicy attribute on an element
     @discardableResult
     package func referrerPolicy(
         _ value: ReferrerPolicy?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(ReferrerPolicy.attribute, value?.description)
     }
 }

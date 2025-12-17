@@ -1,5 +1,5 @@
 //
-//  Empty+HTML.swift
+//  Empty+WHATWG_HTML.swift
 //
 //
 //  Created by Point-Free, Inc
@@ -13,7 +13,7 @@ public typealias RenderingEmpty = Empty
 
 /// Represents an empty HTML node that renders nothing.
 ///
-/// `Empty` is a utility type that conforms to the `HTML.View` protocol but
+/// `Empty` is a utility type that conforms to the `WHATWG_HTML.View` protocol but
 /// renders no content. It's useful in scenarios where you need to provide
 /// HTML content but want it to be empty, such as in conditional rendering
 /// or as a default placeholder.
@@ -21,7 +21,7 @@ public typealias RenderingEmpty = Empty
 /// Example:
 /// ```swift
 /// // Conditionally render content
-/// var content: some HTML.View {
+/// var content: some WHATWG_HTML.View {
 ///     if shouldShowGreeting {
 ///         h1 { "Hello, World!" }
 ///     } else {
@@ -29,19 +29,19 @@ public typealias RenderingEmpty = Empty
 ///     }
 /// }
 /// ```
-extension HTML {
+extension WHATWG_HTML {
     public typealias Empty = RenderingEmpty
 }
 
-extension HTML.Empty: @retroactive Renderable {
+extension WHATWG_HTML.Empty: @retroactive Renderable {
     public typealias Content = Never
     public typealias Output = UInt8
-    public typealias Context = HTML.Context
+    public typealias Context = WHATWG_HTML.Context
 
     public static func _render<Buffer: RangeReplaceableCollection>(
         _ markup: Empty,
         into buffer: inout Buffer,
-        context: inout HTML.Context
+        context: inout WHATWG_HTML.Context
     ) where Buffer.Element == UInt8 {
         // Produces no output
     }
@@ -49,14 +49,14 @@ extension HTML.Empty: @retroactive Renderable {
     public var body: Never { fatalError("body should not be called") }
 }
 
-extension HTML.Empty: HTML.View {}
+extension WHATWG_HTML.Empty: WHATWG_HTML.View {}
 
-extension HTML.Empty: @retroactive AsyncRenderable {
+extension WHATWG_HTML.Empty: @retroactive AsyncRenderable {
     /// Async renders nothing (empty content).
     public static func _renderAsync<Stream: Rendering.Async.Sink.`Protocol`>(
         _ markup: Empty,
         into stream: Stream,
-        context: inout HTML.Context
+        context: inout WHATWG_HTML.Context
     ) async {
         // Produces no output
     }

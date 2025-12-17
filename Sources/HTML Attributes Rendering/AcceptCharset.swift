@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
 
     /// Sets the accept-charset attribute on an element
     @discardableResult
     package func acceptCharset(
         _ value: AcceptCharset?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(AcceptCharset.attribute, value?.description)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  HTML.Text.swift
+//  WHATWG_HTML.Text.swift
 //  swift-html-rendering
 //
 //  Created by Coen ten Thije Boonkkamp on 25/11/2025.
@@ -10,12 +10,12 @@ import Rendering
 public import RenderingAsync
 public import WHATWG_HTML_Shared
 
-extension HTML {
+extension WHATWG_HTML {
     /// Represents plain text content in HTML, with proper escaping.
     ///
-    /// `HTML.Text` handles escaping special characters in text content to ensure
+    /// `WHATWG_HTML.Text` handles escaping special characters in text content to ensure
     /// proper HTML rendering without security vulnerabilities.
-    public struct Text: HTML.View, Sendable {
+    public struct Text: WHATWG_HTML.View, Sendable {
         /// The raw text content.
         public let text: String
 
@@ -30,7 +30,7 @@ extension HTML {
         public static func _render<Buffer: RangeReplaceableCollection>(
             _ html: Self,
             into buffer: inout Buffer,
-            context: inout HTML.Context
+            context: inout WHATWG_HTML.Context
         ) where Buffer.Element == UInt8 {
             for byte in html.text.utf8 {
                 switch byte {
@@ -56,13 +56,13 @@ extension HTML {
         ///   - rhs: The right-hand side text.
         /// - Returns: A new HTML text component containing the concatenated text.
         public static func + (lhs: Self, rhs: Self) -> Self {
-            HTML.Text(lhs.text + rhs.text)
+            WHATWG_HTML.Text(lhs.text + rhs.text)
         }
     }
 }
 
 /// Allows HTML text to be created from string literals.
-extension HTML.Text: ExpressibleByStringLiteral {
+extension WHATWG_HTML.Text: ExpressibleByStringLiteral {
     /// Creates a new HTML text component from a string literal.
     ///
     /// - Parameter value: The string literal to use as content.
@@ -72,16 +72,16 @@ extension HTML.Text: ExpressibleByStringLiteral {
 }
 
 /// Allows HTML text to be created with string interpolation.
-extension HTML.Text: ExpressibleByStringInterpolation {}
+extension WHATWG_HTML.Text: ExpressibleByStringInterpolation {}
 
 // MARK: - Async Rendering
 
-extension HTML.Text: AsyncRenderable {
+extension WHATWG_HTML.Text: AsyncRenderable {
     /// Async renders the text content with proper HTML escaping.
     public static func _renderAsync<Stream: Rendering.Async.Sink.`Protocol`>(
         _ html: Self,
         into stream: Stream,
-        context: inout HTML.Context
+        context: inout WHATWG_HTML.Context
     ) async {
         var buffer: [UInt8] = []
         for byte in html.text.utf8 {

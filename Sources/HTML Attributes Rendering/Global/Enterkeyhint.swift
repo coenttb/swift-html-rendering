@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Sets the Enter key label/action hint for virtual keyboards
     @discardableResult
     public func enterkeyhint(
         _ value: Enterkeyhint
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Enterkeyhint.attribute, value.description)
     }
 }

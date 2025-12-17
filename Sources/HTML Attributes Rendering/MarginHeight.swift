@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Sets the maxlength attribute on an element
     @discardableResult
     package func marginHeight(
         _ value: MarginHeight?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(MarginHeight.attribute, value?.description)
     }
 }

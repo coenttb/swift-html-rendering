@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Sets the ID attribute for an HTML element
     @discardableResult
     public func id(
         _ id: String
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Id.attribute, id)
     }
 
@@ -21,7 +21,7 @@ extension HTML.View {
     @discardableResult
     public func id(
         _ id: Id?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Id.attribute, id?.description)
     }
 }

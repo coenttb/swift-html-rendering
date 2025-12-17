@@ -1,5 +1,5 @@
 //
-//  HTML.Selector.swift
+//  WHATWG_HTML.Selector.swift
 //  swift-html-rendering
 //
 //  Created by Coen ten Thije Boonkkamp on 16/04/2025.
@@ -8,10 +8,10 @@
 import Rendering
 public import WHATWG_HTML_Shared
 
-extension HTML {
+extension WHATWG_HTML {
     /// Represents a CSS selector for targeting HTML elements.
     ///
-    /// `HTML.Selector` provides a type-safe way to construct CSS selectors using Swift syntax.
+    /// `WHATWG_HTML.Selector` provides a type-safe way to construct CSS selectors using Swift syntax.
     /// It supports all CSS selector types including element selectors, class selectors,
     /// ID selectors, attribute selectors, and complex combinators.
     ///
@@ -19,13 +19,13 @@ extension HTML {
     ///
     /// ```swift
     /// // Element selector
-    /// let div: HTML.Selector = "div"
+    /// let div: WHATWG_HTML.Selector = "div"
     ///
     /// // Class selector
-    /// let header: HTML.Selector = .class("header")
+    /// let header: WHATWG_HTML.Selector = .class("header")
     ///
     /// // ID selector
-    /// let main: HTML.Selector = .id("main")
+    /// let main: WHATWG_HTML.Selector = .id("main")
     ///
     /// // Using with inline styles
     /// tag("div") { "Content" }
@@ -37,8 +37,8 @@ extension HTML {
     /// CSS combinators allow you to select elements based on their relationship:
     ///
     /// ```swift
-    /// let div: HTML.Selector = "div"
-    /// let p: HTML.Selector = "p"
+    /// let div: WHATWG_HTML.Selector = "div"
+    /// let p: WHATWG_HTML.Selector = "p"
     ///
     /// // Child combinator: div > p
     /// let childSelector = p.child(of: div)
@@ -59,26 +59,26 @@ extension HTML {
     ///
     /// ```swift
     /// // Element with attribute: [disabled]
-    /// let disabled: HTML.Selector = .hasAttribute("disabled")
+    /// let disabled: WHATWG_HTML.Selector = .hasAttribute("disabled")
     ///
     /// // Attribute equals: [type="submit"]
-    /// let submitButton: HTML.Selector = .attribute("type", equals: "submit")
+    /// let submitButton: WHATWG_HTML.Selector = .attribute("type", equals: "submit")
     ///
     /// // Attribute starts with: [href^="https"]
-    /// let httpsLinks: HTML.Selector = .attribute("href", startsWith: "https")
+    /// let httpsLinks: WHATWG_HTML.Selector = .attribute("href", startsWith: "https")
     /// ```
     ///
     /// ## Selector Lists and Compound Selectors
     ///
     /// ```swift
     /// // Selector list (OR): h1, h2, h3
-    /// let headings: HTML.Selector = ("h1" as HTML.Selector).or("h2", "h3")
+    /// let headings: WHATWG_HTML.Selector = ("h1" as WHATWG_HTML.Selector).or("h2", "h3")
     ///
     /// // Compound selector (AND): div.header#main
-    /// let specificDiv: HTML.Selector = ("div" as HTML.Selector).and(.class("header")).and(.id("main"))
+    /// let specificDiv: WHATWG_HTML.Selector = ("div" as WHATWG_HTML.Selector).and(.class("header")).and(.id("main"))
     ///
     /// // Using convenience methods
-    /// let navHeader: HTML.Selector = ("div" as HTML.Selector).withClass("nav").withId("header")
+    /// let navHeader: WHATWG_HTML.Selector = ("div" as WHATWG_HTML.Selector).withClass("nav").withId("header")
     /// ```
     public struct Selector: RawRepresentable, Hashable, Sendable, ExpressibleByStringLiteral,
         ExpressibleByStringInterpolation {
@@ -107,7 +107,7 @@ extension HTML {
 }
 
 // MARK: - CSS Combinators
-extension HTML.Selector {
+extension WHATWG_HTML.Selector {
 
     /// Creates a descendant combinator selector.
     ///
@@ -125,7 +125,7 @@ extension HTML.Selector {
     ///
     /// - Parameter other: The ancestor selector.
     /// - Returns: A new selector representing the descendant relationship.
-    public func descendant(of other: HTML.Selector) -> HTML.Selector {
+    public func descendant(of other: WHATWG_HTML.Selector) -> WHATWG_HTML.Selector {
         .init(rawValue: other.rawValue + " " + self.rawValue)
     }
 
@@ -135,8 +135,8 @@ extension HTML.Selector {
     /// Unlike the descendant combinator, this only matches immediate children, not deeper descendants.
     ///
     /// ```swift
-    /// let ul: HTML.Selector = "ul"
-    /// let li: HTML.Selector = "li"
+    /// let ul: WHATWG_HTML.Selector = "ul"
+    /// let li: WHATWG_HTML.Selector = "li"
     /// let selector = li.child(of: ul)  // "ul > li"
     /// ```
     ///
@@ -145,7 +145,7 @@ extension HTML.Selector {
     ///
     /// - Parameter other: The parent selector.
     /// - Returns: A new selector representing the child relationship.
-    public func child(of other: HTML.Selector) -> HTML.Selector {
+    public func child(of other: WHATWG_HTML.Selector) -> WHATWG_HTML.Selector {
         .init(rawValue: other.rawValue + " > " + self.rawValue)
     }
 
@@ -155,8 +155,8 @@ extension HTML.Selector {
     /// another element, and both elements share the same parent.
     ///
     /// ```swift
-    /// let h1: HTML.Selector = "h1"
-    /// let p: HTML.Selector = "p"
+    /// let h1: WHATWG_HTML.Selector = "h1"
+    /// let p: WHATWG_HTML.Selector = "p"
     /// let selector = p.nextSibling(of: h1)  // "h1 + p"
     /// ```
     ///
@@ -165,7 +165,7 @@ extension HTML.Selector {
     ///
     /// - Parameter other: The preceding sibling selector.
     /// - Returns: A new selector representing the next-sibling relationship.
-    public func nextSibling(of other: HTML.Selector) -> HTML.Selector {
+    public func nextSibling(of other: WHATWG_HTML.Selector) -> WHATWG_HTML.Selector {
         .init(rawValue: other.rawValue + " + " + self.rawValue)
     }
 
@@ -176,7 +176,7 @@ extension HTML.Selector {
     ///
     /// - Parameter other: The preceding sibling selector.
     /// - Returns: A new selector representing the next-sibling relationship.
-    public func adjacent(to other: HTML.Selector) -> HTML.Selector {
+    public func adjacent(to other: WHATWG_HTML.Selector) -> WHATWG_HTML.Selector {
         nextSibling(of: other)
     }
 
@@ -186,8 +186,8 @@ extension HTML.Selector {
     /// another element (not necessarily immediately), and both elements share the same parent.
     ///
     /// ```swift
-    /// let h1: HTML.Selector = "h1"
-    /// let p: HTML.Selector = "p"
+    /// let h1: WHATWG_HTML.Selector = "h1"
+    /// let p: WHATWG_HTML.Selector = "p"
     /// let selector = p.subsequentSibling(of: h1)  // "h1 ~ p"
     /// ```
     ///
@@ -196,7 +196,7 @@ extension HTML.Selector {
     ///
     /// - Parameter other: The preceding sibling selector.
     /// - Returns: A new selector representing the subsequent-sibling relationship.
-    public func subsequentSibling(of other: HTML.Selector) -> HTML.Selector {
+    public func subsequentSibling(of other: WHATWG_HTML.Selector) -> WHATWG_HTML.Selector {
         .init(rawValue: other.rawValue + " ~ " + self.rawValue)
     }
 
@@ -207,7 +207,7 @@ extension HTML.Selector {
     ///
     /// - Parameter other: The preceding sibling selector.
     /// - Returns: A new selector representing the subsequent-sibling relationship.
-    public func sibling(of other: HTML.Selector) -> HTML.Selector {
+    public func sibling(of other: WHATWG_HTML.Selector) -> WHATWG_HTML.Selector {
         subsequentSibling(of: other)
     }
 
@@ -217,8 +217,8 @@ extension HTML.Selector {
     /// This is a newer CSS feature primarily used with CSS Grid and table layouts.
     ///
     /// ```swift
-    /// let col: HTML.Selector = "col"
-    /// let td: HTML.Selector = "td"
+    /// let col: WHATWG_HTML.Selector = "col"
+    /// let td: WHATWG_HTML.Selector = "td"
     /// let selector = td.column(of: col)  // "col || td"
     /// ```
     ///
@@ -227,13 +227,13 @@ extension HTML.Selector {
     ///
     /// - Parameter other: The column selector.
     /// - Returns: A new selector representing the column relationship.
-    public func column(of other: HTML.Selector) -> HTML.Selector {
+    public func column(of other: WHATWG_HTML.Selector) -> WHATWG_HTML.Selector {
         .init(rawValue: other.rawValue + " || " + self.rawValue)
     }
 }
 
 // MARK: - Selector Lists and Compound Selectors
-extension HTML.Selector {
+extension WHATWG_HTML.Selector {
     /// Creates a selector list (comma-separated selectors).
     ///
     /// Selector lists allow you to apply styles to multiple different selectors.
@@ -254,7 +254,7 @@ extension HTML.Selector {
     ///
     /// - Parameter other: The additional selector to include in the list.
     /// - Returns: A new selector representing the selector list.
-    public func or(_ other: HTML.Selector) -> HTML.Selector {
+    public func or(_ other: WHATWG_HTML.Selector) -> WHATWG_HTML.Selector {
         .init(rawValue: self.rawValue + ", " + other.rawValue)
     }
 
@@ -269,15 +269,15 @@ extension HTML.Selector {
     ///     .inlineStyle("color", "blue", selector: "h1, h2, h3")
     ///
     /// // Using method (equivalent)
-    /// let h1: HTML.Selector = "h1"
-    /// let h2: HTML.Selector = "h2"
-    /// let h3: HTML.Selector = "h3"
-    /// let headings: HTML.Selector = h1.or(h2, h3)  // "h1, h2, h3"
+    /// let h1: WHATWG_HTML.Selector = "h1"
+    /// let h2: WHATWG_HTML.Selector = "h2"
+    /// let h3: WHATWG_HTML.Selector = "h3"
+    /// let headings: WHATWG_HTML.Selector = h1.or(h2, h3)  // "h1, h2, h3"
     /// ```
     ///
     /// - Parameter others: Additional selectors to include in the list.
     /// - Returns: A new selector representing the combined selector list.
-    public func or(_ others: HTML.Selector...) -> HTML.Selector {
+    public func or(_ others: WHATWG_HTML.Selector...) -> WHATWG_HTML.Selector {
         let allSelectors = [self] + others
         return .init(rawValue: allSelectors.map(\.rawValue).joined(separator: ", "))
     }
@@ -293,9 +293,9 @@ extension HTML.Selector {
     ///     .inlineStyle("background", "gray", selector: "div.header")
     ///
     /// // Using method (equivalent)
-    /// let div: HTML.Selector = "div"
-    /// let headerClass: HTML.Selector = .class("header")
-    /// let compound: HTML.Selector = div.and(headerClass)  // "div.header"
+    /// let div: WHATWG_HTML.Selector = "div"
+    /// let headerClass: WHATWG_HTML.Selector = .class("header")
+    /// let compound: WHATWG_HTML.Selector = div.and(headerClass)  // "div.header"
     /// ```
     ///
     /// This generates the CSS selector `div.header`, which matches `<div>` elements
@@ -303,13 +303,13 @@ extension HTML.Selector {
     ///
     /// - Parameter other: The selector to combine with this one.
     /// - Returns: A new compound selector.
-    public func and(_ other: HTML.Selector) -> HTML.Selector {
+    public func and(_ other: WHATWG_HTML.Selector) -> WHATWG_HTML.Selector {
         .init(rawValue: self.rawValue + other.rawValue)
     }
 }
 
 // MARK: - Convenience Methods
-extension HTML.Selector {
+extension WHATWG_HTML.Selector {
     /// Adds a CSS class to this selector.
     ///
     /// This is a convenience method for creating compound selectors with classes.
@@ -327,14 +327,14 @@ extension HTML.Selector {
     ///
     /// - Parameter className: The CSS class name to add.
     /// - Returns: A new selector with the class added.
-    public func withClass(_ className: String) -> HTML.Selector {
+    public func withClass(_ className: String) -> WHATWG_HTML.Selector {
         self.and(.class(className))
     }
 
     /// Adds a CSS ID to this selector.
     ///
     /// This is a convenience method for creating compound selectors with IDs.
-    /// It's equivalent to using `and(HTML.Selector.id(idName))`.
+    /// It's equivalent to using `and(WHATWG_HTML.Selector.id(idName))`.
     ///
     /// ```swift
     /// // Using string literal (most common)
@@ -342,20 +342,20 @@ extension HTML.Selector {
     ///     .inlineStyle("width", "100%", selector: "div#main")
     ///
     /// // Using method (equivalent)
-    /// let div: HTML.Selector = "div"
-    /// let mainDiv: HTML.Selector = div.withId("main")  // "div#main"
+    /// let div: WHATWG_HTML.Selector = "div"
+    /// let mainDiv: WHATWG_HTML.Selector = div.withId("main")  // "div#main"
     /// ```
     ///
     /// - Parameter idName: The CSS ID to add.
     /// - Returns: A new selector with the ID added.
-    public func withId(_ idName: String) -> HTML.Selector {
+    public func withId(_ idName: String) -> WHATWG_HTML.Selector {
         self.and(.id(idName))
     }
 
     /// Adds an attribute selector to this selector.
     ///
     /// This is a convenience method for creating compound selectors with attribute conditions.
-    /// It's equivalent to using `and(HTML.Selector.attribute(name, equals: value))`.
+    /// It's equivalent to using `and(WHATWG_HTML.Selector.attribute(name, equals: value))`.
     ///
     /// ```swift
     /// // Using string literal (most common)
@@ -363,15 +363,15 @@ extension HTML.Selector {
     ///     .inlineStyle("background", "green", selector: "input[type=\"submit\"]")
     ///
     /// // Using method (equivalent)
-    /// let input: HTML.Selector = "input"
-    /// let submitButton: HTML.Selector = input.withAttribute("type", equals: "submit")  // "input[type=\"submit\"]"
+    /// let input: WHATWG_HTML.Selector = "input"
+    /// let submitButton: WHATWG_HTML.Selector = input.withAttribute("type", equals: "submit")  // "input[type=\"submit\"]"
     /// ```
     ///
     /// - Parameters:
     ///   - name: The attribute name.
     ///   - value: The required attribute value.
     /// - Returns: A new selector with the attribute condition added.
-    public func withAttribute(_ name: String, equals value: String) -> HTML.Selector {
+    public func withAttribute(_ name: String, equals value: String) -> WHATWG_HTML.Selector {
         self.and(.attribute(name, equals: value))
     }
 
@@ -387,19 +387,19 @@ extension HTML.Selector {
     ///     .inlineStyle("background", "red", selector: "button:hover")
     ///
     /// // Using method (equivalent)
-    /// let button: HTML.Selector = "button"
-    /// let hoverButton: HTML.Selector = button.withPseudo(.hover)  // "button:hover"
+    /// let button: WHATWG_HTML.Selector = "button"
+    /// let hoverButton: WHATWG_HTML.Selector = button.withPseudo(.hover)  // "button:hover"
     /// ```
     ///
     /// - Parameter pseudo: The pseudo-class or pseudo-element to add.
     /// - Returns: A new selector with the pseudo added.
-    public func withPseudo(_ pseudo: HTML.Pseudo) -> HTML.Selector {
+    public func withPseudo(_ pseudo: WHATWG_HTML.Pseudo) -> WHATWG_HTML.Selector {
         .init(rawValue: self.rawValue + pseudo.rawValue)
     }
 }
 
 // MARK: - Universal and Namespace Selectors
-extension HTML.Selector {
+extension WHATWG_HTML.Selector {
     /// Universal selector: `*`
     public static let universal: Self = "*"
 
@@ -408,13 +408,13 @@ extension HTML.Selector {
     ///
     /// ```swift
     /// // Using string literal (most common)
-    /// let svgCircle: HTML.Selector = "svg|circle"
+    /// let svgCircle: WHATWG_HTML.Selector = "svg|circle"
     ///
     /// // Using method (equivalent)
-    /// let circle: HTML.Selector = "circle"
-    /// let result: HTML.Selector = circle.namespace("svg")  // "svg|circle"
+    /// let circle: WHATWG_HTML.Selector = "circle"
+    /// let result: WHATWG_HTML.Selector = circle.namespace("svg")  // "svg|circle"
     /// ```
-    public func namespace(_ ns: String) -> HTML.Selector {
+    public func namespace(_ ns: String) -> WHATWG_HTML.Selector {
         .init(rawValue: "\(ns)|\(self.rawValue)")
     }
 
@@ -422,19 +422,19 @@ extension HTML.Selector {
     ///
     /// ```swift
     /// // Using string literal (most common)
-    /// let svgCircle: HTML.Selector = "svg|circle"
+    /// let svgCircle: WHATWG_HTML.Selector = "svg|circle"
     ///
     /// // Using static method (equivalent)
-    /// let circle: HTML.Selector = "circle"
-    /// let result: HTML.Selector = .namespace("svg", element: circle)  // "svg|circle"
+    /// let circle: WHATWG_HTML.Selector = "circle"
+    /// let result: WHATWG_HTML.Selector = .namespace("svg", element: circle)  // "svg|circle"
     /// ```
-    public static func namespace(_ ns: String, element: HTML.Selector) -> HTML.Selector {
+    public static func namespace(_ ns: String, element: WHATWG_HTML.Selector) -> WHATWG_HTML.Selector {
         element.namespace(ns)
     }
 }
 
 // MARK: - Attribute Selectors
-extension HTML.Selector {
+extension WHATWG_HTML.Selector {
     /// Attribute exists: `[attr]`
     public static func hasAttribute(_ name: String) -> Self {
         "[\(name)]"
@@ -472,7 +472,7 @@ extension HTML.Selector {
 }
 
 // MARK: - Class and ID Selectors
-extension HTML.Selector {
+extension WHATWG_HTML.Selector {
     /// Class selector: `.class-name`
     public static func `class`(_ name: String) -> Self {
         ".\(name)"
@@ -485,7 +485,7 @@ extension HTML.Selector {
 }
 
 // MARK: - Form Input Types
-extension HTML.Selector {
+extension WHATWG_HTML.Selector {
     /// Input type selector: `input[type="text"]`
     public static func inputType(_ type: String) -> Self {
         "input[type=\"\(type)\"]"

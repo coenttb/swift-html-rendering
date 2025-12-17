@@ -1,5 +1,5 @@
 //
-//  HTML.View.swift
+//  WHATWG_HTML.View.swift
 //  swift-html-rendering
 //
 //  Created by Point-Free, Inc
@@ -13,17 +13,17 @@ public import WHATWG_HTML_Shared
 
 /// A protocol representing an HTML element or component that can be rendered.
 ///
-/// The `HTML.View` protocol is the core abstraction of the RenderingHTML library,
+/// The `WHATWG_HTML.View` protocol is the core abstraction of the RenderingHTML library,
 /// allowing Swift types to represent HTML content in a declarative, composable manner.
 /// It uses a component-based architecture similar to SwiftUI, where each component
 /// defines its `body` property to build up a hierarchy of HTML elements.
 ///
-/// This protocol is available as `HTML.View` for a more SwiftUI-like API.
+/// This protocol is available as `WHATWG_HTML.View` for a more SwiftUI-like API.
 ///
 /// Example:
 /// ```swift
-/// struct MyView: HTML.View {
-///     var body: some HTML.View {
+/// struct MyView: WHATWG_HTML.View {
+///     var body: some WHATWG_HTML.View {
 ///         div {
 ///             h1 { "Hello, World!" }
 ///             p { "This is a paragraph." }
@@ -34,20 +34,20 @@ public import WHATWG_HTML_Shared
 ///
 /// - Note: This protocol is similar in design to SwiftUI's `View` protocol,
 ///   making it familiar to Swift developers who have worked with SwiftUI.
-extension HTML {
+extension WHATWG_HTML {
     public protocol View: Renderable
-    where Content: HTML.View, Context == HTML.Context, Output == UInt8 {
-        @HTML.Builder var body: Content { get }
+    where Content: WHATWG_HTML.View, Context == WHATWG_HTML.Context, Output == UInt8 {
+        @WHATWG_HTML.Builder var body: Content { get }
     }
 }
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     @inlinable
     @_disfavoredOverload
     public static func _render<Buffer: RangeReplaceableCollection>(
         _ html: Self,
         into buffer: inout Buffer,
-        context: inout HTML.Context
+        context: inout WHATWG_HTML.Context
     ) where Buffer.Element == UInt8 {
         Content._render(html.body, into: &buffer, context: &context)
     }
@@ -55,7 +55,7 @@ extension HTML.View {
 
 // MARK: - Async Rendering
 
-extension HTML {
+extension WHATWG_HTML {
     /// A protocol for HTML views that support async rendering with backpressure.
     ///
     /// Async rendering allows suspension at element boundaries, enabling true
@@ -85,24 +85,24 @@ extension HTML {
     /// Choose sync when you need the complete document (e.g., PDF generation).
     /// Choose AsyncChannel when streaming to a client that benefits from
     /// progressive delivery and you want bounded memory usage.
-    public protocol AsyncView: HTML.View, AsyncRenderable where Content: AsyncRenderable {}
+    public protocol AsyncView: WHATWG_HTML.View, AsyncRenderable where Content: AsyncRenderable {}
 }
 
-extension HTML.AsyncView {
+extension WHATWG_HTML.AsyncView {
     /// Default implementation delegates to content's async render method.
     @inlinable
     @_disfavoredOverload
     public static func _renderAsync<Stream: Rendering.Async.Sink.`Protocol`>(
         _ html: Self,
         into stream: Stream,
-        context: inout HTML.Context
+        context: inout WHATWG_HTML.Context
     ) async {
         await Content._renderAsync(html.body, into: stream, context: &context)
     }
 }
 
 /// Extension to add attribute capabilities to all HTML elements.
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Adds a custom attribute to an HTML element.
     ///
     /// This method allows you to set any attribute on an HTML element,
@@ -132,16 +132,16 @@ extension HTML.View {
     /// input().attribute("type", "text").attribute("placeholder", "Enter your name")
     /// div().attribute("id", "main").attribute("class", "container")
     /// ```
-    public func attribute(_ name: String, _ value: String? = "") -> HTML._Attributes<Self> {
-        HTML._Attributes(content: self, attributes: value.map { [name: $0] } ?? [:])
+    public func attribute(_ name: String, _ value: String? = "") -> WHATWG_HTML._Attributes<Self> {
+        WHATWG_HTML._Attributes(content: self, attributes: value.map { [name: $0] } ?? [:])
     }
 }
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     @inlinable
     func render<Buffer: RangeReplaceableCollection>(
         into buffer: inout Buffer,
-        context: inout HTML.Context
+        context: inout WHATWG_HTML.Context
     ) where Buffer.Element == UInt8 {
         Self._render(self, into: &buffer, context: &context)
     }
@@ -155,16 +155,16 @@ extension HTML.View {
 /// ## Example
 ///
 /// ```swift
-/// struct Greeting: HTML.View, CustomStringConvertible {
-///     var body: some HTML.View {
-///         tag("div") { HTML.Text("Hello!") }
+/// struct Greeting: WHATWG_HTML.View, CustomStringConvertible {
+///     var body: some WHATWG_HTML.View {
+///         tag("div") { WHATWG_HTML.Text("Hello!") }
 ///     }
 /// }
 ///
 /// let greeting = Greeting()
 /// print(greeting) // Prints: <div>Hello!</div>
 /// ```
-extension CustomStringConvertible where Self: HTML.View {
+extension CustomStringConvertible where Self: WHATWG_HTML.View {
     public var description: String {
         do {
             return try String(self)

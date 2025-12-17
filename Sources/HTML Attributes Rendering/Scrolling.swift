@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Sets the scope attribute on an element
     @discardableResult
     package func scrolling(
         _ value: Scrolling?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Scrolling.attribute, value?.rawValue)
     }
 }

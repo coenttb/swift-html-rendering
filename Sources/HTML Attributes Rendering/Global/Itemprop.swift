@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Sets the itemprop attribute with a property name
     @discardableResult
     public func itemprop(
         _ propertyName: String
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Itemprop.attribute, propertyName)
     }
 
@@ -21,7 +21,7 @@ extension HTML.View {
     @discardableResult
     public func itemprop(
         _ propertyNames: [String]
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Itemprop.attribute, propertyNames.joined(separator: " "))
     }
 
@@ -29,7 +29,7 @@ extension HTML.View {
     @discardableResult
     public func itemprop(
         _ propertyNames: String...
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.itemprop(propertyNames)
     }
 
@@ -37,7 +37,7 @@ extension HTML.View {
     @discardableResult
     public func itemprop(
         _ attribute: Itemprop
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Itemprop.attribute, attribute.description)
     }
 }

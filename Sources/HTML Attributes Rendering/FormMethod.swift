@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
 
     /// Sets the formmethod attribute on an element
     @discardableResult
     package func formMethod(
         _ value: FormMethod?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(FormMethod.attribute, value?.description)
     }
 }

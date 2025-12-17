@@ -8,24 +8,24 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Sets the virtualkeyboardpolicy attribute with a policy value
     @discardableResult
     public func virtualkeyboardpolicy(
         _ policy: Virtualkeyboardpolicy
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Virtualkeyboardpolicy.attribute, policy.description)
     }
 
     /// Sets the virtualkeyboardpolicy attribute to auto
     @discardableResult
-    public func autoKeyboard() -> HTML._Attributes<Self> {
+    public func autoKeyboard() -> WHATWG_HTML._Attributes<Self> {
         self.virtualkeyboardpolicy(.auto)
     }
 
     /// Sets the virtualkeyboardpolicy attribute to manual
     @discardableResult
-    public func manualKeyboard() -> HTML._Attributes<Self> {
+    public func manualKeyboard() -> WHATWG_HTML._Attributes<Self> {
         self.virtualkeyboardpolicy(.manual)
     }
 }

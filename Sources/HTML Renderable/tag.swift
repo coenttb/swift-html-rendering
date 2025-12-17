@@ -23,11 +23,11 @@ public import WHATWG_HTML_Shared
 /// - Note: Import with `@_spi(DynamicHTML) import HTML_Renderable` to access this function.
 @_spi(DynamicHTML)
 @inlinable
-public func tag<T: HTML.View>(
+public func tag<T: WHATWG_HTML.View>(
     _ tagName: String,
-    @HTML.Builder _ content: () -> T = { Empty() }
-) -> HTML.Element.Tag<T> {
-    HTML.Element.Tag(tag: tagName, content: content)
+    @WHATWG_HTML.Builder _ content: () -> T = { Empty() }
+) -> WHATWG_HTML.Element.Tag<T> {
+    WHATWG_HTML.Element.Tag(tag: tagName, content: content)
 }
 
 /// Creates an empty HTML element with the specified tag name.
@@ -36,6 +36,6 @@ public func tag<T: HTML.View>(
 /// - Returns: An HTML element with the specified tag and no content.
 @_spi(DynamicHTML)
 @inlinable
-public func tag(_ tagName: String) -> HTML.Element.Tag<Empty> {
-    HTML.Element.Tag(tag: tagName) { Empty() }
+public func tag(_ tagName: String) -> WHATWG_HTML.Element.Tag<Empty> {
+    WHATWG_HTML.Element.Tag(tag: tagName) { Empty() }
 }

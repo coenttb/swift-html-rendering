@@ -8,11 +8,11 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     @discardableResult
     public func autocorrect(
         _ value: Autocorrect?
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Autocorrect.attribute, value?.description)
     }
 }

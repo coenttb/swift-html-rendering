@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Sets the slot attribute with a slot name
     @discardableResult
     public func slot(
         _ name: String
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Slot.attribute, name)
     }
 
@@ -21,7 +21,7 @@ extension HTML.View {
     @discardableResult
     public func slot(
         _ attribute: Slot
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Slot.attribute, attribute.description)
     }
 }

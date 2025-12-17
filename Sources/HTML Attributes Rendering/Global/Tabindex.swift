@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension HTML.View {
+extension WHATWG_HTML.View {
     /// Sets the tabindex attribute with an integer value
     @discardableResult
     public func tabindex(
         _ value: Int
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Tabindex.attribute, String(value))
     }
 
@@ -21,19 +21,19 @@ extension HTML.View {
     @discardableResult
     public func tabindex(
         _ attribute: Tabindex
-    ) -> HTML._Attributes<Self> {
+    ) -> WHATWG_HTML._Attributes<Self> {
         self.attribute(Tabindex.attribute, attribute.description)
     }
 
     /// Makes the element not focusable via keyboard but focusable programmatically
     @discardableResult
-    public func notTabbable() -> HTML._Attributes<Self> {
+    public func notTabbable() -> WHATWG_HTML._Attributes<Self> {
         self.tabindex(Tabindex.notTabbable)
     }
 
     /// Makes the element focusable in the natural document order
     @discardableResult
-    public func tabbableInDocumentOrder() -> HTML._Attributes<Self> {
+    public func tabbableInDocumentOrder() -> WHATWG_HTML._Attributes<Self> {
         self.tabindex(Tabindex.inDocumentOrder)
     }
 }
