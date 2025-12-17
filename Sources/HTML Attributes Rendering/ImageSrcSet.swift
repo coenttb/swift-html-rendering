@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
 
     /// Sets the srcset attribute on an image element
     @discardableResult
     package func srcset(
         _ value: ImageSrcSet?
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(ImageSrcSet.attribute, value?.description)
     }
 }

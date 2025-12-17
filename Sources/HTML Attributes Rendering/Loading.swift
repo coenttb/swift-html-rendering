@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
     /// Sets the loading attribute on an element
     @discardableResult
     package func loading(
         _ value: Loading?
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(Loading.attribute, value?.rawValue)
     }
 }

@@ -9,13 +9,13 @@ import Rendering
 public import WHATWG_HTML_Shared
 
 extension String: @retroactive Renderable {
-    public typealias Content = WHATWG_HTML.Text
-    public typealias Context = WHATWG_HTML.Context
+    public typealias Content = HTML.Text
+    public typealias Context = HTML.Context
     public typealias Output = UInt8
 }
 
-extension String: WHATWG_HTML.View {
-    public var body: WHATWG_HTML.Text {
-        WHATWG_HTML.Text(self)
+extension String: HTML.View {
+    public var body: HTML.Text {
+        HTML.Text(self)
     }
 }

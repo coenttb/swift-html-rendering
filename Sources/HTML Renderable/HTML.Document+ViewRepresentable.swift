@@ -8,7 +8,7 @@ public import WHATWG_HTML_Shared
 
 // MARK: - Shared Implementation
 
-private extension WHATWG_HTML.Document where Body: WHATWG_HTML.View, Head: WHATWG_HTML.View {
+private extension HTML.Document where Body: HTML.View, Head: HTML.View {
     @MainActor
     func makeWebView() -> WKWebView {
         let configuration = WKWebViewConfiguration()
@@ -36,9 +36,9 @@ private extension WHATWG_HTML.Document where Body: WHATWG_HTML.View, Head: WHATW
 // MARK: - macOS
 
 #if os(macOS)
-extension WHATWG_HTML.Document: SwiftUI.View where Body: WHATWG_HTML.View, Head: WHATWG_HTML.View {}
+extension HTML.Document: SwiftUI.View where Body: HTML.View, Head: HTML.View {}
 
-extension WHATWG_HTML.Document: SwiftUI.NSViewRepresentable where Body: WHATWG_HTML.View, Head: WHATWG_HTML.View {
+extension HTML.Document: SwiftUI.NSViewRepresentable where Body: HTML.View, Head: HTML.View {
     public typealias NSViewType = WKWebView
 
     public func makeNSView(context: NSViewRepresentableContext<Self>) -> WKWebView {
@@ -53,9 +53,9 @@ extension WHATWG_HTML.Document: SwiftUI.NSViewRepresentable where Body: WHATWG_H
 // MARK: - iOS
 
 #elseif os(iOS)
-extension WHATWG_HTML.Document: SwiftUI.View where Body: WHATWG_HTML.View, Head: WHATWG_HTML.View {}
+extension HTML.Document: SwiftUI.View where Body: HTML.View, Head: HTML.View {}
 
-extension WHATWG_HTML.Document: SwiftUI.UIViewRepresentable where Body: WHATWG_HTML.View, Head: WHATWG_HTML.View {
+extension HTML.Document: SwiftUI.UIViewRepresentable where Body: HTML.View, Head: HTML.View {
     public typealias UIViewType = WKWebView
 
     public func makeUIView(context: UIViewRepresentableContext<Self>) -> WKWebView {

@@ -8,17 +8,17 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
     /// Sets whether an element is draggable
     @discardableResult
     public func draggable(
         _ value: Draggable
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(Draggable.attribute, value.description)
     }
 
     /// Shorthand to set draggable="true"
-    public var draggable: WHATWG_HTML._Attributes<Self> {
+    public var draggable: HTML._Attributes<Self> {
         self.draggable(.true)
     }
 }

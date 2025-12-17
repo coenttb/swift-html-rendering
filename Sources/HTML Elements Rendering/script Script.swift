@@ -11,7 +11,7 @@ import HTML_Standard_Elements
 extension HTML_Standard_Elements.Script {
     public func callAsFunction(
         _ script: () -> String = { "" }
-    ) -> some WHATWG_HTML.View {
+    ) -> some HTML.View {
 
         let script = script()
         var escaped = ""
@@ -29,8 +29,8 @@ extension HTML_Standard_Elements.Script {
             }
         }
 
-        return WHATWG_HTML.Element.Tag(for: Self.self) {
-            if script.isEmpty { WHATWG_HTML.Empty() } else { WHATWG_HTML.Raw(escaped) }
+        return HTML.Element.Tag(for: Self.self) {
+            if script.isEmpty { HTML.Empty() } else { HTML.Raw(escaped) }
         }
         .src(self.src)
         .`async`(self.`async`)
@@ -47,8 +47,8 @@ extension HTML_Standard_Elements.Script {
     }
 }
 
-extension HTML_Standard_Elements.Script: WHATWG_HTML.View {
-    public var body: some WHATWG_HTML.View {
+extension HTML_Standard_Elements.Script: HTML.View {
+    public var body: some HTML.View {
         Script(
             src: self.src,
             async: self.async,

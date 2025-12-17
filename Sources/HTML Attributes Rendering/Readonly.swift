@@ -8,18 +8,18 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
 
     /// Adds the readonly attribute to the element
-    package var readonly: WHATWG_HTML._Attributes<Self> {
+    package var readonly: HTML._Attributes<Self> {
         self.attribute(Readonly.attribute)
     }
 
     /// Conditionally adds the readonly attribute to the element
-    @WHATWG_HTML.Builder
+    @HTML.Builder
     package func readonly(
         _ value: Readonly?
-    ) -> some WHATWG_HTML.View {
+    ) -> some HTML.View {
         self.attribute(boolean: value)
     }
 }

@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
     /// Sets the is attribute to extend a standard HTML element with custom behavior
     @discardableResult
     public func `is`(
         _ value: String
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(Is.attribute, Is(value).description)
     }
 
@@ -21,7 +21,7 @@ extension WHATWG_HTML.View {
     @discardableResult
     public func `is`(
         _ value: Is
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(Is.attribute, value.description)
     }
 }

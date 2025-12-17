@@ -1,5 +1,5 @@
 //
-//  WHATWG_HTML.Context.swift
+//  HTML.Context.swift
 //  swift-html-rendering
 //
 //  Rendering context for HTML streaming.
@@ -11,10 +11,10 @@ public import OrderedCollections
 import Rendering
 public import WHATWG_HTML_Shared
 
-extension WHATWG_HTML {
+extension HTML {
     /// Rendering context for HTML streaming.
     ///
-    /// `WHATWG_HTML.Context` holds the state needed during HTML rendering, separate from the output buffer.
+    /// `HTML.Context` holds the state needed during HTML rendering, separate from the output buffer.
     /// This separation enables streaming rendering where the buffer can be any `RangeReplaceableCollection<UInt8>`.
     ///
     /// ## Design Philosophy
@@ -30,8 +30,8 @@ extension WHATWG_HTML {
         public var attributes: OrderedDictionary<String, String>
 
         /// The collected styles mapped to their generated class names.
-        /// Style → className (e.g., WHATWG_HTML.Element.Style(Color.red) → "color-0")
-        public var styles: OrderedDictionary<WHATWG_HTML.Element.Style, String>
+        /// Style → className (e.g., HTML.Element.Style(Color.red) → "color-0")
+        public var styles: OrderedDictionary<HTML.Element.Style, String>
 
         /// Configuration for rendering, including formatting options.
         public let configuration: Configuration
@@ -45,7 +45,7 @@ extension WHATWG_HTML {
     }
 }
 
-extension WHATWG_HTML.Context {
+extension HTML.Context {
     /// Creates a new HTML rendering context with the specified rendering configuration.
     ///
     /// - Parameter configuration: The rendering configuration to use. Defaults to current task-local value.
@@ -58,7 +58,7 @@ extension WHATWG_HTML.Context {
     }
 }
 
-extension WHATWG_HTML.Context {
+extension HTML.Context {
     // MARK: - Style Push API
 
     /// Push a style to the context and get its class name.
@@ -69,7 +69,7 @@ extension WHATWG_HTML.Context {
     /// - Parameter style: The style to register.
     /// - Returns: A deterministic class name for the style.
     public mutating func pushStyle(
-        _ style: WHATWG_HTML.Element.Style
+        _ style: HTML.Element.Style
     ) -> String {
         if let existing = styles[style] {
             return existing
@@ -81,7 +81,7 @@ extension WHATWG_HTML.Context {
     }
 }
 
-extension WHATWG_HTML.Context {
+extension HTML.Context {
     /// Generates a CSS stylesheet from the collected styles as bytes.
     ///
     /// This is the canonical implementation - generates bytes directly without
@@ -92,7 +92,7 @@ extension WHATWG_HTML.Context {
     /// - Returns: The stylesheet bytes with proper indentation.
     public func stylesheetBytes(baseIndentation: [UInt8] = []) -> ContiguousArray<UInt8> {
         // Group styles by atRule
-        var grouped: OrderedDictionary<WHATWG_HTML.AtRule?, [(style: WHATWG_HTML.Element.Style, className: String)]> = [:]
+        var grouped: OrderedDictionary<HTML.AtRule?, [(style: HTML.Element.Style, className: String)]> = [:]
         for (style, className) in styles {
             grouped[style.atRule, default: []].append((style, className))
         }
@@ -162,7 +162,7 @@ extension WHATWG_HTML.Context {
     }
 }
 
-extension WHATWG_HTML {
+extension HTML {
     static let important: [UInt8] = [
         .ascii.exclamationPoint,
         .ascii.i,

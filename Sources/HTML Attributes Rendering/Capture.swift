@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
 
     @discardableResult
     package func capture(
         _ value: Capture?
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(Capture.attribute, value?.description)
     }
 }

@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
 
     /// Sets the poster attribute on an element
     @discardableResult
     package func poster(
         _ value: Poster?
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(Poster.attribute, value?.description)
     }
 }

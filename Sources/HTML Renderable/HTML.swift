@@ -1,5 +1,5 @@
 //
-//  WHATWG_HTML.swift
+//  HTML.swift
 //  swift-html-rendering
 //
 //  Created by Coen ten Thije Boonkkamp on 26/11/2025.
@@ -7,7 +7,7 @@
 
 public import WHATWG_HTML_Shared
 
-extension WHATWG_HTML {
+extension HTML {
     /// &quot; - Double quotation mark HTML entity
     public static let doubleQuotationMark: [UInt8] = [
         .ascii.ampersand,

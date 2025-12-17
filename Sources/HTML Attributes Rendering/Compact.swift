@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
 
     /// Sets the compact attribute on an element
     @discardableResult
     package func compact(
         _ value: Compact?
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(Compact.attribute, value?.description)
     }
 }

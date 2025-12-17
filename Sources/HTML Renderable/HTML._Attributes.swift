@@ -1,5 +1,5 @@
 //
-//  WHATWG_HTML._Attributes.swift
+//  HTML._Attributes.swift
 //  swift-html-rendering
 //
 //  Created by Coen ten Thije Boonkkamp on 25/11/2025.
@@ -10,10 +10,10 @@ import Rendering
 public import RenderingAsync
 public import WHATWG_HTML_Shared
 
-extension WHATWG_HTML {
+extension HTML {
     /// A wrapper that applies attributes to an HTML element.
     ///
-    /// `WHATWG_HTML._Attributes` is used to attach HTML attributes to elements in
+    /// `HTML._Attributes` is used to attach HTML attributes to elements in
     /// a type-safe, chainable manner. It manages the collection of attributes
     /// and their rendering into the final HTML output.
     ///
@@ -26,7 +26,7 @@ extension WHATWG_HTML {
     ///     .href("https://example.com")
     ///     .attribute("target", "_blank")
     /// ```
-    public struct _Attributes<Content: WHATWG_HTML.View>: WHATWG_HTML.View {
+    public struct _Attributes<Content: HTML.View>: HTML.View {
         /// The HTML content to which attributes are being applied.
         public let content: Content
 
@@ -49,7 +49,7 @@ extension WHATWG_HTML {
         ///   - name: The name of the attribute.
         ///   - value: The optional value of the attribute.
         /// - Returns: An HTML element with both the original and new attributes applied.
-        public func attribute(_ name: String, _ value: String? = "") -> WHATWG_HTML._Attributes<Content> {
+        public func attribute(_ name: String, _ value: String? = "") -> HTML._Attributes<Content> {
             var copy = self
             copy.attributes[name] = value
             return copy
@@ -59,7 +59,7 @@ extension WHATWG_HTML {
         public static func _render<Buffer: RangeReplaceableCollection>(
             _ html: Self,
             into buffer: inout Buffer,
-            context: inout WHATWG_HTML.Context
+            context: inout HTML.Context
         ) where Buffer.Element == UInt8 {
             let previousValue = context.attributes
             defer { context.attributes = previousValue }
@@ -74,16 +74,16 @@ extension WHATWG_HTML {
 
 // MARK: - Sendable
 
-extension WHATWG_HTML._Attributes: Sendable where Content: Sendable {}
+extension HTML._Attributes: Sendable where Content: Sendable {}
 
 // MARK: - Async Rendering
 
-extension WHATWG_HTML._Attributes: AsyncRenderable where Content: AsyncRenderable {
+extension HTML._Attributes: AsyncRenderable where Content: AsyncRenderable {
     /// Async renders this HTML element with attributes.
     public static func _renderAsync<Stream: Rendering.Async.Sink.`Protocol`>(
         _ html: Self,
         into stream: Stream,
-        context: inout WHATWG_HTML.Context
+        context: inout HTML.Context
     ) async {
         let previousValue = context.attributes
         defer { context.attributes = previousValue }

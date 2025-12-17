@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
 
     @discardableResult
     package func elementtiming(
         _ value: Elementtiming?
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(Elementtiming.attribute, value?.description)
     }
 
@@ -23,7 +23,7 @@ extension WHATWG_HTML.View {
         category: Elementtiming.Category,
         name: String,
         separator: String = "-"
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.elementtiming(Elementtiming(category: category, name: name, separator: separator))
     }
 }

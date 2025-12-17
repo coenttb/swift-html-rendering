@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
-    @WHATWG_HTML.Builder
+extension HTML.View {
+    @HTML.Builder
     package func attribute(
         _ value: String,
         _ condition: @autoclosure () -> Bool?
-    ) -> some WHATWG_HTML.View {
+    ) -> some HTML.View {
         let conditionResult = condition()
         if conditionResult == true {
             self.attribute(value, "")
@@ -22,19 +22,19 @@ extension WHATWG_HTML.View {
         }
     }
 
-    @WHATWG_HTML.Builder
-    package func attribute<Attribute: WHATWG_HTML.BooleanAttribute>(
+    @HTML.Builder
+    package func attribute<Attribute: HTML.BooleanAttribute>(
         boolean value: Attribute?
-    ) -> some WHATWG_HTML.View {
+    ) -> some HTML.View {
         self.attribute(Attribute.attribute, value == true)
     }
 }
 
-extension WHATWG_HTML._Attributes {
+extension HTML._Attributes {
     package func attribute(
         _ name: String,
         _ value: (some CustomStringConvertible)? = ""
-    ) -> WHATWG_HTML._Attributes<Content> {
+    ) -> HTML._Attributes<Content> {
         self.attribute(name, value?.description)
     }
 }

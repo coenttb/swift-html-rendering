@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
 
     /// Sets the playsinline attribute on an element
     @discardableResult
     package func playsinline(
         _ value: Playsinline?
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(Playsinline.attribute, value?.description)
     }
 }

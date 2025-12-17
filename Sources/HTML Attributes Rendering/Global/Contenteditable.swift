@@ -8,15 +8,15 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
     @discardableResult
     public func contenteditable(
         _ value: Contenteditable
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(Contenteditable.attribute, value.description)
     }
 
-    public var contenteditable: WHATWG_HTML._Attributes<Self> {
+    public var contenteditable: HTML._Attributes<Self> {
         self.contenteditable(.true)
     }
 }

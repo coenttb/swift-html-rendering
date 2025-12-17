@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
 
     /// Sets the shadowrootdelegatesfocus attribute on an element
     @discardableResult
     package func shadowRootDelegatesFocus(
         _ value: ShadowRootDelegatesFocus?
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(ShadowRootDelegatesFocus.attribute, value?.description)
     }
 }

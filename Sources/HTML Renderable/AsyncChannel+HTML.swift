@@ -1,5 +1,5 @@
 //
-//  AsyncChannel+WHATWG_HTML.swift
+//  AsyncChannel+HTML.swift
 //  swift-html-rendering
 //
 //  Created by Coen ten Thije Boonkkamp on 26/11/2025.
@@ -18,7 +18,7 @@ extension AsyncChannel<ArraySlice<UInt8>> {
     ///
     /// This is an HTML-specific convenience that wraps the generic
     /// `AsyncChannel(rendering:chunkSize:)` from `RenderingAsync`,
-    /// adding `@WHATWG_HTML.Builder` syntax and `WHATWG_HTML.Context` configuration.
+    /// adding `@HTML.Builder` syntax and `HTML.Context` configuration.
     ///
     /// ## When to Use
     ///
@@ -55,10 +55,10 @@ extension AsyncChannel<ArraySlice<UInt8>> {
     /// - SeeAlso: `AsyncChannel(rendering:chunkSize:)` in `RenderingAsync` for
     ///   the generic implementation and detailed explanation of the concurrent
     ///   producer/consumer pattern.
-    public convenience init<View: WHATWG_HTML.View & AsyncRenderable & Sendable>(
+    public convenience init<View: HTML.View & AsyncRenderable & Sendable>(
         chunkSize: Int = 4096,
-        configuration: WHATWG_HTML.Context.Configuration? = nil,
-        @WHATWG_HTML.Builder _ view: () -> View
+        configuration: HTML.Context.Configuration? = nil,
+        @HTML.Builder _ view: () -> View
     ) {
         self.init()
         let view = view()
@@ -69,7 +69,7 @@ extension AsyncChannel<ArraySlice<UInt8>> {
         // See AsyncChannel(rendering:chunkSize:) in RenderingAsync for detailed explanation.
         Task.detached {
             let sink = Rendering.Async.Sink.Buffered(channel: channel, chunkSize: chunkSize)
-            var context = WHATWG_HTML.Context(config)
+            var context = HTML.Context(config)
             await View._renderAsync(view, into: sink, context: &context)
             await sink.finish()
         }
@@ -81,12 +81,12 @@ extension AsyncChannel<ArraySlice<UInt8>> {
     ///
     /// This is an HTML-specific convenience that wraps the generic
     /// `AsyncChannel(rendering:chunkSize:)` from `RenderingAsync`,
-    /// adding `@WHATWG_HTML.Builder` syntax and `WHATWG_HTML.Context` configuration.
+    /// adding `@HTML.Builder` syntax and `HTML.Context` configuration.
     ///
     /// ## Canonical Usage
     ///
     /// ```swift
-    /// let document = WHATWG_HTML.Document { div { "Hello" } }
+    /// let document = HTML.Document { div { "Hello" } }
     /// for await chunk in AsyncChannel { document } {
     ///     await response.write(chunk)
     /// }
@@ -100,10 +100,10 @@ extension AsyncChannel<ArraySlice<UInt8>> {
     /// - SeeAlso: `AsyncChannel(rendering:chunkSize:)` in `RenderingAsync` for
     ///   the generic implementation and detailed explanation of the concurrent
     ///   producer/consumer pattern.
-    public convenience init<Document: WHATWG_HTML.DocumentProtocol & AsyncRenderable & Sendable>(
+    public convenience init<Document: HTML.DocumentProtocol & AsyncRenderable & Sendable>(
         chunkSize: Int = 4096,
-        configuration: WHATWG_HTML.Context.Configuration? = nil,
-        @WHATWG_HTML.Builder _ document: () -> Document
+        configuration: HTML.Context.Configuration? = nil,
+        @HTML.Builder _ document: () -> Document
     ) {
         self.init()
         let document = document()
@@ -114,7 +114,7 @@ extension AsyncChannel<ArraySlice<UInt8>> {
         // See AsyncChannel(rendering:chunkSize:) in RenderingAsync for detailed explanation.
         Task.detached {
             let sink = Rendering.Async.Sink.Buffered(channel: channel, chunkSize: chunkSize)
-            var context = WHATWG_HTML.Context(config)
+            var context = HTML.Context(config)
             await Document._renderAsync(document, into: sink, context: &context)
             await sink.finish()
         }

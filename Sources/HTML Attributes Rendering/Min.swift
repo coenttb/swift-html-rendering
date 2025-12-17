@@ -8,24 +8,24 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
 
     /// Sets the min attribute on an element
     @discardableResult
     package func min(
         _ value: Min?
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(Min.attribute, value?.description)
     }
 }
 
-// extension WHATWG_HTML.View {
+// extension HTML.View {
 //    /// Sets the min attribute with a date value and format
 //    @discardableResult
 //    package func min(
 //        date: Date,
 //        format: Min.DateFormat = .fullDate
-//    ) -> WHATWG_HTML._Attributes<Self> {
+//    ) -> HTML._Attributes<Self> {
 //        self.min(Min(date: date, format: format))
 //    }
 // }

@@ -1,5 +1,5 @@
 //
-//  WHATWG_HTML.Element.Style.Context.swift
+//  HTML.Element.Style.Context.swift
 //  swift-html-rendering
 //
 //  TaskLocal-based context for CSS styling.
@@ -7,7 +7,7 @@
 
 public import WHATWG_HTML_Shared
 
-extension WHATWG_HTML.Element.Style {
+extension HTML.Element.Style {
     /// Context for CSS styling that captures at-rule, selector, and pseudo state.
     ///
     /// This context is propagated via Swift's TaskLocal mechanism, enabling
@@ -17,7 +17,7 @@ extension WHATWG_HTML.Element.Style {
     ///
     /// Set context for a scope:
     /// ```swift
-    /// WHATWG_HTML.Element.Style.Context.$current.withValue(.init(atRule: .dark)) {
+    /// HTML.Element.Style.Context.$current.withValue(.init(atRule: .dark)) {
     ///     div.css.color(.red)  // Applies color with @media dark
     /// }
     /// ```
@@ -40,13 +40,13 @@ extension WHATWG_HTML.Element.Style {
     /// ```
     public struct Context: Sendable, Hashable {
         /// Optional at-rule (e.g., media query).
-        public let atRule: WHATWG_HTML.AtRule?
+        public let atRule: HTML.AtRule?
 
         /// Optional CSS selector prefix.
-        public let selector: WHATWG_HTML.Selector?
+        public let selector: HTML.Selector?
 
         /// Optional pseudo-class or pseudo-element.
-        public let pseudo: WHATWG_HTML.Pseudo?
+        public let pseudo: HTML.Pseudo?
 
         /// The default empty context.
         public static let `default` = Context(atRule: nil, selector: nil, pseudo: nil)
@@ -55,7 +55,7 @@ extension WHATWG_HTML.Element.Style {
         ///
         /// Use `$current.withValue(_:operation:)` to set context for a scope:
         /// ```swift
-        /// WHATWG_HTML.Element.Style.Context.$current.withValue(.init(atRule: .dark)) {
+        /// HTML.Element.Style.Context.$current.withValue(.init(atRule: .dark)) {
         ///     // All styles in this scope get the dark media query
         /// }
         /// ```
@@ -68,9 +68,9 @@ extension WHATWG_HTML.Element.Style {
         ///   - selector: Optional CSS selector prefix.
         ///   - pseudo: Optional pseudo-class or pseudo-element.
         public init(
-            atRule: WHATWG_HTML.AtRule? = nil,
-            selector: WHATWG_HTML.Selector? = nil,
-            pseudo: WHATWG_HTML.Pseudo? = nil
+            atRule: HTML.AtRule? = nil,
+            selector: HTML.Selector? = nil,
+            pseudo: HTML.Pseudo? = nil
         ) {
             self.atRule = atRule
             self.selector = selector
@@ -80,7 +80,7 @@ extension WHATWG_HTML.Element.Style {
         /// Creates a context with a media query.
         ///
         /// - Parameter media: The media query to apply.
-        public init(media: WHATWG_HTML.AtRule.Media?) {
+        public init(media: HTML.AtRule.Media?) {
             self.atRule = media
             self.selector = nil
             self.pseudo = nil
@@ -89,7 +89,7 @@ extension WHATWG_HTML.Element.Style {
         /// Creates a context with a pseudo-class or pseudo-element.
         ///
         /// - Parameter pseudo: The pseudo-class or pseudo-element.
-        public init(pseudo: WHATWG_HTML.Pseudo?) {
+        public init(pseudo: HTML.Pseudo?) {
             self.atRule = nil
             self.selector = nil
             self.pseudo = pseudo
@@ -98,7 +98,7 @@ extension WHATWG_HTML.Element.Style {
         /// Creates a context with a selector.
         ///
         /// - Parameter selector: The CSS selector prefix.
-        public init(selector: WHATWG_HTML.Selector?) {
+        public init(selector: HTML.Selector?) {
             self.atRule = nil
             self.selector = selector
             self.pseudo = nil
@@ -132,7 +132,7 @@ extension WHATWG_HTML.Element.Style {
         ///   - lhs: The first pseudo value.
         ///   - rhs: The second pseudo value.
         /// - Returns: The combined pseudo value, or the non-nil one if only one exists.
-        private func combinePseudo(_ lhs: WHATWG_HTML.Pseudo?, _ rhs: WHATWG_HTML.Pseudo?) -> WHATWG_HTML.Pseudo? {
+        private func combinePseudo(_ lhs: HTML.Pseudo?, _ rhs: HTML.Pseudo?) -> HTML.Pseudo? {
             switch (lhs, rhs) {
             case (nil, nil): return nil
             case (let p?, nil): return p

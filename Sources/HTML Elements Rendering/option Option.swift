@@ -8,9 +8,9 @@
 import HTML_Attributes_Rendering
 import HTML_Standard_Elements
 
-extension HTML_Standard_Elements.Option: WHATWG_HTML.View {
-    public var body: some WHATWG_HTML.View {
-        WHATWG_HTML.Element.Tag(for: Self.self)
+extension HTML_Standard_Elements.Option: HTML.View {
+    public var body: some HTML.View {
+        HTML.Element.Tag(for: Self.self)
             .disabled(self.disabled)
             .label(self.label)
             .selected(self.selected)
@@ -18,9 +18,9 @@ extension HTML_Standard_Elements.Option: WHATWG_HTML.View {
     }
 
     public func callAsFunction(
-        @WHATWG_HTML.Builder _ content: () -> some WHATWG_HTML.View
-    ) -> some WHATWG_HTML.View {
-        WHATWG_HTML.Element.Tag(for: Self.self) { content() }
+        @HTML.Builder _ content: () -> some HTML.View
+    ) -> some HTML.View {
+        HTML.Element.Tag(for: Self.self) { content() }
             .disabled(self.disabled)
             .label(self.label)
             .selected(self.selected)

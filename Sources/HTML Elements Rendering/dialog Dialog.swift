@@ -10,9 +10,9 @@ import HTML_Standard_Elements
 
 extension HTML_Standard_Elements.Dialog {
     public func callAsFunction(
-        @WHATWG_HTML.Builder _ content: () -> some WHATWG_HTML.View
-    ) -> some WHATWG_HTML.View {
-        WHATWG_HTML.Element.Tag(for: Self.self) { content() }
+        @HTML.Builder _ content: () -> some HTML.View
+    ) -> some HTML.View {
+        HTML.Element.Tag(for: Self.self) { content() }
             .open(self.open)
     }
 }

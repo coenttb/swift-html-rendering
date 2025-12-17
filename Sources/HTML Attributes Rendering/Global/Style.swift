@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
     /// Sets the style attribute with CSS declarations as a string
     @discardableResult
     public func style(
         _ css: String
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(Style.attribute, css)
     }
 
@@ -21,7 +21,7 @@ extension WHATWG_HTML.View {
     @discardableResult
     public func style(
         _ declarations: [String: String]
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         let formattedDeclarations = declarations.map { key, value in
             "\(key): \(value)"
         }.joined(separator: "; ")
@@ -33,7 +33,7 @@ extension WHATWG_HTML.View {
     @discardableResult
     public func style(
         _ attribute: WHATWG_HTML_GlobalAttributes.Style
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(Style.attribute, attribute.description)
     }
 }

@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
     /// Sets the writingsuggestions attribute with a boolean value
     @discardableResult
     public func writingsuggestions(
         _ enabled: Bool
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(Writingsuggestions.attribute, enabled ? "true" : "false")
     }
 
@@ -21,19 +21,19 @@ extension WHATWG_HTML.View {
     @discardableResult
     public func writingsuggestions(
         _ attribute: Writingsuggestions
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(Writingsuggestions.attribute, attribute.description)
     }
 
     /// Enables browser-provided writing suggestions
     @discardableResult
-    public func enableWritingSuggestions() -> WHATWG_HTML._Attributes<Self> {
+    public func enableWritingSuggestions() -> HTML._Attributes<Self> {
         self.writingsuggestions(Writingsuggestions.true)
     }
 
     /// Disables browser-provided writing suggestions
     @discardableResult
-    public func disableWritingSuggestions() -> WHATWG_HTML._Attributes<Self> {
+    public func disableWritingSuggestions() -> HTML._Attributes<Self> {
         self.writingsuggestions(Writingsuggestions.false)
     }
 }

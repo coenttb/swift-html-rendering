@@ -1,5 +1,5 @@
 //
-//  WHATWG_HTML.Pseudo.swift
+//  HTML.Pseudo.swift
 //  swift-html-rendering
 //
 //  Created by Coen ten Thije Boonkkamp on 16/04/2025.
@@ -8,10 +8,10 @@
 import Rendering
 public import WHATWG_HTML_Shared
 
-extension WHATWG_HTML {
+extension HTML {
     /// Represents CSS pseudo-classes and pseudo-elements for targeting element states and parts.
     ///
-    /// `WHATWG_HTML.Pseudo` provides a type-safe way to apply CSS pseudo-classes and pseudo-elements
+    /// `HTML.Pseudo` provides a type-safe way to apply CSS pseudo-classes and pseudo-elements
     /// in HTML_Renderable. Pseudo-classes target elements in specific states (like `:hover`,
     /// `:focus`, `:disabled`), while pseudo-elements target specific parts of elements
     /// (like `::before`, `::after`, `::first-line`).
@@ -25,7 +25,7 @@ extension WHATWG_HTML {
     ///     .inlineStyle("background-color", "red", pseudo: ":hover")
     ///
     /// // Using static properties (equivalent)
-    /// let hover: WHATWG_HTML.Pseudo = .hover
+    /// let hover: HTML.Pseudo = .hover
     /// button { "Click me" }
     ///     .inlineStyle("background-color", "red", pseudo: .hover)
     ///
@@ -53,11 +53,11 @@ extension WHATWG_HTML {
     ///
     /// ```swift
     /// // Using string literals (most common)
-    /// let combined: WHATWG_HTML.Pseudo = ":not(:disabled):hover"
+    /// let combined: HTML.Pseudo = ":not(:disabled):hover"
     ///
     /// // Or combining static properties
-    /// let notDisabled: WHATWG_HTML.Pseudo = .not(.disabled)
-    /// let combined: WHATWG_HTML.Pseudo = notDisabled + .hover
+    /// let notDisabled: HTML.Pseudo = .not(.disabled)
+    /// let combined: HTML.Pseudo = notDisabled + .hover
     ///
     /// input { "" }
     ///     .inlineStyle("border-color", "blue", pseudo: .init(rawValue: ":not(:disabled):hover"))
@@ -75,7 +75,7 @@ extension WHATWG_HTML {
     ///     .inlineStyle("color", "blue", pseudo: ":nth-child(2n+1)")
     ///
     /// // Using static functions (equivalent)
-    /// let oddChild: WHATWG_HTML.Pseudo = .nthChild("odd")
+    /// let oddChild: HTML.Pseudo = .nthChild("odd")
     /// li { "Item" }
     ///     .inlineStyle("color", "red", pseudo: .nthChild("odd"))
     ///
@@ -110,7 +110,7 @@ extension WHATWG_HTML {
 }
 
 // MARK: - Pseudo-Selector Combination
-extension WHATWG_HTML.Pseudo {
+extension HTML.Pseudo {
     /// Combines two pseudo-selectors into a single compound pseudo-selector.
     ///
     /// This operator allows you to chain multiple pseudo-classes or pseudo-elements
@@ -138,7 +138,7 @@ extension WHATWG_HTML.Pseudo {
 }
 
 // MARK: - Pseudo-Elements
-extension WHATWG_HTML.Pseudo {
+extension HTML.Pseudo {
     /// Pseudo-elements target specific parts of elements and create virtual elements.
     /// They use double colon (::) syntax and are used for styling generated content
     /// or specific portions of element content.
@@ -196,7 +196,7 @@ extension WHATWG_HTML.Pseudo {
 // Pseudo-classes target elements based on their state or position.
 // They use single colon (:) syntax and are applied when elements
 // meet specific conditions or are in particular states.
-extension WHATWG_HTML.Pseudo {
+extension HTML.Pseudo {
 
     // MARK: Interactive States
 

@@ -1,5 +1,5 @@
 //
-//  WHATWG_HTML.Element.swift
+//  HTML.Element.swift
 //
 //
 //  Created by Point-Free, Inc
@@ -11,24 +11,24 @@ import Rendering
 public import RenderingAsync
 public import WHATWG_HTML_Shared
 
-extension WHATWG_HTML.Element {
+extension HTML.Element {
     /// Represents an HTML element with a tag, attributes, and optional content.
     ///
-    /// `WHATWG_HTML.Element.Tag` is a fundamental building block representing a standard HTML element
+    /// `HTML.Element.Tag` is a fundamental building block representing a standard HTML element
     /// with a tag name, attributes, and optional child content. This type handles the
     /// rendering of both opening and closing tags, attribute formatting, and proper
     /// indentation based on block vs. inline elements.
     ///
     /// Example using typed initializer:
     /// ```swift
-    /// WHATWG_HTML.Element.Tag(for: WHATWG_HTML.Grouping.Div.self) {
+    /// HTML.Element.Tag(for: HTML.Grouping.Div.self) {
     ///     p { "Hello, world!" }
     /// }
     /// ```
     ///
     /// Example using string initializer:
     /// ```swift
-    /// WHATWG_HTML.Element.Tag(tag: "div") {
+    /// HTML.Element.Tag(tag: "div") {
     ///     "Hello, world!"
     /// }
     /// ```
@@ -55,7 +55,7 @@ extension WHATWG_HTML.Element {
     }
 }
 
-extension WHATWG_HTML.Element.Tag where Content: WHATWG_HTML.View {
+extension HTML.Element.Tag where Content: HTML.View {
     // MARK: - Initializers
     
     /// Creates a new HTML element with a typed tag.
@@ -67,9 +67,9 @@ extension WHATWG_HTML.Element.Tag where Content: WHATWG_HTML.View {
     /// - Parameters:
     ///   - tagType: The WHATWG HTML element type.
     ///   - content: A closure that returns the content of this element.
-    public init<Tag: WHATWG_HTML.Element.`Protocol`>(
+    public init<Tag: HTML.Element.`Protocol`>(
         for tagType: Tag.Type,
-        @WHATWG_HTML.Builder content: () -> Content? = { Never?.none }
+        @HTML.Builder content: () -> Content? = { Never?.none }
     ) {
         self.tagName = Tag.tag
         self.isBlock = !Tag.categories.contains(.phrasing)
@@ -88,28 +88,28 @@ extension WHATWG_HTML.Element.Tag where Content: WHATWG_HTML.View {
     ///   - content: A closure that returns the content of this element.
     public init(
         tag: String,
-        @WHATWG_HTML.Builder content: () -> Content? = { Never?.none }
+        @HTML.Builder content: () -> Content? = { Never?.none }
     ) {
         self.tagName = tag
-        let categories = WHATWG_HTML.Element.Content.categories(for: tag)
+        let categories = HTML.Element.Content.categories(for: tag)
         self.isBlock = !categories.contains(.phrasing)
-        self.isVoid = WHATWG_HTML.Element.Content.model(for: tag) == .nothing
+        self.isVoid = HTML.Element.Content.model(for: tag) == .nothing
         self.isPreElement = tag == "pre"
         self.content = content()
     }
 }
 
-extension WHATWG_HTML.Element.Tag: Rendering.`Protocol` where Content: Rendering.`Protocol` {
+extension HTML.Element.Tag: Rendering.`Protocol` where Content: Rendering.`Protocol` {
     public var body: Never {
         fatalError()
     }
     
     public typealias Content = Never
-    public typealias Context = WHATWG_HTML.Context
+    public typealias Context = HTML.Context
     public typealias Output = UInt8
 }
 
-extension WHATWG_HTML.Element.Tag: WHATWG_HTML.View where Content: WHATWG_HTML.View {
+extension HTML.Element.Tag: HTML.View where Content: HTML.View {
     
     // MARK: - Rendering
     
@@ -117,7 +117,7 @@ extension WHATWG_HTML.Element.Tag: WHATWG_HTML.View where Content: WHATWG_HTML.V
     public static func _render<Buffer: RangeReplaceableCollection>(
         _ html: Self,
         into buffer: inout Buffer,
-        context: inout WHATWG_HTML.Context
+        context: inout HTML.Context
     ) where Buffer.Element == UInt8 {
         let isPrettyPrinting = !context.configuration.newline.isEmpty
         let htmlIsBlock = isPrettyPrinting && html.isBlock
@@ -197,11 +197,11 @@ extension WHATWG_HTML.Element.Tag: WHATWG_HTML.View where Content: WHATWG_HTML.V
     }
 }
 
-extension WHATWG_HTML.Element.Tag: Sendable where Content: Sendable {}
+extension HTML.Element.Tag: Sendable where Content: Sendable {}
 
 // MARK: - Async Rendering
 
-extension WHATWG_HTML.Element.Tag: AsyncRenderable where Content: AsyncRenderable, Content: WHATWG_HTML.View {
+extension HTML.Element.Tag: AsyncRenderable where Content: AsyncRenderable, Content: HTML.View {
     /// Async renders this HTML element with backpressure support.
     ///
     /// This implementation mirrors the sync `_render` but uses async writes
@@ -209,7 +209,7 @@ extension WHATWG_HTML.Element.Tag: AsyncRenderable where Content: AsyncRenderabl
     public static func _renderAsync<Stream: Rendering.Async.Sink.`Protocol`>(
         _ html: Self,
         into stream: Stream,
-        context: inout WHATWG_HTML.Context
+        context: inout HTML.Context
     ) async {
         let isPrettyPrinting = !context.configuration.newline.isEmpty
         let htmlIsBlock = isPrettyPrinting && html.isBlock

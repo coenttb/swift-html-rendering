@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
 
     /// Sets the fetchpriority attribute on an element
     @discardableResult
     package func fetchPriority(
         _ value: FetchPriority?
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(FetchPriority.attribute, value?.description)
     }
 }

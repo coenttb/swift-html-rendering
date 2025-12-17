@@ -9,11 +9,11 @@ import HTML_Attributes_Rendering
 import HTML_Standard_Elements
 
 extension HTML_Standard_Elements.Base {
-    @WHATWG_HTML.Builder
+    @HTML.Builder
     public func callAsFunction(
-        @WHATWG_HTML.Builder _ content: () -> some WHATWG_HTML.View
-    ) -> some WHATWG_HTML.View {
-        let element = WHATWG_HTML.Element.Tag(for: Self.self) { content() }
+        @HTML.Builder _ content: () -> some HTML.View
+    ) -> some HTML.View {
+        let element = HTML.Element.Tag(for: Self.self) { content() }
         switch self.configuration {
         case .href(let href):
             element.href(href)

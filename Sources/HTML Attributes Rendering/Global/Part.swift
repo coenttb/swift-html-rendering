@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
     /// Sets the part attribute with a single part name
     @discardableResult
     public func part(
         _ partName: String
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(Part.attribute, partName)
     }
 
@@ -21,7 +21,7 @@ extension WHATWG_HTML.View {
     @discardableResult
     public func part(
         _ partNames: [String]
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(Part.attribute, partNames.joined(separator: " "))
     }
 
@@ -29,7 +29,7 @@ extension WHATWG_HTML.View {
     @discardableResult
     public func part(
         _ partNames: String...
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.part(partNames)
     }
 
@@ -37,7 +37,7 @@ extension WHATWG_HTML.View {
     @discardableResult
     public func part(
         _ attribute: Part
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(Part.attribute, attribute.description)
     }
 }

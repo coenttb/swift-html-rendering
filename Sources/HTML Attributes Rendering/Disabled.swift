@@ -8,15 +8,15 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
     /// Adds the disabled attribute to the element
-    package var disabled: WHATWG_HTML._Attributes<Self> {
+    package var disabled: HTML._Attributes<Self> {
         self.attribute(Disabled.attribute)
     }
 
     /// Conditionally adds the disabled attribute to the element
-    @WHATWG_HTML.Builder
-    package func disabled(_ value: Disabled?) -> some WHATWG_HTML.View {
+    @HTML.Builder
+    package func disabled(_ value: Disabled?) -> some HTML.View {
         self.attribute(boolean: value)
     }
 }

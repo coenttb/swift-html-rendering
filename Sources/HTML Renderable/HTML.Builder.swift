@@ -1,5 +1,5 @@
 //
-//  Builder+WHATWG_HTML.swift
+//  Builder+HTML.swift
 //
 //
 //  Created by Point-Free, Inc
@@ -22,11 +22,11 @@ extension Builder {
     //    ///
     //    /// - Parameter expression: The HTML text to convert.
     //    /// - Returns: The same HTML text.
-    //    public static func buildExpression(_ expression: WHATWG_HTML.Text) -> WHATWG_HTML.Text {
+    //    public static func buildExpression(_ expression: HTML.Text) -> HTML.Text {
     //        expression
     //    }
 }
 
-extension WHATWG_HTML {
+extension HTML {
     public typealias Builder = BuilderRaw
 }

@@ -9,7 +9,7 @@ public import Rendering
 public import WHATWG_HTML_Shared
 
 extension RangeReplaceableCollection<UInt8> {
-    /// Creates a byte collection from rendered WHATWG_HTML.
+    /// Creates a byte collection from rendered HTML.
     ///
     /// This is the canonical way to render HTML to bytes when you need the
     /// complete document. Works with any `RangeReplaceableCollection<UInt8>`.
@@ -42,19 +42,19 @@ extension RangeReplaceableCollection<UInt8> {
     ///   - view: The HTML content to render to bytes
     ///   - configuration: Rendering configuration. Uses current task-local or default if nil.
     @inlinable
-    public init<View: WHATWG_HTML.View>(
+    public init<View: HTML.View>(
         _ view: View,
-        configuration: WHATWG_HTML.Context.Configuration? = nil
+        configuration: HTML.Context.Configuration? = nil
     ) {
         var buffer = Self()
-        var context = WHATWG_HTML.Context(configuration ?? .current)
+        var context = HTML.Context(configuration ?? .current)
         View._render(view, into: &buffer, context: &context)
         self = buffer
     }
 }
 //
 // extension RangeReplaceableCollection<UInt8> {
-//    /// Creates a byte collection from rendered WHATWG_HTML.
+//    /// Creates a byte collection from rendered HTML.
 //    ///
 //    /// Convenience overload that accepts HTML as the first unlabeled parameter.
 //    ///
@@ -63,10 +63,10 @@ extension RangeReplaceableCollection<UInt8> {
 //    ///   - configuration: Rendering configuration. Uses current task-local or default if nil.
 //    @inlinable
 //    public init(
-//        _ html: some WHATWG_HTML.View,
-//        configuration: WHATWG_HTML.Context.Configuration? = nil
+//        _ html: some HTML.View,
+//        configuration: HTML.Context.Configuration? = nil
 //    ) {
-//        self.init(html: WHATWG_HTML.View, configuration: configuration)
+//        self.init(html: HTML.View, configuration: configuration)
 //    }
 // }
 
@@ -87,13 +87,13 @@ extension RangeReplaceableCollection<UInt8> {
     ///   - html: The HTML content to render.
     ///   - configuration: Rendering configuration. Uses default if nil.
     @inlinable
-    public init<View: WHATWG_HTML.View>(
+    public init<View: HTML.View>(
         _ view: View,
-        configuration: WHATWG_HTML.Context.Configuration? = nil
+        configuration: HTML.Context.Configuration? = nil
     ) async {
         await Task.yield()
         var buffer = Self()
-        var context = WHATWG_HTML.Context(configuration ?? .current)
+        var context = HTML.Context(configuration ?? .current)
         View._render(view, into: &buffer, context: &context)
         self = buffer
     }
@@ -108,12 +108,12 @@ extension RangeReplaceableCollection<UInt8> {
     ///   - document: The HTML document to render.
     ///   - configuration: Rendering configuration. Uses current task-local or default if nil.
     @inlinable
-    public init<Document: WHATWG_HTML.DocumentProtocol>(
+    public init<Document: HTML.DocumentProtocol>(
         _ document: Document,
-        configuration: WHATWG_HTML.Context.Configuration? = nil
+        configuration: HTML.Context.Configuration? = nil
     ) {
         var buffer = Self()
-        var context = WHATWG_HTML.Context(configuration ?? .current)
+        var context = HTML.Context(configuration ?? .current)
         Document._render(document, into: &buffer, context: &context)
         self = buffer
     }
@@ -126,13 +126,13 @@ extension RangeReplaceableCollection<UInt8> {
     ///   - document: The HTML document to render.
     ///   - configuration: Rendering configuration. Uses default if nil.
     @inlinable
-    public init<Document: WHATWG_HTML.DocumentProtocol>(
+    public init<Document: HTML.DocumentProtocol>(
         _ document: Document,
-        configuration: WHATWG_HTML.Context.Configuration? = nil
+        configuration: HTML.Context.Configuration? = nil
     ) async {
         await Task.yield()
         var buffer = Self()
-        var context = WHATWG_HTML.Context(configuration ?? .current)
+        var context = HTML.Context(configuration ?? .current)
         Document._render(document, into: &buffer, context: &context)
         self = buffer
     }

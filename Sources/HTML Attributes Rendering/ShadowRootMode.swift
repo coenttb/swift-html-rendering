@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
 
     /// Sets the shadowrootmode attribute on an element
     @discardableResult
     package func shadowRootMode(
         _ value: ShadowRootMode?
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(ShadowRootMode.attribute, value?.description)
     }
 }

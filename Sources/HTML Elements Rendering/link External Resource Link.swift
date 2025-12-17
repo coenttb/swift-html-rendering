@@ -8,9 +8,9 @@
 import HTML_Attributes_Rendering
 import HTML_Standard_Elements
 
-extension HTML_Standard_Elements.Link: WHATWG_HTML.View {
-    public var body: some WHATWG_HTML.View {
-        WHATWG_HTML.Element.Tag(for: Self.self) { WHATWG_HTML.Empty() }
+extension HTML_Standard_Elements.Link: HTML.View {
+    public var body: some HTML.View {
+        HTML.Element.Tag(for: Self.self) { HTML.Empty() }
             .`as`(self.`as`)
             .blocking(self.blocking)
             .crossorigin(self.crossorigin)

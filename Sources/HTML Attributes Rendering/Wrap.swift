@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
 
     /// Sets the wrap attribute on an element
     @discardableResult
     package func wrap(
         _ value: TextareaWrap?
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(TextareaWrap.attribute, value?.description)
     }
 }

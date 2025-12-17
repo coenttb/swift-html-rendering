@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
 
     /// Sets the colspan attribute on an element
     @discardableResult
     package func colspan(
         _ value: ColSpan?
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(ColSpan.attribute, value?.description)
     }
 }

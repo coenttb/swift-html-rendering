@@ -1,5 +1,5 @@
 //
-//  WHATWG_HTML.Context.Configuration.swift
+//  HTML.Context.Configuration.swift
 //  swift-html-rendering
 //
 //  Configuration and error types for HTML rendering.
@@ -9,7 +9,7 @@ import INCITS_4_1986
 import Rendering
 public import WHATWG_HTML_Shared
 
-extension WHATWG_HTML.Context {
+extension HTML.Context {
 
     /// Configuration options for HTML rendering.
     ///
@@ -23,7 +23,7 @@ extension WHATWG_HTML.Context {
     /// configuration explicitly:
     ///
     /// ```swift
-    /// WHATWG_HTML.Context.Configuration.$current.withValue(.pretty) {
+    /// HTML.Context.Configuration.$current.withValue(.pretty) {
     ///     let html = ContiguousArray(document)
     /// }
     /// ```
@@ -74,7 +74,7 @@ extension WHATWG_HTML.Context {
     }
 }
 
-extension WHATWG_HTML.Context.Configuration {
+extension HTML.Context.Configuration {
 
     /// Default configuration with no indentation or newlines.
     ///
@@ -118,7 +118,7 @@ extension WHATWG_HTML.Context.Configuration {
     )
 }
 
-extension WHATWG_HTML.Context.Configuration {
+extension HTML.Context.Configuration {
     /// Task-local configuration for HTML rendering.
     ///
     /// This enables configuration without explicit parameter passing.
@@ -132,14 +132,14 @@ extension WHATWG_HTML.Context.Configuration {
     /// let minified = ContiguousArray(html)
     ///
     /// // Pretty-printed
-    /// WHATWG_HTML.Context.Configuration.$current.withValue(.pretty) {
+    /// HTML.Context.Configuration.$current.withValue(.pretty) {
     ///     let pretty = ContiguousArray(html)
     /// }
     /// ```
     @TaskLocal public static var current: Self = .default
 }
 
-extension WHATWG_HTML.Context.Configuration {
+extension HTML.Context.Configuration {
     /// An error type representing HTML rendering failures.
     ///
     /// This error is thrown when there's a problem rendering HTML content

@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
     /// Sets the exportparts attribute with part names to export
     @discardableResult
     public func exportparts(
         _ parts: [String]
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(Exportparts.attribute, parts.joined(separator: ", "))
     }
 
@@ -21,7 +21,7 @@ extension WHATWG_HTML.View {
     @discardableResult
     public func exportparts(
         _ parts: String...
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.exportparts(parts)
     }
 
@@ -29,7 +29,7 @@ extension WHATWG_HTML.View {
     @discardableResult
     public func exportparts(
         _ mappings: [Exportparts.PartMapping]
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         let value = mappings.map { mapping in
             if mapping.originalName == mapping.exposedName {
                 return mapping.originalName
@@ -45,7 +45,7 @@ extension WHATWG_HTML.View {
     @discardableResult
     public func exportparts(
         _ attribute: Exportparts
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(Exportparts.attribute, attribute.description)
     }
 }

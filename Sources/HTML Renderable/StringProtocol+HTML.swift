@@ -36,7 +36,7 @@ extension StringProtocol {
     /// ## Example
     ///
     /// ```swift
-    /// let document = WHATWG_HTML.Document {
+    /// let document = HTML.Document {
     ///     div {
     ///         h1 { "Hello, World!" }
     ///         p { "Welcome to PointFree HTML" }
@@ -55,7 +55,7 @@ extension StringProtocol {
     ///   - html: The HTML content to render as a string
     ///   - encoding: The character encoding to use when converting bytes to string (default: UTF-8)
     ///
-    /// - Throws: `WHATWG_HTML.Context.Configuration.Error` if the rendered bytes cannot be converted to a string
+    /// - Throws: `HTML.Context.Configuration.Error` if the rendered bytes cannot be converted to a string
     ///   using the specified encoding
     ///
     /// ## See Also
@@ -63,9 +63,9 @@ extension StringProtocol {
     /// - ``ContiguousArray/init(_:)-swift.method``: Canonical byte transformation
     /// - ``Array/init(_:)-swift.method``: Array convenience wrapper
     public init(
-        _ html: some WHATWG_HTML.View,
-        configuration: WHATWG_HTML.Context.Configuration? = nil
-    ) throws(WHATWG_HTML.Context.Configuration.Error) {
+        _ html: some HTML.View,
+        configuration: HTML.Context.Configuration? = nil
+    ) throws(HTML.Context.Configuration.Error) {
         let bytes = ContiguousArray(html, configuration: configuration)
         self = Self(decoding: bytes, as: UTF8.self)
     }
@@ -87,9 +87,9 @@ extension StringProtocol {
     ///   - html: The HTML content to render.
     ///   - configuration: Rendering configuration. Uses default if nil.
     @inlinable
-    public init<T: WHATWG_HTML.View>(
+    public init<T: HTML.View>(
         _ view: T,
-        configuration: WHATWG_HTML.Context.Configuration? = nil
+        configuration: HTML.Context.Configuration? = nil
     ) async {
         let bytes = await [UInt8](view, configuration: configuration)
         self = Self(decoding: bytes, as: UTF8.self)
@@ -112,9 +112,9 @@ extension StringProtocol {
     ///   - document: The HTML document to render.
     ///   - configuration: Rendering configuration. Uses default if nil.
     @inlinable
-    public init<T: WHATWG_HTML.DocumentProtocol>(
+    public init<T: HTML.DocumentProtocol>(
         _ document: T,
-        configuration: WHATWG_HTML.Context.Configuration? = nil
+        configuration: HTML.Context.Configuration? = nil
     ) async {
         let bytes = await [UInt8](document, configuration: configuration)
         self = Self(decoding: bytes, as: UTF8.self)

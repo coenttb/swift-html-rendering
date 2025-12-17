@@ -10,12 +10,12 @@ import HTML_Attributes_Rendering
 public import HTML_Standard
 import HTML_Standard_Elements
 
-extension HTML_Standard.Input: WHATWG_HTML.View {}
+extension HTML_Standard.Input: HTML.View {}
 
 extension HTML_Standard.Input {
-    @WHATWG_HTML.Builder
-    public var body: some WHATWG_HTML.View {
-        let input = WHATWG_HTML.Element.Tag(for: Self.self) { WHATWG_HTML.Empty() }
+    @HTML.Builder
+    public var body: some HTML.View {
+        let input = HTML.Element.Tag(for: Self.self) { HTML.Empty() }
             .name(name)
             .disabled(self.disabled)
             .attribute("type", self.type.label)

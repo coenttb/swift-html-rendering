@@ -10,9 +10,9 @@ import HTML_Standard_Elements
 
 extension HTML_Standard_Elements.OrderedList {
     public func callAsFunction(
-        @WHATWG_HTML.Builder _ content: () -> some WHATWG_HTML.View
-    ) -> some WHATWG_HTML.View {
-        WHATWG_HTML.Element.Tag(for: Self.self) { content() }
+        @HTML.Builder _ content: () -> some HTML.View
+    ) -> some HTML.View {
+        HTML.Element.Tag(for: Self.self) { content() }
             .reversed(self.reversed)
             .start(self.start)
             .type(self.type)

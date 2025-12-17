@@ -1,5 +1,5 @@
 //
-//  WHATWG_HTML.Tag.swift
+//  HTML.Tag.swift
 //
 //
 //  Created by Point-Free, Inc
@@ -8,16 +8,16 @@
 import Rendering
 public import WHATWG_HTML_Shared
 
-extension WHATWG_HTML {
-    public static var tag: WHATWG_HTML.Tag.Type {
-        WHATWG_HTML.Tag.self
+extension HTML {
+    public static var tag: HTML.Tag.Type {
+        HTML.Tag.self
     }
 }
 
-extension WHATWG_HTML {
+extension HTML {
     /// Represents a standard HTML tag that can contain other HTML elements.
     ///
-    /// `WHATWG_HTML.Tag` provides a convenient way to create HTML elements with a function-call
+    /// `HTML.Tag` provides a convenient way to create HTML elements with a function-call
     /// syntax. It supports both empty elements and elements with content.
     ///
     /// Example:
@@ -47,7 +47,7 @@ extension WHATWG_HTML {
     }
 }
 
-extension WHATWG_HTML.Tag {
+extension HTML.Tag {
     /// <!doctype html>
     @inlinable
     public static var doctype: [UInt8] {

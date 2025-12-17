@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
     /// Sets the inputmode attribute to hint at what type of virtual keyboard to display
     @discardableResult
     public func inputmode(
         _ mode: Inputmode?
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(Inputmode.attribute, mode?.description)
     }
 }

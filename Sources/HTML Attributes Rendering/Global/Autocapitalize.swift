@@ -8,11 +8,11 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
     @discardableResult
     public func autocapitalize(
         _ value: Autocapitalize?
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(Autocapitalize.attribute, value?.description)
     }
 }

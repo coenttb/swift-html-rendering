@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
 
     /// Sets the attributionsrc attribute on an element
     @discardableResult
     package func attributionSrc(
         _ value: AttributionSrc?
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(AttributionSrc.attribute, value?.description)
     }
 }

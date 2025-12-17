@@ -8,13 +8,13 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
 
     /// Sets the autoplay attribute on an element
     @discardableResult
     package func autoplay(
         _ value: Autoplay?
-    ) -> some WHATWG_HTML.View {
+    ) -> some HTML.View {
         self.attribute(boolean: value)
     }
 }

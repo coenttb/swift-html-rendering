@@ -8,12 +8,12 @@
 import HTML_Renderable
 import HTML_Standard_Attributes
 
-extension WHATWG_HTML.View {
+extension HTML.View {
     /// Sets the max attribute on an element
     @discardableResult
     package func max(
         _ value: Max?
-    ) -> WHATWG_HTML._Attributes<Self> {
+    ) -> HTML._Attributes<Self> {
         self.attribute(Max.attribute, value?.description)
     }
 
@@ -22,7 +22,7 @@ extension WHATWG_HTML.View {
     //    package func max(
     //        date: Date,
     //        format: Max.DateFormat = .fullDate
-    //    ) -> WHATWG_HTML._Attributes<Self> {
+    //    ) -> HTML._Attributes<Self> {
     //        self.max(Max(date: date, format: format))
     //    }
 }
