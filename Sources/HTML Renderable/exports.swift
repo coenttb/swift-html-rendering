@@ -10,4 +10,5 @@
 @_exported import Rendering
 @_exported import W3C_CSS_Shared
 @_exported import WHATWG_HTML_Shared
-@_exported import HTML_Standard
+
+public typealias HTML = WHATWG_HTML

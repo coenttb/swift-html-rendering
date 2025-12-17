@@ -7,7 +7,7 @@
 
 public import WHATWG_HTML_Shared
 
-extension HTML.Style {
+extension HTML.Element.Style {
     /// Context for CSS styling that captures at-rule, selector, and pseudo state.
     ///
     /// This context is propagated via Swift's TaskLocal mechanism, enabling

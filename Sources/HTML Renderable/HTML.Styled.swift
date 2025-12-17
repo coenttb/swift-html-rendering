@@ -131,7 +131,7 @@ extension HTML.View {
     public func inlineStyle<P: Property>(
         _ property: P?
     ) -> HTML.Styled<Self, P> {
-        let ctx = HTML.Style.Context.current
+        let ctx = HTML.Element.Style.Context.current
         return HTML.Styled(
             self,
             property,
