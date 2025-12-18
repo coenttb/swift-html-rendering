@@ -17,6 +17,8 @@ extension HTML {
     /// a type-safe, chainable manner. It manages the collection of attributes
     /// and their rendering into the final HTML output.
     ///
+    /// The type is generic over `Output`, allowing reuse for different render targets.
+    ///
     /// You typically don't create this type directly but use the `attribute`
     /// method and its convenience wrappers (like `href`, `src`, etc.) on HTML elements.
     ///
@@ -26,7 +28,7 @@ extension HTML {
     ///     .href("https://example.com")
     ///     .attribute("target", "_blank")
     /// ```
-    public struct _Attributes<Content: HTML.View>: HTML.View {
+    public struct _Attributes<Content: HTML.View<Output>, Output: HTML.RenderOutput> {
         /// The HTML content to which attributes are being applied.
         public let content: Content
 
@@ -49,27 +51,42 @@ extension HTML {
         ///   - name: The name of the attribute.
         ///   - value: The optional value of the attribute.
         /// - Returns: An HTML element with both the original and new attributes applied.
-        public func attribute(_ name: String, _ value: String? = "") -> HTML._Attributes<Content> {
+        public func attribute(_ name: String, _ value: String? = "") -> HTML._Attributes<Content, Output> {
             var copy = self
             copy.attributes[name] = value
             return copy
         }
 
-        /// Renders this HTML element with attributes into the provided buffer.
-        public static func _render<Buffer: RangeReplaceableCollection>(
-            _ html: Self,
-            into buffer: inout Buffer,
-            context: inout HTML.Context
-        ) where Buffer.Element == UInt8 {
-            let previousValue = context.attributes
-            defer { context.attributes = previousValue }
-            context.attributes.merge(html.attributes, uniquingKeysWith: { $1 })
-            Content._render(html.content, into: &buffer, context: &context)
+        public init(content: Content, attributes: OrderedDictionary<String, String>) {
+            self.content = content
+            self.attributes = attributes
         }
-
-        /// This type uses direct rendering and doesn't have a body.
-        public var body: Never { fatalError("body should not be called") }
     }
+}
+
+// MARK: - Renderable Conformance (UInt8 Output)
+
+extension HTML._Attributes: Renderable where Output == UInt8 {
+    public typealias Context = HTML.Context
+}
+
+// MARK: - HTML.View Conformance (UInt8 Output)
+
+extension HTML._Attributes: HTML.View where Output == UInt8 {
+    /// Renders this HTML element with attributes into the provided buffer.
+    public static func _render<Buffer: RangeReplaceableCollection>(
+        _ html: Self,
+        into buffer: inout Buffer,
+        context: inout HTML.Context
+    ) where Buffer.Element == UInt8 {
+        let previousValue = context.attributes
+        defer { context.attributes = previousValue }
+        context.attributes.merge(html.attributes, uniquingKeysWith: { $1 })
+        Content._render(html.content, into: &buffer, context: &context)
+    }
+
+    /// This type uses direct rendering and doesn't have a body.
+    public var body: Never { fatalError("body should not be called") }
 }
 
 // MARK: - Sendable

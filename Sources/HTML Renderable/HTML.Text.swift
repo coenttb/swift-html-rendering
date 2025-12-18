@@ -15,7 +15,7 @@ extension HTML {
     ///
     /// `HTML.Text` handles escaping special characters in text content to ensure
     /// proper HTML rendering without security vulnerabilities.
-    public struct Text: HTML.View, Sendable {
+    public struct Text: Sendable {
         /// The raw text content.
         public let text: String
 
@@ -25,29 +25,6 @@ extension HTML {
         public init(_ text: String) {
             self.text = text
         }
-
-        /// Renders the text content with proper HTML escaping.
-        public static func _render<Buffer: RangeReplaceableCollection>(
-            _ html: Self,
-            into buffer: inout Buffer,
-            context: inout HTML.Context
-        ) where Buffer.Element == UInt8 {
-            for byte in html.text.utf8 {
-                switch byte {
-                case .ascii.ampersand:
-                    buffer.append(contentsOf: [UInt8].html.ampersand)
-                case .ascii.lessThanSign:
-                    buffer.append(contentsOf: [UInt8].html.lessThan)
-                case .ascii.greaterThanSign:
-                    buffer.append(contentsOf: [UInt8].html.greaterThan)
-                default:
-                    buffer.append(byte)
-                }
-            }
-        }
-
-        /// This type uses direct rendering and doesn't have a body.
-        public var body: Never { fatalError("body should not be called") }
 
         /// Concatenates two HTML text components.
         ///
@@ -59,6 +36,35 @@ extension HTML {
             HTML.Text(lhs.text + rhs.text)
         }
     }
+}
+
+// MARK: - HTML.View Conformance (UInt8 Output)
+
+extension HTML.Text: HTML.View {
+    public typealias Output = UInt8
+
+    /// Renders the text content with proper HTML escaping.
+    public static func _render<Buffer: RangeReplaceableCollection>(
+        _ html: Self,
+        into buffer: inout Buffer,
+        context: inout HTML.Context
+    ) where Buffer.Element == UInt8 {
+        for byte in html.text.utf8 {
+            switch byte {
+            case .ascii.ampersand:
+                buffer.append(contentsOf: [UInt8].html.ampersand)
+            case .ascii.lessThanSign:
+                buffer.append(contentsOf: [UInt8].html.lessThan)
+            case .ascii.greaterThanSign:
+                buffer.append(contentsOf: [UInt8].html.greaterThan)
+            default:
+                buffer.append(byte)
+            }
+        }
+    }
+
+    /// This type uses direct rendering and doesn't have a body.
+    public var body: Never { fatalError("body should not be called") }
 }
 
 /// Allows HTML text to be created from string literals.

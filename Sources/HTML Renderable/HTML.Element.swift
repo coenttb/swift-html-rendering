@@ -19,6 +19,12 @@ extension HTML.Element {
     /// rendering of both opening and closing tags, attribute formatting, and proper
     /// indentation based on block vs. inline elements.
     ///
+    /// ## Output Type
+    ///
+    /// `Tag` is generic over both its `Content` and `Output` types. The `Output` type
+    /// determines what format the tag renders to (e.g., `UInt8` for HTML bytes).
+    /// The tag inherits its output type from its content.
+    ///
     /// Example using typed initializer:
     /// ```swift
     /// HTML.Element.Tag(for: HTML.Grouping.Div.self) {
@@ -35,29 +41,27 @@ extension HTML.Element {
     ///
     /// This type is typically not used directly by library consumers, who would
     /// instead use the more convenient tag functions like `div`, `span`, `p`, etc.
-    public struct Tag<Content> {
+    public struct Tag<Content: HTML.View<Output>, Output: HTML.RenderOutput> {
         /// The HTML tag name for this element.
         public let tagName: String
-        
+
         /// Whether this is a block-level element (for pretty-printing).
         public let isBlock: Bool
-        
+
         /// Whether this is a void element (no closing tag).
         public let isVoid: Bool
-        
+
         /// Whether this is a pre element (preserves whitespace).
         let isPreElement: Bool
-        
+
         /// The optional content contained within this element.
         public let content: Content?
-        
-        
     }
 }
 
-extension HTML.Element.Tag where Content: HTML.View {
+extension HTML.Element.Tag {
     // MARK: - Initializers
-    
+
     /// Creates a new HTML element with a typed tag.
     ///
     /// This initializer captures tag metadata at construction time from the
@@ -69,7 +73,7 @@ extension HTML.Element.Tag where Content: HTML.View {
     ///   - content: A closure that returns the content of this element.
     public init<Tag: HTML.Element.`Protocol`>(
         for tagType: Tag.Type,
-        @HTML.Builder content: () -> Content? = { Never?.none }
+        @HTML.Builder content: () -> Content?
     ) {
         self.tagName = Tag.tag
         self.isBlock = !Tag.categories.contains(.phrasing)
@@ -77,7 +81,7 @@ extension HTML.Element.Tag where Content: HTML.View {
         self.isPreElement = Tag.tag == "pre"
         self.content = content()
     }
-    
+
     /// Creates a new HTML element with a string tag name.
     ///
     /// Uses runtime lookup for tag metadata. Prefer the typed initializer
@@ -88,7 +92,7 @@ extension HTML.Element.Tag where Content: HTML.View {
     ///   - content: A closure that returns the content of this element.
     public init(
         tag: String,
-        @HTML.Builder content: () -> Content? = { Never?.none }
+        @HTML.Builder content: () -> Content?
     ) {
         self.tagName = tag
         let categories = HTML.Element.Content.categories(for: tag)
@@ -99,20 +103,39 @@ extension HTML.Element.Tag where Content: HTML.View {
     }
 }
 
-extension HTML.Element.Tag: Rendering.`Protocol` where Content: Rendering.`Protocol` {
-    public var body: Never {
-        fatalError()
+// MARK: - Void Element Initializers
+
+extension HTML.Element.Tag where Content == Never, Output == UInt8 {
+    /// Creates a new void HTML element with a typed tag (no content).
+    public init<Tag: HTML.Element.`Protocol`>(for tagType: Tag.Type) {
+        self.tagName = Tag.tag
+        self.isBlock = !Tag.categories.contains(.phrasing)
+        self.isVoid = Tag.content.model == .nothing
+        self.isPreElement = Tag.tag == "pre"
+        self.content = nil
     }
-    
-    public typealias Content = Never
-    public typealias Context = HTML.Context
-    public typealias Output = UInt8
+
+    /// Creates a new void HTML element with a string tag name (no content).
+    public init(tag: String) {
+        self.tagName = tag
+        let categories = HTML.Element.Content.categories(for: tag)
+        self.isBlock = !categories.contains(.phrasing)
+        self.isVoid = HTML.Element.Content.model(for: tag) == .nothing
+        self.isPreElement = tag == "pre"
+        self.content = nil
+    }
 }
 
-extension HTML.Element.Tag: HTML.View where Content: HTML.View {
-    
-    // MARK: - Rendering
-    
+
+// MARK: - Renderable Conformance
+
+extension HTML.Element.Tag: Renderable where Output == UInt8 {
+    public typealias Context = HTML.Context
+}
+
+// MARK: - HTML.View Conformance (UInt8 Output)
+
+extension HTML.Element.Tag: HTML.View where Output == UInt8 {
     /// Renders this HTML element into the provided buffer.
     public static func _render<Buffer: RangeReplaceableCollection>(
         _ html: Self,
@@ -121,17 +144,17 @@ extension HTML.Element.Tag: HTML.View where Content: HTML.View {
     ) where Buffer.Element == UInt8 {
         let isPrettyPrinting = !context.configuration.newline.isEmpty
         let htmlIsBlock = isPrettyPrinting && html.isBlock
-        
+
         // Add newline and indentation for block elements
         if htmlIsBlock {
             buffer.append(contentsOf: context.configuration.newline)
             buffer.append(contentsOf: context.currentIndentation)
         }
-        
+
         // Write opening tag
         buffer.append(.ascii.lessThanSign)
         buffer.append(contentsOf: html.tagName.utf8)
-        
+
         // Add attributes - single-pass escaping without intermediate allocation
         for (name, value) in context.attributes {
             buffer.append(.ascii.space)
@@ -139,7 +162,7 @@ extension HTML.Element.Tag: HTML.View where Content: HTML.View {
             if !value.isEmpty {
                 buffer.append(.ascii.equalsSign)
                 buffer.append(.ascii.dquote)
-                
+
                 // Single-pass: iterate directly over UTF-8 view, escape as needed
                 for byte in value.utf8 {
                     switch byte {
@@ -157,12 +180,12 @@ extension HTML.Element.Tag: HTML.View where Content: HTML.View {
                         buffer.append(byte)
                     }
                 }
-                
+
                 buffer.append(.ascii.dquote)
             }
         }
         buffer.append(.ascii.greaterThanSign)
-        
+
         // Render content if present
         if let content = html.content {
             let oldAttributes = context.attributes
@@ -177,7 +200,7 @@ extension HTML.Element.Tag: HTML.View where Content: HTML.View {
             }
             Content._render(content, into: &buffer, context: &context)
         }
-        
+
         // Add closing tag unless it's a void element
         if !html.isVoid {
             if htmlIsBlock && !html.isPreElement {
@@ -190,18 +213,18 @@ extension HTML.Element.Tag: HTML.View where Content: HTML.View {
             buffer.append(.ascii.greaterThanSign)
         }
     }
-    
+
     /// This type uses direct rendering and doesn't have a body.
     public var body: Never {
         fatalError("body should not be called")
     }
 }
 
-extension HTML.Element.Tag: Sendable where Content: Sendable {}
+extension HTML.Element.Tag: Sendable where Content: Sendable, Output: Sendable {}
 
 // MARK: - Async Rendering
 
-extension HTML.Element.Tag: AsyncRenderable where Content: AsyncRenderable, Content: HTML.View {
+extension HTML.Element.Tag: AsyncRenderable where Output == UInt8, Content: AsyncRenderable {
     /// Async renders this HTML element with backpressure support.
     ///
     /// This implementation mirrors the sync `_render` but uses async writes

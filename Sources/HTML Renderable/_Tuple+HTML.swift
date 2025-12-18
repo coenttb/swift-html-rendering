@@ -9,10 +9,19 @@ public import Rendering
 public import WHATWG_HTML_Shared
 public import RenderingAsync
 
+// MARK: - HTML.View Conformance (UInt8 Output)
+
 // Extend the _Tuple type from Rendering module to conform to HTML.View
 // Note: _Tuple is a top-level type exported from the Rendering module.
 // Users can access it as _Tuple<Content...> directly, not through HTML._Tuple.
-extension _Tuple: @retroactive Renderable where repeat each Content: HTML.View {
+//
+// Note: Due to Swift limitations with variadic generics and primary associated types,
+// we use Renderable constraint directly rather than HTML.View<UInt8>.
+extension _Tuple: @retroactive Renderable
+where repeat each Content: Renderable,
+      repeat each Content: Sendable,
+      (repeat (each Content).Output) == (repeat UInt8),
+      (repeat (each Content).Context) == (repeat HTML.Context) {
     public typealias Context = HTML.Context
     public typealias Content = Never
     public typealias Output = UInt8
@@ -23,7 +32,7 @@ extension _Tuple: @retroactive Renderable where repeat each Content: HTML.View {
         into buffer: inout Buffer,
         context: inout HTML.Context
     ) where Buffer.Element == UInt8 {
-        func render<T: HTML.View>(_ element: T) {
+        func render<T: Renderable>(_ element: T) where T.Output == UInt8, T.Context == HTML.Context {
             let oldAttributes = context.attributes
             defer { context.attributes = oldAttributes }
             T._render(element, into: &buffer, context: &context)
@@ -32,10 +41,15 @@ extension _Tuple: @retroactive Renderable where repeat each Content: HTML.View {
     }
 }
 
-extension _Tuple: HTML.View where repeat each Content: HTML.View {}
+extension _Tuple: HTML.View
+where repeat each Content: Renderable,
+      repeat each Content: Sendable,
+      (repeat (each Content).Output) == (repeat UInt8),
+      (repeat (each Content).Context) == (repeat HTML.Context) {}
 
 extension _Tuple: @retroactive AsyncRenderable
-where repeat each Content: AsyncRenderable, repeat each Content: HTML.View {
+where repeat each Content: AsyncRenderable,
+      (repeat (each Content).Context) == (repeat HTML.Context) {
     public static func _renderAsync<Stream: Rendering.Async.Sink.`Protocol`>(
         _ html: Self,
         into stream: Stream,

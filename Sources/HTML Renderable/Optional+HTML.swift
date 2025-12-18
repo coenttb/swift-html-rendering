@@ -8,8 +8,10 @@
 public import Rendering
 public import WHATWG_HTML_Shared
 
+// MARK: - HTML.View Conformance (UInt8 Output)
+
 /// Allows optional values to be used as HTML elements.
 ///
 /// This conformance allows for convenient handling of optional HTML content,
 /// where `nil` values simply render nothing.
-extension Optional: HTML.View where Wrapped: HTML.View {}
+extension Optional: HTML.View where Wrapped: HTML.View<UInt8> {}

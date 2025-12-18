@@ -18,25 +18,42 @@ public import WHATWG_HTML_Shared
 /// It uses a component-based architecture similar to SwiftUI, where each component
 /// defines its `body` property to build up a hierarchy of HTML elements.
 ///
-/// This protocol is available as `HTML.View` for a more SwiftUI-like API.
+/// ## Output Type Parameter
 ///
-/// Example:
+/// `HTML.View` is generic over an `Output` type, which determines what the view
+/// renders to:
+///
+/// - `UInt8`: Renders to HTML bytes (standard HTML output)
+/// - `HTML.Layout.Operation`: Renders to layout operations (for PDF generation)
+///
+/// The output type is determined at compile time and uses pure static dispatch
+/// for optimal performance.
+///
+/// ## Example
+///
 /// ```swift
+/// // Standard byte rendering
 /// struct MyView: HTML.View {
-///     var body: some HTML.View {
+///     var body: some HTML.View<UInt8> {
 ///         div {
 ///             h1 { "Hello, World!" }
 ///             p { "This is a paragraph." }
 ///         }
 ///     }
 /// }
+///
+/// // Render to bytes
+/// let bytes = [UInt8](MyView())
+///
+/// // Render to layout operations
+/// let operations = [HTML.Layout.Operation](MyView())
 /// ```
 ///
 /// - Note: This protocol is similar in design to SwiftUI's `View` protocol,
 ///   making it familiar to Swift developers who have worked with SwiftUI.
 extension HTML {
-    public protocol View: Renderable
-    where Content: HTML.View, Context == HTML.Context, Output == UInt8 {
+    public protocol View<Output>: Renderable
+    where Content: HTML.View<Output>, Output: HTML.RenderOutput, Context == Output.Context {
         @HTML.Builder var body: Content { get }
     }
 }
@@ -47,8 +64,8 @@ extension HTML.View {
     public static func _render<Buffer: RangeReplaceableCollection>(
         _ html: Self,
         into buffer: inout Buffer,
-        context: inout HTML.Context
-    ) where Buffer.Element == UInt8 {
+        context: inout Context
+    ) where Buffer.Element == Output {
         Content._render(html.body, into: &buffer, context: &context)
     }
 }
@@ -60,6 +77,8 @@ extension HTML {
     ///
     /// Async rendering allows suspension at element boundaries, enabling true
     /// progressive streaming where memory is bounded to O(chunkSize).
+    ///
+    /// - Note: Async rendering is only supported for byte output (`Output == UInt8`).
     ///
     /// ## Rendering Options
     ///
@@ -85,7 +104,7 @@ extension HTML {
     /// Choose sync when you need the complete document (e.g., PDF generation).
     /// Choose AsyncChannel when streaming to a client that benefits from
     /// progressive delivery and you want bounded memory usage.
-    public protocol AsyncView: HTML.View, AsyncRenderable where Content: AsyncRenderable {}
+    public protocol AsyncView: HTML.View<UInt8>, AsyncRenderable where Content: AsyncRenderable {}
 }
 
 extension HTML.AsyncView {
@@ -101,8 +120,8 @@ extension HTML.AsyncView {
     }
 }
 
-/// Extension to add attribute capabilities to all HTML elements.
-extension HTML.View {
+/// Extension to add attribute capabilities to HTML elements with UInt8 output.
+extension HTML.View where Output == UInt8 {
     /// Adds a custom attribute to an HTML element.
     ///
     /// This method allows you to set any attribute on an HTML element,
@@ -141,8 +160,8 @@ extension HTML.View {
     @inlinable
     func render<Buffer: RangeReplaceableCollection>(
         into buffer: inout Buffer,
-        context: inout HTML.Context
-    ) where Buffer.Element == UInt8 {
+        context: inout Context
+    ) where Buffer.Element == Output {
         Self._render(self, into: &buffer, context: &context)
     }
 }
@@ -152,11 +171,13 @@ extension HTML.View {
 /// This allows any HTML element to be printed or interpolated into strings,
 /// automatically rendering its HTML representation.
 ///
+/// - Note: This only works for byte output views (`Output == UInt8`).
+///
 /// ## Example
 ///
 /// ```swift
 /// struct Greeting: HTML.View, CustomStringConvertible {
-///     var body: some HTML.View {
+///     var body: some HTML.View<UInt8> {
 ///         tag("div") { HTML.Text("Hello!") }
 ///     }
 /// }
@@ -164,7 +185,7 @@ extension HTML.View {
 /// let greeting = Greeting()
 /// print(greeting) // Prints: <div>Hello!</div>
 /// ```
-extension CustomStringConvertible where Self: HTML.View {
+extension CustomStringConvertible where Self: HTML.View, Self.Output == UInt8 {
     public var description: String {
         do {
             return try String(self)

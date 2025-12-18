@@ -42,6 +42,8 @@ extension HTML {
     public typealias Raw = RenderingRaw
 }
 
+// MARK: - HTML.View Conformance (UInt8 Output)
+
 // Give Raw (from Rendering module) the HTML.View conformance
 extension Raw: @retroactive Renderable {
     public typealias Content = Never

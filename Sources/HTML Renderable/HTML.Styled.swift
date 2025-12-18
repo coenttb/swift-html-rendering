@@ -69,15 +69,14 @@ extension HTML {
     }
 }
 
+// MARK: - HTML.View Conformance (UInt8 Output)
 
-
-extension HTML.Styled: Renderable where Content: HTML.View {
+extension HTML.Styled: Renderable where Content: HTML.View<UInt8> {
     public typealias Context = HTML.Context
-
     public typealias Output = UInt8
 }
 
-extension HTML.Styled: HTML.View where Content: HTML.View {
+extension HTML.Styled: HTML.View where Content: HTML.View<UInt8> {
     /// Renders this styled HTML element into the provided buffer.
     public static func _render<Buffer: RangeReplaceableCollection>(
         _ html: HTML.Styled<Content, P>,
@@ -106,7 +105,7 @@ extension HTML.Styled: Sendable where Content: Sendable, P: Sendable {}
 
 // MARK: - HTML.View Extension
 
-extension HTML.View {
+extension HTML.View where Output == UInt8 {
     /// Applies a typed CSS property to an HTML element.
     ///
     /// This method enables a type-safe, declarative approach to styling HTML elements

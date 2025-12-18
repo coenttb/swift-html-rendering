@@ -9,6 +9,8 @@ public import Rendering
 public import RenderingAsync
 public import WHATWG_HTML_Shared
 
+// MARK: - HTML.View Conformance (UInt8 Output)
+
 /// Conformance of `Never` to `Rendering` to support the type system.
 ///
 /// This provides the `Rendering` conformance with `HTML.Context` as the context type.

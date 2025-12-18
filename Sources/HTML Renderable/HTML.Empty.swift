@@ -33,6 +33,8 @@ extension HTML {
     public typealias Empty = RenderingEmpty
 }
 
+// MARK: - HTML.View Conformance (UInt8 Output)
+
 extension HTML.Empty: @retroactive Renderable {
     public typealias Content = Never
     public typealias Output = UInt8

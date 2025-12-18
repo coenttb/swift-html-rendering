@@ -42,7 +42,7 @@ extension RangeReplaceableCollection<UInt8> {
     ///   - view: The HTML content to render to bytes
     ///   - configuration: Rendering configuration. Uses current task-local or default if nil.
     @inlinable
-    public init<View: HTML.View>(
+    public init<View: HTML.View<UInt8>>(
         _ view: View,
         configuration: HTML.Context.Configuration? = nil
     ) {
@@ -87,7 +87,7 @@ extension RangeReplaceableCollection<UInt8> {
     ///   - html: The HTML content to render.
     ///   - configuration: Rendering configuration. Uses default if nil.
     @inlinable
-    public init<View: HTML.View>(
+    public init<View: HTML.View<UInt8>>(
         _ view: View,
         configuration: HTML.Context.Configuration? = nil
     ) async {

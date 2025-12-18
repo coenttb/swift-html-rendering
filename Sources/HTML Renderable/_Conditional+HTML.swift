@@ -8,7 +8,9 @@
 public import Rendering
 public import WHATWG_HTML_Shared
 
+// MARK: - HTML.View Conformance (UInt8 Output)
+
 // Extend the _Conditional type from Rendering module to conform to HTML.View
 // Note: _Conditional is a top-level type exported from the Rendering module.
 // Users can access it as _Conditional<First, Second> directly, not through HTML._Conditional.
-extension _Conditional: HTML.View where First: HTML.View, Second: HTML.View {}
+extension _Conditional: HTML.View where First: HTML.View<UInt8>, Second: HTML.View<UInt8> {}

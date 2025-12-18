@@ -15,6 +15,10 @@ extension HTML {
     /// doctype, html, head, and body elements. Use this type when you need
     /// to render a complete HTML document rather than just a fragment.
     ///
+    /// The `Document` type is generic over both `Body` and `Head` view types,
+    /// allowing it to work with different output types. The `HTML.DocumentProtocol`
+    /// conformance is provided conditionally for `UInt8` output.
+    ///
     /// Example:
     /// ```swift
     /// let page = HTML.Document {
@@ -27,26 +31,28 @@ extension HTML {
     ///     meta().charset("utf-8")
     /// }
     /// ```
-    public struct Document<Body: HTML.View, Head: HTML.View>: HTML.DocumentProtocol {
+    public struct Document<Body, Head> {
         public let head: Head
         public let body: Body
-
-        /// Creates a new HTML document.
-        ///
-        /// - Parameters:
-        ///   - body: A builder closure that returns the body content.
-        ///   - head: A builder closure that returns the head content. Defaults to empty.
-        public init(
-            @HTML.Builder body: () -> Body,
-            @HTML.Builder head: () -> Head = { Empty() }
-        ) {
-            self.body = body()
-            self.head = head()
-        }
     }
 }
 
-extension HTML.Document {
+// MARK: - Initializers for UInt8 Output
+
+extension HTML.Document where Body: HTML.View<UInt8>, Head: HTML.View<UInt8> {
+    /// Creates a new HTML document.
+    ///
+    /// - Parameters:
+    ///   - body: A builder closure that returns the body content.
+    ///   - head: A builder closure that returns the head content. Defaults to empty.
+    public init(
+        @HTML.Builder body: () -> Body,
+        @HTML.Builder head: () -> Head = { Empty() }
+    ) {
+        self.body = body()
+        self.head = head()
+    }
+
     /// Creates a new HTML document with head specified first.
     ///
     /// This overload allows specifying head before body for cases where
@@ -64,5 +70,9 @@ extension HTML.Document {
         self.head = head()
     }
 }
+
+// MARK: - HTML.DocumentProtocol Conformance (UInt8 Output)
+
+extension HTML.Document: HTML.DocumentProtocol where Body: HTML.View<UInt8>, Head: HTML.View<UInt8> {}
 
 extension HTML.Document: Sendable where Body: Sendable, Head: Sendable {}

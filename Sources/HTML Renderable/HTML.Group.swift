@@ -47,4 +47,6 @@ extension HTML {
     public typealias Group = RenderingGroup
 }
 
-extension HTML.Group: HTML.View where Content: HTML.View {}
+// MARK: - HTML.View Conformance (UInt8 Output)
+
+extension HTML.Group: HTML.View where Content: HTML.View<UInt8> {}
