@@ -119,4 +119,4 @@ jobs:
           restore-keys: windows-swift62-spm-
 
       - name: Build
-        run: swift build -c debug -v
+        run: swift build -c release
