@@ -22,7 +22,7 @@ extension HTML.Element {
     ///
     /// Or from raw declaration strings when needed:
     /// ```swift
-    /// HTML.Style(declaration: "color:red")
+    /// HTML.Element.Style(declaration: "color:red")
     /// ```
     public struct Style: Hashable, Sendable {
         /// The CSS declaration string (e.g., "color:red")

@@ -101,7 +101,7 @@ struct `Rendering Tests` {
         var context = HTML.Context(.pretty)
 
         // Add some styles to test stylesheet generation
-        let style = HTML.Style(declaration: "color:red;font-size:16px")
+        let style = HTML.Element.Style(declaration: "color:red;font-size:16px")
         _ = context.pushStyle(style)
 
         let stylesheet = context.stylesheet

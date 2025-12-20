@@ -147,7 +147,7 @@ struct `AtRule Tests` {
     @Test
     func `AtRule used with Style`() {
         let atRule = HTML.AtRule(rawValue: "@media print")
-        let style = HTML.Style(declaration: "display:none", atRule: atRule)
+        let style = HTML.Element.Style(declaration: "display:none", atRule: atRule)
 
         #expect(style.atRule == atRule)
         #expect(style.declaration == "display:none")
