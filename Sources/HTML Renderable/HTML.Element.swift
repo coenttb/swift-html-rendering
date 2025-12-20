@@ -250,20 +250,16 @@ extension HTML.Element.Tag where Content: HTML.View {
     }
 }
 
-extension HTML.Element.Tag: Rendering.`Protocol` where Content: Rendering.`Protocol` {
+extension HTML.Element.Tag: Rendering.`Protocol`
+where Content: Rendering.`Protocol`, Content.Context == HTML.Context, Content.Output == UInt8 {
     public var body: Never {
         fatalError()
     }
-    
+
     public typealias Content = Never
     public typealias Context = HTML.Context
     public typealias Output = UInt8
-}
 
-extension HTML.Element.Tag: HTML.View where Content: HTML.View {
-    
-    // MARK: - Rendering
-    
     /// Renders this HTML element into the provided buffer.
     public static func _render<Buffer: RangeReplaceableCollection>(
         _ html: Self,
@@ -272,17 +268,17 @@ extension HTML.Element.Tag: HTML.View where Content: HTML.View {
     ) where Buffer.Element == UInt8 {
         let isPrettyPrinting = !context.configuration.newline.isEmpty
         let htmlIsBlock = isPrettyPrinting && html.isBlock
-        
+
         // Add newline and indentation for block elements
         if htmlIsBlock {
             buffer.append(contentsOf: context.configuration.newline)
             buffer.append(contentsOf: context.currentIndentation)
         }
-        
+
         // Write opening tag
         buffer.append(.ascii.lessThanSign)
         buffer.append(contentsOf: html.tagName.utf8)
-        
+
         // Add attributes - single-pass escaping without intermediate allocation
         for (name, value) in context.attributes {
             buffer.append(.ascii.space)
@@ -290,7 +286,7 @@ extension HTML.Element.Tag: HTML.View where Content: HTML.View {
             if !value.isEmpty {
                 buffer.append(.ascii.equalsSign)
                 buffer.append(.ascii.dquote)
-                
+
                 // Single-pass: iterate directly over UTF-8 view, escape as needed
                 for byte in value.utf8 {
                     switch byte {
@@ -308,12 +304,12 @@ extension HTML.Element.Tag: HTML.View where Content: HTML.View {
                         buffer.append(byte)
                     }
                 }
-                
+
                 buffer.append(.ascii.dquote)
             }
         }
         buffer.append(.ascii.greaterThanSign)
-        
+
         // Render content if present
         if let content = html.content {
             let oldAttributes = context.attributes
@@ -328,7 +324,7 @@ extension HTML.Element.Tag: HTML.View where Content: HTML.View {
             }
             Content._render(content, into: &buffer, context: &context)
         }
-        
+
         // Add closing tag unless it's a void element
         if !html.isVoid {
             if htmlIsBlock && !html.isPreElement {
@@ -341,18 +337,16 @@ extension HTML.Element.Tag: HTML.View where Content: HTML.View {
             buffer.append(.ascii.greaterThanSign)
         }
     }
-    
-    /// This type uses direct rendering and doesn't have a body.
-    public var body: Never {
-        fatalError("body should not be called")
-    }
 }
+
+extension HTML.Element.Tag: HTML.View where Content: HTML.View {}
 
 extension HTML.Element.Tag: Sendable where Content: Sendable {}
 
 // MARK: - Async Rendering
 
-extension HTML.Element.Tag: AsyncRenderable where Content: AsyncRenderable, Content: HTML.View {
+extension HTML.Element.Tag: AsyncRenderable
+where Content: AsyncRenderable, Content.Context == HTML.Context {
     /// Async renders this HTML element with backpressure support.
     ///
     /// This implementation mirrors the sync `_render` but uses async writes
