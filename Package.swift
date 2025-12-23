@@ -40,7 +40,7 @@ extension Target.Dependency {
         .product(name: "Standards", package: "swift-standards")
     }
     static var asyncAlgorithms: Self {
-        .product(name: "AsyncAlgorithms", package: "swift-async-algorithms")
+        .product(name: "AsyncAlgorithms", package: "swift-async-algorithms-fork")
     }
     static var htmlStandard: Self {
         .product(name: "HTML Standard", package: "swift-html-standard")
@@ -73,8 +73,8 @@ let package = Package(
         .library(name: .htmlRenderableTestSupport, targets: [.htmlRenderableTestSupport]),
     ],
     dependencies: [
-        .package(url: "https://github.com/coenttb/swift-renderable", from: "3.2.0"),
-        .package(url: "https://github.com/apple/swift-async-algorithms.git", from: "1.0.0"),
+        .package(url: "https://github.com/coenttb/swift-renderable", from: "3.2.2"),
+        .package(url: "https://github.com/coenttb/swift-async-algorithms-fork.git", from: "1.0.0"),
         .package(url: "https://github.com/apple/swift-collections.git", from: "1.1.2"),
         .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.18.3"),
         .package(url: "https://github.com/swift-standards/swift-incits-4-1986", from: "0.4.0"),
